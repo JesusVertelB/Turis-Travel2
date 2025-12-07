@@ -1,23 +1,23 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Lenovo\\source\\repos\\JesusVertelB\\Turis-Travel2\\Turis-Travel2\\Turis-Travel2.csproj": {}
+    "C:\\Users\\moise\\source\\repos\\Turis-Travel2\\Turis-Travel2\\Turis-Travel2.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Lenovo\\source\\repos\\JesusVertelB\\Turis-Travel2\\Turis-Travel2\\Turis-Travel2.csproj": {
+    "C:\\Users\\moise\\source\\repos\\Turis-Travel2\\Turis-Travel2\\Turis-Travel2.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Lenovo\\source\\repos\\JesusVertelB\\Turis-Travel2\\Turis-Travel2\\Turis-Travel2.csproj",
+        "projectUniqueName": "C:\\Users\\moise\\source\\repos\\Turis-Travel2\\Turis-Travel2\\Turis-Travel2.csproj",
         "projectName": "Turis-Travel2",
-        "projectPath": "C:\\Users\\Lenovo\\source\\repos\\JesusVertelB\\Turis-Travel2\\Turis-Travel2\\Turis-Travel2.csproj",
-        "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Lenovo\\source\\repos\\JesusVertelB\\Turis-Travel2\\Turis-Travel2\\obj\\",
+        "projectPath": "C:\\Users\\moise\\source\\repos\\Turis-Travel2\\Turis-Travel2\\Turis-Travel2.csproj",
+        "packagesPath": "C:\\Users\\moise\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\moise\\source\\repos\\Turis-Travel2\\Turis-Travel2\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
-          "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\moise\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
@@ -52,7 +52,13 @@
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
-              "version": "[10.0.0, )"
+              "version": "[9.0.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.0, )"
             },
             "Pomelo.EntityFrameworkCore.MySql": {
               "target": "Package",
