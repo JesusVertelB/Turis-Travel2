@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Turis-Travel2")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c30346370b9c9e094d9a6eed49306c2b216d014d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+791dda235766c6b855c92d3ab316be56849cf0ef")]
 [assembly: System.Reflection.AssemblyProductAttribute("Turis-Travel2")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Turis-Travel2")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
