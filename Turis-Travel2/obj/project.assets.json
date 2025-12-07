@@ -1979,23 +1979,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Andres\\.nuget\\packages\\": {},
+    "C:\\Users\\Lenovo\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Andres\\source\\repos\\Turis-Travel2\\Turis-Travel2\\Turis-Travel2.csproj",
+      "projectUniqueName": "C:\\Users\\Lenovo\\source\\repos\\JesusVertelB\\Turis-Travel2\\Turis-Travel2\\Turis-Travel2.csproj",
       "projectName": "Turis-Travel2",
-      "projectPath": "C:\\Users\\Andres\\source\\repos\\Turis-Travel2\\Turis-Travel2\\Turis-Travel2.csproj",
-      "packagesPath": "C:\\Users\\Andres\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Andres\\source\\repos\\Turis-Travel2\\Turis-Travel2\\obj\\",
+      "projectPath": "C:\\Users\\Lenovo\\source\\repos\\JesusVertelB\\Turis-Travel2\\Turis-Travel2\\Turis-Travel2.csproj",
+      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Lenovo\\source\\repos\\JesusVertelB\\Turis-Travel2\\Turis-Travel2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Andres\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -2479,13 +2479,5 @@
         }
       }
     }
-  },
-  "logs": [
-    {
-      "code": "Undefined",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Problema al leer el archivo de caché C:\\Users\\Andres\\source\\repos\\Turis-Travel2\\Turis-Travel2\\obj\\project.nuget.cache : '<' is an invalid start of a property name. Expected a '\"'. Path: $ | LineNumber: 2 | BytePositionInLine: 0."
-    }
-  ]
+  }
 }
