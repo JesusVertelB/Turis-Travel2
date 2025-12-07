@@ -1,6 +1,10 @@
-﻿@{
+﻿@using System.Security.Claims
+
+@{
+    var userIdentity = User.Identity as ClaimsIdentity;
     ViewData["Title"] = "Home Page";
 }
+
 
 <!-- Banner principal - FULL WIDTH -->
 <div class="hero-wrapper">
@@ -66,30 +70,32 @@
     </div>
 </section>
 
-<!-- Próximas reservas -->
-<section class="section">
-    <h3 class="section-title">Tus Próximas Reservas</h3>
+@if (User.Identity.IsAuthenticated)
+{
+    <section class="section">
+        <h3 class="section-title">Tus Próximas Reservas</h3>
 
-    <div class="booking-card">
-        <img src="/img/costa-rica.jpg" />
-        <div>
-            <h4>Viaje a Santorini</h4>
-            <p>15 Oct – 22 Oct, 2024</p>
+        <div class="booking-card">
+            <img src="/img/costa-rica.jpg" />
+            <div>
+                <h4>Viaje a Santorini</h4>
+                <p>15 Oct – 22 Oct, 2024</p>
+            </div>
+            <a href="#" class="btn-detalle">Ver Detalles</a>
         </div>
-        <a href="#" class="btn-detalle">Ver Detalles</a>
-    </div>
 
-    <div class="booking-card">
-        <img src="/img/roma.jpg" />
-        <div>
-            <h4>Aventura en Cusco</h4>
-            <p>05 Nov – 12 Nov, 2024</p>
+        <div class="booking-card">
+            <img src="/img/roma.jpg" />
+            <div>
+                <h4>Aventura en Cusco</h4>
+                <p>05 Nov – 12 Nov, 2024</p>
+            </div>
+            <a href="#" class="btn-detalle">Ver Detalles</a>
         </div>
-        <a href="#" class="btn-detalle">Ver Detalles</a>
-    </div>
 
-    <p class="empty-message">
-        No tienes más reservas activas. <a href="#">¡Busca tu próximo destino!</a>
-    </p>
-</section>
+        <p class="empty-message">
+            No tienes más reservas activas. <a href="#">¡Busca tu próximo destino!</a>
+        </p>
+    </section>
+}
 

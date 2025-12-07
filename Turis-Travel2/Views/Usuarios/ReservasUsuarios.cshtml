@@ -1,0 +1,164 @@
+﻿@model Turis_Travel2.Models.UsuariosViewModel;
+
+@{
+    ViewData["title"] = "Mis Reservas";
+    Layout = "~/Views/Shared/_LayoutUsuarios.cshtml";
+
+    var reservas = Model.Reserva;
+
+    // Normalizar estados
+    foreach (var r in reservas)
+    {
+        r.Estado = r.Estado?.Trim().ToLower();
+    }
+}
+
+<div class="w-full h-full">
+    <section class="flex justify-between items-center mb-8">
+        <article class="max-w-[38rem] p-4 shadow-lg flex justify-center bg-white rounded-xl border-l-4 border-[#2E7D32]">
+            <h2 class="text-3xl font-semibold text-[#2E7D32]">Mis Reservas</h2>
+        </article>
+    </section>
+
+    <section class="bg-white rounded-xl shadow-lg p-6">
+        <!-- Barra de búsqueda -->
+        <div class="mb-6">
+            <div class="bg-[#F0F7F4] w-full max-w-xl rounded-xl shadow flex items-center border border-green-200">
+                <span class="material-symbols-outlined text-[#66BB6A] ml-4">
+                    search
+                </span>
+                <input id="buscador" type="text" name="buscador"
+                       placeholder="Buscar por número de reserva"
+                       class="w-full p-4 bg-transparent placeholder:text-[#66BB6A] placeholder:font-medium outline-none" />
+            </div>
+        </div>
+
+        <!-- Contenedor de tarjetas -->
+        <div id="contenedorCards" class="space-y-6">
+            @if (reservas.Any())
+            {
+                foreach (var reserva in reservas)
+                {
+                    var paquete = reserva.ID_paqueteNavigation;
+
+                    string? estadoTexto = reserva.Estado switch
+                    {
+                        "pendiente" => "Pendiente",
+                        "confirmada" => "Confirmada",
+                        "cancelada" => "Cancelada",
+                        _ => reserva.Estado
+                    };
+
+                    string estadoColor = reserva.Estado switch
+                    {
+                        "pendiente" => "bg-yellow-100 text-yellow-700 border-yellow-200",
+                        "confirmada" => "bg-green-100 text-[#2E7D32] border-green-200",
+                        "cancelada" => "bg-red-100 text-red-600 border-red-200",
+                        _ => "bg-gray-100 text-gray-600 border-gray-200"
+                    };
+
+                    <div class="card-reserva bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-green-100"
+                         data-id="@reserva.ID_reserva">
+
+                        <!-- Imagen del paquete -->
+                        <div class="relative h-48 overflow-hidden bg-gradient-to-r from-green-50 to-emerald-50">
+                            <div class="w-full h-full flex items-center justify-center">
+                                <span class="material-symbols-outlined text-[#66BB6A] text-6xl">
+                                    travel_explore
+                                </span>
+                            </div>
+                            <div class="absolute top-4 right-4">
+                                <span class="px-3 py-1 rounded-full text-sm font-semibold @estadoColor border">
+                                    @estadoTexto
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Contenido de la tarjeta -->
+                        <div class="p-5">
+                            <!-- Título y precio -->
+                            <div class="flex justify-between items-start mb-3">
+                                <h2 class="text-xl font-semibold text-[#2E7D32]">
+                                    Reserva #@reserva.ID_reserva
+                                </h2>
+                                <div class="text-right">
+                                    <p class="text-sm text-[#66BB6A] font-medium">Total pagado</p>
+                                    <p class="text-lg font-bold text-[#2E7D32]">$@reserva.Precio_total</p>
+                                </div>
+                            </div>
+
+                            <!-- Fechas -->
+                            @if (paquete != null)
+                            {
+                                <div class="flex items-center gap-2 text-[#66BB6A] mb-4">
+                                    <span class="material-symbols-outlined text-sm">calendar_today</span>
+                                    <p class="text-sm font-medium">
+                                        @paquete.Fecha_inicio?.ToString("dd MMM yyyy") –
+                                        @paquete.Fecha_fin?.ToString("dd MMM yyyy")
+                                    </p>
+                                </div>
+
+                                <!-- Detalles del paquete -->
+                                <div class="flex items-center justify-between text-gray-600 border-t border-green-50 pt-4">
+                                    <div class="flex items-center gap-6">
+                                            <div class="flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-[#66BB6A] text-lg">flight</span>
+                                                <span class="text-sm">Vuelo</span>
+                                            </div>
+                                        
+                                            <div class="flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-[#66BB6A] text-lg">hotel</span>
+                                                <span class="text-sm">Hotel</span>
+                                            </div>
+                                        <div class="flex items-center gap-1">
+                                            <span class="material-symbols-outlined text-[#66BB6A] text-lg">group</span>
+                                            <span class="text-sm">@paquete.Capacidad_maxima personas</span>
+                                        </div>
+                                    </div>
+
+                                    <!-- Fecha de reserva -->
+                                    <div class="text-right">
+                                        <p class="text-xs text-gray-500">Reservado el</p>
+                                        <p class="text-sm font-semibold text-[#2E7D32]">@reserva.Fecha_solicitud?.ToString("dd/MM/yyyy")</p>
+                                    </div>
+                                </div>
+                            }
+                            else
+                            {
+                                <p class="text-gray-500 text-sm mb-4">Información del paquete no disponible</p>
+                            }
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="text-center py-12">
+                    <span class="material-symbols-outlined text-[#66BB6A] text-6xl mb-4">
+                        travel_explore
+                    </span>
+                    <h3 class="text-xl font-semibold text-[#2E7D32] mb-2">No tienes reservas</h3>
+                    <p class="text-[#66BB6A]">Comienza a planear tu próximo viaje</p>
+                </div>
+            }
+        </div>
+    </section>
+</div>
+
+<script>
+    // Filtro de búsqueda
+    document.getElementById("buscador").addEventListener("input", function () {
+        let filtro = this.value.toLowerCase().trim();
+        let cards = document.querySelectorAll(".card-reserva");
+
+        cards.forEach(card => {
+            let id = card.getAttribute("data-id").toLowerCase();
+
+            if (id.includes(filtro)) {
+                card.style.display = "";
+            } else {
+                card.style.display = "none";
+            }
+        });
+    });
+</script>

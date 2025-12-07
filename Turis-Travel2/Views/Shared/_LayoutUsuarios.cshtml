@@ -1,0 +1,86 @@
+﻿@using System.Security.Claims
+
+@{
+    var user = User.Identity as ClaimsIdentity;
+    var nombreUsuario = user?.FindFirst(ClaimTypes.Name)?.Value;
+    var correoUsuario = user?.FindFirst(ClaimTypes.Email)?.Value;
+    var rolUsuario = user?.FindFirst(ClaimTypes.Role)?.Value;
+
+
+    string action = Context.Request.RouteValues["action"]?.ToString() ?? "";
+    string controller = Context.Request.RouteValues["controller"]?.ToString() ?? "";
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Turis Travel</title>
+    <script type="importmap"></script>
+    <link rel="stylesheet" href="~/css/output.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/Turis_Travel2.styles.css" asp-append-version="true" />
+    <script src="https://cdn.jsdelivr.net/npm/@@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+</head>
+<body class="bg-[#F0F7F4] min-h-screen">
+    <aside class="fixed left-0 top-0 h-full w-[265px] bg-[#FFFFFF] shadow-xl p-6 flex flex-col justify-between z-20">
+        <div>
+            <div class="flex items-center gap-3 mb-6">
+                <div class="w-10 h-10 rounded-full p-2 bg-green-100 flex items-center justify-center">
+                    <span class="text-green-600 font-semibold text-lg">@(!string.IsNullOrEmpty(@nombreUsuario) ? @nombreUsuario.Substring(0, 1).ToUpper() : "?")</span>
+                </div>
+                <div>
+                    <h2 class="text-md text-[#2E7D32] font-semibold">@nombreUsuario</h2>
+                    <p class="text-sm text-[#66BB6A]">@correoUsuario</p>
+                </div>
+            </div>
+
+            <nav class="space-y-4 font-semibold">
+                <a asp-controller="Usuarios" asp-action="Index"
+                   class="flex items-center gap-2 cursor-pointer w-55 p-2 rounded-md
+                    @(action == "Index" ? "bg-green-600/50 text-green-800 shadow" : "text-gray-600 hover:bg-green-600/50 hover:text-green-800")">
+                    <span class="material-symbols-outlined">home</span>
+                    <p>Inicio</p>
+                </a>
+
+
+                <a asp-controller="Usuarios" asp-action="ReservasUsuarios"
+                   class="flex items-center gap-2 cursor-pointer w-55 p-2 rounded-md
+                    @(action == "ReservasCliente" ? "bg-green-600/50 text-green-800 shadow" : "text-gray-600 hover:bg-green-600/50 hover:text-green-800")">
+                    <span class="material-symbols-outlined">
+                        event
+                    </span>
+                    <p>Mis Reservas</p>
+                </a>
+
+                <a asp-controller="Usuarios" asp-action="Perfil"
+                   class="flex items-center gap-2 cursor-pointer w-55 p-2 rounded-md
+                    @(action == "Perfil" ? "bg-green-600/50 text-green-800 shadow" : "text-gray-600 hover:bg-green-600/50 hover:text-green-800")">
+                    <span class="material-symbols-outlined">account_circle</span>
+                    <p>Mi Perfil</p>
+                </a>
+                <a asp-action="Pagos" asp-controller="Clientes" disabled class="flex text-gray-600 items-center gap-2 cursor-pointer w-55 text-center hover:bg-green-600/50  hover:text-green-800 p-2 rounded-md">
+                    <span class="material-symbols-outlined">payment</span>
+                    <p>Pagos</p>
+                </a>
+            </nav>
+        </div>
+
+        <form id="logoutForm" asp-controller="Auth" asp-action="Logout" method="post">
+            <button id="ButtonLogout" type="submit" class="flex justify-center items-center text-lg font-semibold gap-1 text-white bg-green-600 hover:bg-green-700 w-full py-2 rounded-md mt-8">
+                <span class="material-symbols-outlined">logout</span>
+                <p>Logout</p>
+            </button>
+        </form>
+    </aside>
+
+    <main role="main" class="bg-[#F0F7F4] p-8 ml-[255px] min-h-screen">
+        @RenderBody()
+    </main>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

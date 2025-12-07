@@ -8,36 +8,14 @@
     ".NETCoreApp,Version=v10.0": {
       "Turis-Travel2/1.0.0": {
         "dependencies": {
-<<<<<<< HEAD
-          "Microsoft.EntityFrameworkCore": "10.0.0",
-=======
           "Microsoft.EntityFrameworkCore": "9.0.0",
           "Microsoft.EntityFrameworkCore.Design": "9.0.0",
->>>>>>> 672d30dc6eb794dab57158261fc5df02aa0fead4
           "Pomelo.EntityFrameworkCore.MySql": "9.0.0"
         },
         "runtime": {
           "Turis-Travel2.dll": {}
         }
       },
-<<<<<<< HEAD
-      "Microsoft.EntityFrameworkCore/10.0.0": {
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore.Abstractions": "10.0.0"
-        },
-        "runtime": {
-          "lib/net10.0/Microsoft.EntityFrameworkCore.dll": {
-            "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.25.52411"
-          }
-        }
-      },
-      "Microsoft.EntityFrameworkCore.Abstractions/10.0.0": {
-        "runtime": {
-          "lib/net10.0/Microsoft.EntityFrameworkCore.Abstractions.dll": {
-            "assemblyVersion": "10.0.0.0",
-            "fileVersion": "10.0.25.52411"
-=======
       "Humanizer.Core/2.14.1": {
         "runtime": {
           "lib/net6.0/Humanizer.dll": {
@@ -364,17 +342,12 @@
           "lib/net8.0/Microsoft.EntityFrameworkCore.Design.dll": {
             "assemblyVersion": "9.0.0.0",
             "fileVersion": "9.0.24.52902"
->>>>>>> 672d30dc6eb794dab57158261fc5df02aa0fead4
           }
         }
       },
       "Microsoft.EntityFrameworkCore.Relational/9.0.0": {
         "dependencies": {
-<<<<<<< HEAD
-          "Microsoft.EntityFrameworkCore": "10.0.0"
-=======
           "Microsoft.EntityFrameworkCore": "9.0.0"
->>>>>>> 672d30dc6eb794dab57158261fc5df02aa0fead4
         },
         "runtime": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll": {
@@ -383,8 +356,6 @@
           }
         }
       },
-<<<<<<< HEAD
-=======
       "Microsoft.Extensions.DependencyModel/9.0.0": {
         "runtime": {
           "lib/net9.0/Microsoft.Extensions.DependencyModel.dll": {
@@ -404,7 +375,6 @@
           }
         }
       },
->>>>>>> 672d30dc6eb794dab57158261fc5df02aa0fead4
       "MySqlConnector/2.4.0": {
         "runtime": {
           "lib/net9.0/MySqlConnector.dll": {
@@ -424,8 +394,6 @@
             "fileVersion": "9.0.0.0"
           }
         }
-<<<<<<< HEAD
-=======
       },
       "System.CodeDom/6.0.0": {
         "runtime": {
@@ -494,7 +462,6 @@
             "fileVersion": "7.0.22.51805"
           }
         }
->>>>>>> 672d30dc6eb794dab57158261fc5df02aa0fead4
       }
     }
   },
@@ -504,21 +471,6 @@
       "serviceable": false,
       "sha512": ""
     },
-<<<<<<< HEAD
-    "Microsoft.EntityFrameworkCore/10.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-hHa2amRjMyBLUH/KTML6FgIAhZ0VFYkhCKwWEax0rO6iNeM1P5MflyeQLE5dniSIOZHc3Oqyv5UIyTFO4e1Auw==",
-      "path": "microsoft.entityframeworkcore/10.0.0",
-      "hashPath": "microsoft.entityframeworkcore.10.0.0.nupkg.sha512"
-    },
-    "Microsoft.EntityFrameworkCore.Abstractions/10.0.0": {
-      "type": "package",
-      "serviceable": true,
-      "sha512": "sha512-C+TT9k7f1GQ8agOfV512K9iwrzi76RXVSDiLx+iWC9pz3QhEpSF1Dyk+FpVvd8ULQ+rqymfM8KQ7g48ttQVyMg==",
-      "path": "microsoft.entityframeworkcore.abstractions/10.0.0",
-      "hashPath": "microsoft.entityframeworkcore.abstractions.10.0.0.nupkg.sha512"
-=======
     "Humanizer.Core/2.14.1": {
       "type": "package",
       "serviceable": true,
@@ -595,7 +547,6 @@
       "sha512": "sha512-Pqo8I+yHJ3VQrAoY0hiSncf+5P7gN/RkNilK5e+/K/yKh+yAWxdUAI6t0TG26a9VPlCa9FhyklzyFvRyj3YG9A==",
       "path": "microsoft.entityframeworkcore.design/9.0.0",
       "hashPath": "microsoft.entityframeworkcore.design.9.0.0.nupkg.sha512"
->>>>>>> 672d30dc6eb794dab57158261fc5df02aa0fead4
     },
     "Microsoft.EntityFrameworkCore.Relational/9.0.0": {
       "type": "package",
@@ -604,8 +555,6 @@
       "path": "microsoft.entityframeworkcore.relational/9.0.0",
       "hashPath": "microsoft.entityframeworkcore.relational.9.0.0.nupkg.sha512"
     },
-<<<<<<< HEAD
-=======
     "Microsoft.Extensions.DependencyModel/9.0.0": {
       "type": "package",
       "serviceable": true,
@@ -620,7 +569,6 @@
       "path": "mono.texttemplating/3.0.0",
       "hashPath": "mono.texttemplating.3.0.0.nupkg.sha512"
     },
->>>>>>> 672d30dc6eb794dab57158261fc5df02aa0fead4
     "MySqlConnector/2.4.0": {
       "type": "package",
       "serviceable": true,
@@ -634,8 +582,6 @@
       "sha512": "sha512-cl7S4s6CbJno0LjNxrBHNc2xxmCliR5i40ATPZk/eTywVaAbHCbdc9vbGc3QThvwGjHqrDHT8vY9m1VF/47o0g==",
       "path": "pomelo.entityframeworkcore.mysql/9.0.0",
       "hashPath": "pomelo.entityframeworkcore.mysql.9.0.0.nupkg.sha512"
-<<<<<<< HEAD
-=======
     },
     "System.CodeDom/6.0.0": {
       "type": "package",
@@ -685,7 +631,6 @@
       "sha512": "sha512-ZK0KNPfbtxVceTwh+oHNGUOYV2WNOHReX2AXipuvkURC7s/jPwoWfsu3SnDBDgofqbiWr96geofdQ2erm/KTHg==",
       "path": "system.composition.typedparts/7.0.0",
       "hashPath": "system.composition.typedparts.7.0.0.nupkg.sha512"
->>>>>>> 672d30dc6eb794dab57158261fc5df02aa0fead4
     }
   }
 }
