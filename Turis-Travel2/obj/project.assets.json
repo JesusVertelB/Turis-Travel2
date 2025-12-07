@@ -199,23 +199,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Lenovo\\.nuget\\packages\\": {},
+    "C:\\Users\\Andres\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Lenovo\\source\\repos\\JesusVertelB\\Turis-Travel2\\Turis-Travel2\\Turis-Travel2.csproj",
+      "projectUniqueName": "C:\\Users\\Andres\\source\\repos\\Turis-Travel2\\Turis-Travel2\\Turis-Travel2.csproj",
       "projectName": "Turis-Travel2",
-      "projectPath": "C:\\Users\\Lenovo\\source\\repos\\JesusVertelB\\Turis-Travel2\\Turis-Travel2\\Turis-Travel2.csproj",
-      "packagesPath": "C:\\Users\\Lenovo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Lenovo\\source\\repos\\JesusVertelB\\Turis-Travel2\\Turis-Travel2\\obj\\",
+      "projectPath": "C:\\Users\\Andres\\source\\repos\\Turis-Travel2\\Turis-Travel2\\Turis-Travel2.csproj",
+      "packagesPath": "C:\\Users\\Andres\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\Andres\\source\\repos\\Turis-Travel2\\Turis-Travel2\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\Lenovo\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\Andres\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
