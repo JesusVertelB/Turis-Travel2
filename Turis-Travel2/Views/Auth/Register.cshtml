@@ -1,0 +1,54 @@
+﻿@model Turis_Travel2.Models.Scaffolded.Usuario
+@{
+    ViewData["Title"] = "Registro";
+}
+
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
+    <div class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Crear cuenta</h2>
+
+        @if (ViewBag.Error != null)
+        {
+            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                @ViewBag.Error
+            </div>
+        }
+
+        <form asp-action="Register" method="post" class="space-y-4">
+            <div>
+                <label asp-for="Nombre_usuario" class="block text-sm font-medium text-gray-700">Nombre de usuario</label>
+                <input asp-for="Nombre_usuario"
+                       class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-indigo-300 focus:outline-none" />
+                <span asp-validation-for="Nombre_usuario" class="text-red-600 text-sm"></span>
+            </div>
+
+            <div>
+                <label asp-for="Correo" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
+                <input asp-for="Correo" type="email"
+                       class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-indigo-300 focus:outline-none" />
+                <span asp-validation-for="Correo" class="text-red-600 text-sm"></span>
+            </div>
+
+            <div>
+                <label asp-for="Contrasena" class="block text-sm font-medium text-gray-700">Contraseña</label>
+                <input asp-for="Contrasena" type="password"
+                       class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-indigo-300 focus:outline-none" />
+                <span asp-validation-for="Contrasena" class="text-red-600 text-sm"></span>
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition duration-200">
+                Registrarse
+            </button>
+        </form>
+
+        <p class="text-center text-sm text-gray-600 mt-6">
+            ¿Ya tienes cuenta?
+            <a asp-action="Login" class="text-indigo-600 hover:underline">Inicia sesión</a>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

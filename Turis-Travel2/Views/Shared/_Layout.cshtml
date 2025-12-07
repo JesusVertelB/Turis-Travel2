@@ -1,36 +1,64 @@
-﻿<!DOCTYPE html>
+﻿@using System.Security.Claims
+
+@{
+    var userIdentity = User.Identity as ClaimsIdentity;
+    var rol = userIdentity?.FindFirst(ClaimTypes.Role)?.Value;
+    var nombre = userIdentity?.FindFirst(ClaimTypes.Name)?.Value;
+    var idUsuario = userIdentity?.FindFirst("IdUsuario")?.Value;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Turis_Travel2</title>
+    <title>@ViewData["Title"] - Turis Travel</title>
     <script type="importmap"></script>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
-    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/output.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Turis_Travel2.styles.css" asp-append-version="true" />
+<<<<<<< HEAD
     <link rel="stylesheet" href="~/css/estilos.css"/>
+=======
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=plane_contrails" />
+>>>>>>> 672d30dc6eb794dab57158261fc5df02aa0fead4
 </head>
 <body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">Turis_Travel2</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
-                        </li>
-                    </ul>
-                </div>
-            </div>
+    <header class="p-5 m-0 w-full flex bg-white rounded-xl shadow-xl justify-between">
+        <div class="flex flex items-center">
+            <span class="material-symbols-outlined text-2xl text-cyan-60 ">
+                plane_contrails
+            </span>
+            <h1 class="text-2xl font-bold ">Turis Travel</h1>
+        </div>
+        <nav class="flex gap-5 text-bold text-lg  text-gray-500">
+            <a class="leading-normal">Inicio</a>
+            <a>Destinos</a>
+            <a>Mis Reservas</a>
+            <a>Contacto</a>
         </nav>
+
+        <div>
+            @if (User.Identity.IsAuthenticated)
+            {
+
+                if (rol == "Usuario")
+                {
+                    <a asp-controller="Clientes" asp-action="Index" class="bg-[#007AA2] text-white px-4 py-2 rounded-xl hover:bg-blue-600 transition">Mi perfil</a>
+                }
+                else
+                {
+                    <a asp-controller="Dashboard" asp-action="Index" class="bg-[#007AA2] text-white px-4 py-2 rounded-xl hover:bg-blue-600 transition">Dashboard</a>
+                }
+            }
+            else
+            {
+                <a asp-controller="Auth" asp-action="Login" class="bg-[#007AA2] text-white px-4 py-2 rounded-xl hover:bg-blue-600 transition">Iniciar Sesión</a>
+            }
+
+
+        </div>
+
+
     </header>
     <div class="container">
         <main role="main" class="pb-3">
