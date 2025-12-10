@@ -18,10 +18,7 @@
     <link rel="stylesheet" href="~/Turis_Travel2.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/css/estilos.css"/>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&icon_names=plane_contrails" />
-<<<<<<< HEAD
-=======
 
->>>>>>> 7b391367f8c69a5b93d031ae992a8a0818a8da72
 </head>
 <body>
     <header class="p-5 m-0 w-full flex bg-white rounded-xl shadow-xl justify-between">
@@ -35,7 +32,12 @@
             <a class="leading-normal hover:text-gray-900 hover:scale-1 transition" asp-controller="Home" asp-action="Index">Inicio</a>
             <a>Destinos</a>
             <a>Mis Reservas</a>
-            <a>Contacto</a>
+            <a class="leading-normal hover:text-gray-900 hover:scale-1 transition"
+               asp-controller="Contacto"
+               asp-action="Index">
+                Contacto
+            </a>
+
         </nav>
 
         <div>
