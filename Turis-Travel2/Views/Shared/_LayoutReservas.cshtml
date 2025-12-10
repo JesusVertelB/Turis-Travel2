@@ -1,0 +1,102 @@
+﻿@using System.Security.Claims
+
+@{
+    Layout = null;
+
+    var nombre = User.FindFirstValue(ClaimTypes.Name);
+    var correo = User.FindFirstValue(ClaimTypes.Email);
+    var rol = User.FindFirstValue(ClaimTypes.Role);
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Reservas</title>
+
+    <!-- BOOTSTRAP -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+
+    <!-- ICONOS -->
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+    <!-- CSS DEL DASHBOARD -->
+    <link rel="stylesheet" href="~/css/Dashboard.css" />
+
+    <!-- CSS ESPECÍFICO PARA RESERVAS -->
+    <link rel="stylesheet" href="~/css/Reservas.css" />
+</head>
+
+<body>
+
+    <div class="dashboard-container">
+
+        <!-- SIDEBAR -->
+        <aside class="sidebar shadow-sm">
+            <div class="sidebar-header">
+                <h3 class="sidebar-title">Agencia de Viajes</h3>
+            </div>
+
+            <ul class="sidebar-menu">
+                <li>
+                    <a asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                </li>
+
+                @if (User.IsInRole("Admin"))
+                {
+                    <li>
+                        <a asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                    </li>
+
+                    <li class="active">
+                        <a asp-controller="Reservas" asp-action="Index">Reservas</a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="Destinos" asp-action="Index">Destinos</a>
+                    </li>
+
+                    <li>
+                        <a asp-controller="Informes" asp-action="Index">Informes</a>
+                    </li>
+                }
+            </ul>
+
+            <div class="sidebar-footer text-center">
+                <div class="profile-img d-flex align-items-center justify-content-center mx-auto"
+                     style="width: 70px; height: 70px; border-radius: 50%; background:#e9ecef;">
+                    <i class="bi bi-person fs-1 text-secondary"></i>
+                </div>
+
+                <div class="mt-2">
+                    <p class="profile-name fw-bold">@nombre</p>
+                    <p class="profile-email text-muted">@correo</p>
+                    <span class="badge bg-primary">@rol</span>
+                </div>
+            </div>
+
+            <!-- CERRAR SESIÓN -->
+            <form asp-controller="Auth" asp-action="Logout" method="post">
+                <button id="ButtonLogout" type="submit">Cerrar Sesión</button>
+            </form>
+
+        </aside>
+
+        <!-- CONTENIDO -->
+        <main class="main-content">
+            <div class="page-header mb-4">
+                <h2 class="fw-bold">@ViewData["Title"]</h2>
+            </div>
+
+            @RenderBody()
+        </main>
+
+    </div>
+
+    @RenderSection("Scripts", required: false)
+
+</body>
+</html>

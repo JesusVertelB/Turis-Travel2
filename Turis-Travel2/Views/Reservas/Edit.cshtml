@@ -1,0 +1,79 @@
+﻿@model Turis_Travel2.Models.Scaffolded.Reserva
+
+@{
+    ViewData["Title"] = "Editar Reserva";
+    Layout = "~/Views/Shared/_LayoutReservas.cshtml";
+}
+
+<div class="container-fluid px-4">
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white py-3">
+            <h5 class="fw-semibold m-0">
+                <i class="bi bi-pencil-square text-warning me-2"></i>
+                Editar Reserva
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            <form asp-action="Edit">
+                <input type="hidden" asp-for="ID_reserva" />
+
+                <div class="row">
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Cliente</label>
+                        <select asp-for="ID_cliente" class="form-select" asp-items="ViewBag.ID_cliente"></select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Paquete</label>
+                        <select asp-for="ID_paquete" class="form-select" asp-items="ViewBag.ID_paquete"></select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Itinerario</label>
+                        <select asp-for="ID_itinerario" class="form-select" asp-items="ViewBag.ID_itinerario"></select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Transporte</label>
+                        <select asp-for="ID_transporte" class="form-select" asp-items="ViewBag.ID_transporte"></select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Estado</label>
+                        <select asp-for="Estado" class="form-select">
+                            <option value="pendiente">Pendiente</option>
+                            <option value="confirmada">Confirmada</option>
+                            <option value="cancelada">Cancelada</option>
+                        </select>
+                    </div>
+
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Número de pasajeros</label>
+                        <input asp-for="Numero_pasajeros" class="form-control" />
+                    </div>
+
+                </div>
+
+                <div class="mt-4 d-flex justify-content-end">
+
+                    <a asp-action="Index" class="btn btn-secondary me-2 px-4">
+                        Cancelar
+                    </a>
+
+                    <button type="submit" class="btn btn-warning px-4">
+                        <i class="bi bi-save me-1"></i>
+                        Guardar Cambios
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

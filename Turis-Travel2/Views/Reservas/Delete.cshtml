@@ -1,0 +1,58 @@
+﻿@model Turis_Travel2.Models.Scaffolded.Reserva
+
+@{
+    ViewData["Title"] = "Eliminar Reserva";
+    Layout = "~/Views/Shared/_LayoutReservas.cshtml";
+}
+
+<div class="container-fluid px-4">
+
+    <div class="card shadow-sm border-0">
+        <div class="card-header bg-white py-3">
+            <h5 class="fw-semibold m-0 text-danger">
+                <i class="bi bi-trash3 me-2"></i>
+                Eliminar Reserva
+            </h5>
+        </div>
+
+        <div class="card-body">
+
+            <p class="fs-5">
+                ¿Estás seguro de que deseas eliminar esta reserva?
+            </p>
+
+            <ul class="list-group mb-4">
+                <li class="list-group-item">
+                    <strong>Cliente:</strong> @Model.ID_clienteNavigation?.Nombre
+                </li>
+                <li class="list-group-item">
+                    <strong>Paquete:</strong> @Model.ID_paqueteNavigation?.Nombre_paquete
+                </li>
+                <li class="list-group-item">
+                    <strong>Fecha:</strong> @Model.Fecha_solicitud?.ToString("yyyy-MM-dd")
+                </li>
+            </ul>
+
+            <form asp-action="Delete">
+
+                <input type="hidden" asp-for="ID_reserva" />
+
+                <div class="d-flex justify-content-end">
+
+                    <a asp-action="Index" class="btn btn-secondary me-2 px-4">
+                        Cancelar
+                    </a>
+
+                    <button type="submit" class="btn btn-danger px-4">
+                        <i class="bi bi-trash3 me-1"></i>
+                        Eliminar
+                    </button>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+</div>

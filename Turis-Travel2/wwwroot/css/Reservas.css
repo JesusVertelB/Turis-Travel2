@@ -1,0 +1,43 @@
+﻿.nav-link:hover {
+    background: rgba(255,255,255,0.1);
+    border-radius: 6px;
+}
+
+body {
+    background-color: #f5f6fa;
+}
+
+.card {
+    border-radius: 10px;
+}
+
+.card-body {
+    font-size: 15px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f0f0f0;
+}
+
+.nav-link:hover {
+    background: rgba(255,255,255,0.1);
+    border-radius: 6px;
+}
+
+.table-hover tbody tr:hover {
+    background-color: #f2f4f7;
+}
+
+.card {
+    border-radius: 12px;
+}
+
+.badge {
+    font-size: 0.85rem;
+    padding: 6px 10px;
+    border-radius: 6px;
+}
+
+.btn-sm {
+    padding: 5px 10px;
+}
