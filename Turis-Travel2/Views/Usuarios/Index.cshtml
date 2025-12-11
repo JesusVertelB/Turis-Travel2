@@ -1,55 +1,197 @@
-﻿@{
-    ViewData["Title"] = "Panel de Usuario";
+﻿@model Turis_Travel2.Models.UsuariosViewModel
+
+@{
+    ViewData["Title"] = "Mi Perfil";
 }
 
-<div class="flex flex-col gap-6">
-    <!-- Bienvenida -->
-    <div class="bg-white p-6 rounded-xl shadow-md">
-        <h1 class="text-2xl font-bold text-green-800">¡Bienvenido, @User.Identity.Name!</h1>
-        <p class="text-gray-600 mt-2">Este es tu panel de control donde puedes ver tus reservas y actualizar tu perfil.</p>
-    </div>
+<style>
+    .card {
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    }
 
-    <!-- Estadísticas rápidas -->
-    <div class="grid grid-cols-3 gap-4">
-        <div class="bg-green-50 p-4 rounded-lg shadow text-center">
-            <h2 class="text-lg font-semibold text-green-700">Reservas Activas</h2>
-            <p class="text-2xl font-bold text-green-800 mt-2">3</p>
-        </div>
-        <div class="bg-green-50 p-4 rounded-lg shadow text-center">
-            <h2 class="text-lg font-semibold text-green-700">Próximos Viajes</h2>
-            <p class="text-2xl font-bold text-green-800 mt-2">1</p>
-        </div>
-        <div class="bg-green-50 p-4 rounded-lg shadow text-center">
-            <h2 class="text-lg font-semibold text-green-700">Mensajes</h2>
-            <p class="text-2xl font-bold text-green-800 mt-2">2</p>
-        </div>
-    </div>
+    .container {
+        margin-top: 20px;
+    }
 
-    <!-- Lista de reservas -->
-    <div class="bg-white p-6 rounded-xl shadow-md">
-        <h2 class="text-xl font-bold text-green-800 mb-4">Tus Próximas Reservas</h2>
+    .sidebar {
+        background: #f7f7f7;
+        padding: 20px;
+        border-radius: 16px;
+    }
 
-        <div class="grid grid-cols-1 gap-4">
-            <div class="flex justify-between items-center bg-green-50 p-4 rounded-lg">
+        .sidebar .nav-item {
+            margin-bottom: 15px;
+        }
+
+        .sidebar .nav-link {
+            color: #555;
+            font-weight: 600;
+            border-radius: 12px;
+            padding: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+            .sidebar .nav-link:hover {
+                background-color: #e1e7ff;
+            }
+
+    .profile-card {
+        background: #ffffff;
+        border-radius: 16px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+    }
+
+        .profile-card img {
+            width: 90px;
+            height: 90px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+
+        .profile-card h4 {
+            font-size: 24px;
+            font-weight: 700;
+        }
+
+        .profile-card p {
+            color: #888;
+        }
+
+    .btn-primary {
+        border-radius: 10px;
+        padding: 8px 20px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        margin-bottom: 8px;
+    }
+
+    .form-control {
+        border-radius: 12px;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    .action-buttons .btn {
+        border-radius: 12px;
+        font-size: 16px;
+    }
+
+    .action-buttons .btn-outline-primary {
+        margin-right: 10px;
+    }
+</style>
+
+<div class="container">
+    <div class="row">
+
+        <!-- SIDEBAR -->
+        <div class="col-md-3">
+            <div class="sidebar">
+                <h4>Mi Perfil</h4>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link active" href="#">Información Personal</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Preferencias de Viaje</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Métodos de Pago</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Seguridad</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- CONTENT -->
+        <div class="col-md-9">
+            <div class="profile-card d-flex align-items-center">
+                <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png" alt="profile image">
                 <div>
-                    <h3 class="font-semibold">Viaje a Santorini</h3>
-                    <p class="text-gray-600">15 Oct – 22 Oct, 2025</p>
+                    <h4>Hola, @Model.Usuario.FirstOrDefault()?.Nombre_usuario</h4>
+                    <p>Bienvenido de nuevo</p>
+                    <button type="button" class="btn btn-outline-primary">Subir Foto</button>
                 </div>
-                <a href="#" class="text-green-800 font-semibold hover:underline">Ver Detalles</a>
             </div>
 
-            <div class="flex justify-between items-center bg-green-50 p-4 rounded-lg">
-                <div>
-                    <h3 class="font-semibold">Escapada a Roma</h3>
-                    <p class="text-gray-600">05 Nov – 12 Nov, 2025</p>
-                </div>
-                <a href="#" class="text-green-800 font-semibold hover:underline">Ver Detalles</a>
+            <div class="profile-card mt-4">
+                <h5>Información Personal</h5>
+
+                <form method="post">
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <label class="form-label">Nombre Completo</label>
+                            <input asp-for="Usuario.FirstOrDefault().Nombre_usuario"
+                                   class="form-control"
+                                   placeholder="Tu nombre" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Correo Electrónico</label>
+                            <input asp-for="Usuario.FirstOrDefault().Correo"
+                                   class="form-control"
+                                   placeholder="email@example.com" />
+                        </div>
+
+                    </div>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <label class="form-label">Número de Teléfono</label>
+                            <input asp-for="Telefono"
+                                   class="form-control"
+                                   placeholder="+34 600 123 456" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Fecha de Nacimiento</label>
+                            <input asp-for="FechaNacimiento"
+                                   type="date"
+                                   class="form-control" />
+                        </div>
+
+                    </div>
+
+                    <h5 class="mt-4">Preferencias de Viaje</h5>
+
+                    <div class="row">
+
+                        <div class="col-md-6">
+                            <label class="form-label">Aeropuerto de Origen</label>
+                            <input asp-for="Aeropuerto"
+                                   class="form-control"
+                                   placeholder="Ej: Madrid (MAD)" />
+                        </div>
+
+                        <div class="col-md-6">
+                            <label class="form-label">Tipo de Viaje</label>
+                            <div class="d-flex gap-2">
+                                <button type="button" class="btn btn-outline-primary">Aventura</button>
+                                <button type="button" class="btn btn-outline-primary">Playa</button>
+                                <button type="button" class="btn btn-outline-primary">Cultural</button>
+                                <button type="button" class="btn btn-outline-primary">Familiar</button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="action-buttons d-flex justify-content-end mt-4">
+                        <button type="button" class="btn btn-secondary">Cancelar</button>
+                        <button type="submit" class="btn btn-primary">Guardar Cambios</button>
+                    </div>
+
+                </form>
+
             </div>
         </div>
-
-        <p class="text-gray-500 mt-4">
-            No tienes más reservas activas. <a href="#" class="text-green-700 font-semibold hover:underline">¡Busca tu próximo destino!</a>
-        </p>
     </div>
 </div>
 

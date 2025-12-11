@@ -2,39 +2,118 @@
     ViewData["Title"] = "Iniciar Sesión";
 }
 
-<div class="min-h-screen flex items-center justify-center bg-gray-100">
-    <div class="bg-white shadow-lg rounded-2xl p-8 w-full max-w-md">
-        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">Iniciar Sesión</h2>
+<!-- ESTILOS COMPLETOS (Bootstrap + personalizados) -->
+<style>
+    /* ===============================
+           ESTILOS GENERALES (LAYOUT)
+           =============================== */
+
+    .navbar-brand span {
+        font-size: 32px;
+    }
+
+    .nav-link {
+        font-size: 1.1rem;
+        font-weight: 500;
+        transition: 0.2s;
+    }
+
+        .nav-link:hover {
+            color: #000 !important;
+            transform: scale(1.05);
+        }
+
+    .btn-primary {
+        background-color: #007AA2;
+        border-color: #007AA2;
+    }
+
+        .btn-primary:hover {
+            background-color: #006488;
+            border-color: #006488;
+        }
+
+    footer a {
+        color: #007AA2;
+        text-decoration: none;
+    }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+
+    /* ===============================
+           ESTILOS PARA EL LOGIN
+           =============================== */
+
+    .login-card {
+        width: 100%;
+        max-width: 420px;
+        border-radius: 20px;
+        border: none;
+    }
+
+    .form-control:focus {
+        border-color: #007AA2;
+        box-shadow: 0 0 0 0.2rem rgba(0, 122, 162, 0.25);
+    }
+
+    .custom-btn {
+        background-color: #007AA2;
+        border-color: #007AA2;
+    }
+
+        .custom-btn:hover {
+            background-color: #006488;
+            border-color: #006488;
+        }
+
+    .bg-login {
+        background-color: #f5f7fa !important;
+    }
+
+    a.text-primary:hover {
+        text-decoration: underline !important;
+    }
+</style>
+
+
+
+<!-- LOGIN -->
+<div class="d-flex align-items-center justify-content-center bg-login min-vh-100">
+    <div class="card shadow-lg p-4 login-card">
+        <h2 class="text-center mb-4 fw-bold text-dark">Iniciar Sesión</h2>
 
         @if (ViewBag.Error != null)
         {
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+            <div class="alert alert-danger">
                 @ViewBag.Error
             </div>
         }
 
-        <form asp-action="Login" method="post" class="space-y-4">
-            <div>
-                <label for="correo" class="block text-sm font-medium text-gray-700">Correo electrónico</label>
-                <input type="email" id="correo" name="correo" required
-                       class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-indigo-300 focus:outline-none" />
+        <form asp-action="Login" method="post">
+
+            <div class="mb-3">
+                <label for="correo" class="form-label">Correo electrónico</label>
+                <input type="email" id="correo" name="correo" required class="form-control" />
             </div>
 
-            <div>
-                <label for="contrasena" class="block text-sm font-medium text-gray-700">Contraseña</label>
-                <input type="password" id="contrasena" name="contrasena" required
-                       class="w-full mt-1 px-3 py-2 border border-gray-300 rounded-lg focus:ring focus:ring-indigo-300 focus:outline-none" />
+            <div class="mb-3">
+                <label for="contrasena" class="form-label">Contraseña</label>
+                <input type="password" id="contrasena" name="contrasena" required class="form-control" />
             </div>
 
-            <button type="submit"
-                    class="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-2 rounded-lg transition duration-200">
+            <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold custom-btn">
                 Iniciar sesión
             </button>
         </form>
 
-        <p class="text-center text-sm text-gray-600 mt-6">
+        <p class="text-center mt-4">
             ¿No tienes cuenta?
-            <a asp-action="Register" class="text-indigo-600 hover:underline">Regístrate aquí</a>
+            <a asp-action="Register" class="text-primary fw-semibold text-decoration-none">
+                Regístrate aquí
+            </a>
         </p>
     </div>
 </div>

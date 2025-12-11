@@ -2,7 +2,6 @@
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Turis_Travel2.Data;
-using Microsoft.AspNetCore.Authentication.Cookies;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
