@@ -1,43 +1,128 @@
 ﻿@{
-    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+    Layout = "_LayoutDashboard";
 }
 
-<h2 class="mb-4">Dashboard General</h2>
+<!-- HEADER SUPERIOR -->
+<div class="top-bar">
+    <h1 class="dashboard-title">Panel de Control</h1>
+</div>
+<h4 class="dashboard-subtitle">Resumen general del sistema</h4>
 
-<div class="row">
-
-    <div class="col-md-4 mb-3">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5>Total Usuarios</h5>
-                <p class="fs-3 text-primary">120</p>
-            </div>
-        </div>
+<!-- TARJETAS DE ESTADÍSTICAS -->
+<div class="stats-grid">
+    <div class="stat-card">
+        <h4>Clientes Registrados</h4>
+        <h2>320</h2>
+        <span class="stat-positive">+12 este mes</span>
     </div>
-
-    <div class="col-md-4 mb-3">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5>Reservas Activas</h5>
-                <p class="fs-3 text-success">45</p>
-            </div>
-        </div>
+    <div class="stat-card">
+        <h4>Reservas Activas</h4>
+        <h2>128</h2>
+        <span class="stat-positive">+8 este mes</span>
     </div>
-
-    <div class="col-md-4 mb-3">
-        <div class="card shadow-sm">
-            <div class="card-body">
-                <h5>Hoteles Registrados</h5>
-                <p class="fs-3 text-warning">12</p>
-            </div>
-        </div>
+    <div class="stat-card">
+        <h4>Destinos Disponibles</h4>
+        <h2>24</h2>
+        <span class="stat-positive">+2 este mes</span>
     </div>
-
 </div>
 
-<div class="card shadow-sm mt-4">
-    <div class="card-body">
-        <h4>Últimas Reservas</h4>
-        <p>Este espacio lo llenaremos cuando conectemos la base de datos.</p>
+<!-- GRÁFICAS -->
+<div class="charts-grid">
+    <div class="chart-card">
+        <h5>Destinos más visitados</h5>
+        <canvas id="chartDestinos"></canvas>
+    </div>
+    <div class="chart-card">
+        <h5>Usuarios nuevos</h5>
+        <canvas id="chartUsuarios"></canvas>
     </div>
 </div>
+
+<!-- TABLA DE RESERVAS -->
+<div class="table-card">
+    <h4 class="mb-3">Reservas pendientes</h4>
+    <table class="dashboard-table">
+        <thead>
+            <tr>
+                <th>ID Reserva</th>
+                <th>Cliente</th>
+                <th>Destino</th>
+                <th>Fecha de Reserva</th>
+                <th>Estado</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>#8A683C</td>
+                <td>Ana Torres</td>
+                <td>París, Francia</td>
+                <td>15/08/2024</td>
+                <td><span class="estado-confirmada">Confirmada</span></td>
+            </tr>
+            <tr>
+                <td>#9F2D7E</td>
+                <td>Carlos Méndez</td>
+                <td>Tokio, Japón</td>
+                <td>22/09/2024</td>
+                <td><span class="estado-confirmada">Confirmada</span></td>
+            </tr>
+            <tr>
+                <td>#1C58A9</td>
+                <td>Laura Gómez</td>
+                <td>Roma, Italia</td>
+                <td>05/10/2024</td>
+                <td><span class="estado-pendiente">Pendiente</span></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Destinos más visitados
+            const ctx1 = document.getElementById('chartDestinos');
+            if (ctx1) {
+                new Chart(ctx1, {
+                    type: 'bar',
+                    data: {
+                        labels: ['París', 'Roma', 'Tokio', 'Cancún', 'Londres'],
+                        datasets: [{
+                            label: 'Visitas',
+                            data: [50, 45, 40, 38, 33],
+                            backgroundColor: '#4CAF50'
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: { legend: { display: false } }
+                    }
+                });
+            }
+
+            // Usuarios nuevos
+            const ctx2 = document.getElementById('chartUsuarios');
+            if (ctx2) {
+                new Chart(ctx2, {
+                    type: 'line',
+                    data: {
+                        labels: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'],
+                        datasets: [{
+                            label: 'Usuarios nuevos',
+                            data: [14, 22, 18, 25],
+                            borderColor: '#4CAF50',
+                            fill: false,
+                            tension: 0.3
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        plugins: { legend: { display: false } },
+                        scales: { y: { beginAtZero: true } }
+                    }
+                });
+            }
+        });
+    </script>
+}

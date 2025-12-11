@@ -1,0 +1,218 @@
+﻿CSS del dashboard: /* =============================== */ /* RESET GENERAL */ /* =============================== */ body {
+    margin: 0;
+    padding: 0;
+    background: #f5f6fa;
+}
+
+.dashboard-container {
+    display: flex;
+    height: 100vh;
+    overflow: hidden;
+}
+/* =============================== */ /* SIDEBAR */ /* =============================== */
+
+.sidebar {
+    width: 260px;
+    background: #fff;
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    border-right: 1px solid #e3e3e3;
+}
+
+.sidebar-title {
+    font-size: 24px;
+    font-weight: 700;
+}
+
+.sidebar-menu {
+    list-style: none;
+    padding: 0;
+}
+
+    .sidebar-menu li {
+        margin-bottom: 10px;
+    }
+
+        .sidebar-menu li a {
+            display: block;
+            padding: 12px;
+            border-radius: 8px;
+            font-size: 16px;
+            color: #444;
+            text-decoration: none;
+        }
+
+            .sidebar-menu li a.active, .sidebar-menu li a:hover {
+                background: #e8f0ff;
+                color: #0d6efd;
+            }
+/* FOOTER SIDEBAR */
+
+.sidebar-footer {
+    margin-top: auto;
+    text-align: center;
+}
+
+.profile-img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+}
+/* LOGOUT BUTTON */
+
+#ButtonLogout {
+    width: 100%;
+    padding: 10px;
+    border-radius: 8px;
+    border: 1px solid #0d6efd;
+    background: #fff;
+    cursor: pointer;
+}
+
+    #ButtonLogout:hover {
+        background: #0d6efd;
+        color: #fff;
+    }
+/* =============================== */ /* MAIN CONTENT */ /* =============================== */
+
+.main-content {
+    flex: 1;
+    padding: 40px;
+    overflow-y: auto;
+}
+/* TITULOS */
+
+.dashboard-title {
+    font-size: 32px;
+    font-weight: bold;
+}
+
+.dashboard-subtitle {
+    color: #6c757d;
+    font-size: 16px;
+}
+/* =============================== */ /* TARJETAS */ /* =============================== */
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.stat-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+}
+
+.stat-positive {
+    color: #28a745;
+}
+/* =============================== */ /* GRAFICAS */ /* =============================== */
+
+.charts-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 25px;
+    margin-top: 30px;
+}
+
+.chart-card {
+    background: #fff;
+    padding: 25px;
+    border-radius: 14px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.07);
+}
+/* CONTENEDOR DE TABLA */
+
+.table-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    margin-top: 25px;
+}
+/* TABLA */
+
+.dashboard-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 10px;
+}
+    /* ENCABEZADOS */
+
+    .dashboard-table thead th {
+        background: #f5f7fa;
+        padding: 12px;
+        font-weight: 600;
+        color: #333;
+        border-bottom: 2px solid #e5e7eb;
+    }
+    /* FILAS */
+
+    .dashboard-table tbody tr {
+        background: #ffffff;
+        transition: 0.2s ease;
+    }
+    /* CELDAS */
+
+    .dashboard-table tbody td {
+        padding: 14px 12px;
+        border-top: 1px solid #f1f1f1;
+    }
+    /* HOVER FILA */
+
+    .dashboard-table tbody tr:hover {
+        background: #f6faff;
+        transform: scale(1.01);
+    }
+/* ESTADOS */
+
+.estado-confirmada {
+    background: #d1f7d6;
+    color: #0f8a1f;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.estado-pendiente {
+    background: #ffe7b3;
+    color: #8a5d00;
+    padding: 5px 10px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+}
+/* -------------------- RESPONSIVE SIDEBAR --------------------- */
+
+@media (max-width: 992px) {
+    .dashboard-container {
+        flex-direction: column;
+    }
+
+    .sidebar {
+        position: fixed;
+        left: -260px;
+        top: 0;
+        height: 100%;
+        width: 250px;
+        background: #fff;
+        z-index: 999;
+        transition: left 0.3s ease;
+        box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+    }
+
+        .sidebar.show {
+            left: 0;
+        }
+
+    .main-content {
+        margin-left: 0 !important;
+        width: 100%;
+        padding: 15px;
+    }
+}
