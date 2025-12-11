@@ -62,7 +62,7 @@ namespace Turis_Travel2.Controllers
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
                 new ClaimsPrincipal(claimsIdentity), authProperties);
 
-            return usuario.ID_rolNavigation?.Nombre_rol == "Administrador"
+            return usuario.ID_rolNavigation?.Nombre_rol == "Admin"
                 ? RedirectToAction("Index", "Dashboard")
                 : RedirectToAction("Index", "Home");
         }

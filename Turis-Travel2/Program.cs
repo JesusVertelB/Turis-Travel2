@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.Authentication.Cookies;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.EntityFrameworkCore;
 using Turis_Travel2.Data;
@@ -38,19 +38,18 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseStaticFiles();
+
 app.UseRouting();
 
-app.UseAuthorization();
+// ✔ Primero autenticación
+app.UseAuthentication();
 
-app.MapStaticAssets();
+// ✔ Luego autorización
+app.UseAuthorization();
 
 app.MapControllerRoute(
     name: "default",
-    pattern: "{controller=Home}/{action=Index}/{id?}")
-    .WithStaticAssets();
-
-app.UseAuthentication();
-app.UseAuthorization();
-
+    pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();

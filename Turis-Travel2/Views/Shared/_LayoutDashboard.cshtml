@@ -1,0 +1,85 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - Turis Travel</title>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" />
+
+    <style>
+        body {
+            display: flex;
+            min-height: 100vh;
+            background-color: #f4f6f9;
+        }
+
+        .sidebar {
+            width: 260px;
+            background: #1b263b;
+            color: white;
+            padding: 20px;
+        }
+
+        .sidebar h2 {
+            font-size: 22px;
+            margin-bottom: 25px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #d9d9d9;
+            text-decoration: none;
+            padding: 10px;
+            border-radius: 6px;
+            margin-bottom: 6px;
+        }
+
+        .sidebar a:hover {
+            background: #415a77;
+        }
+
+        .content {
+            flex: 1;
+            padding: 25px;
+        }
+
+        .topbar {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <h2>Panel Admin</h2>
+        <a href="/Dashboard">🏠 Dashboard</a>
+        <a href="/Usuarios">👥 Usuarios</a>
+        <a href="/Reservas">📅 Reservas</a>
+        <a href="/Reportes">📊 Reportes</a>
+        <a href="/Hoteles">🏨 Hoteles</a>
+        <form asp-action="Logout" asp-controller="Auth" method="post">
+            <button class="btn btn-danger w-100 mt-3">Cerrar sesión</button>
+        </form>
+    </div>
+
+    <!-- CONTENT -->
+    <div class="content">
+        <div class="topbar">
+            <h4>Bienvenido, @User.Identity.Name</h4>
+        </div>
+
+        @RenderBody()
+    </div>
+
+</body>
+</html>
