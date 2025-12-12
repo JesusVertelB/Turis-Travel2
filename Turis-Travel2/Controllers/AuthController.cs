@@ -23,6 +23,7 @@ namespace Turis_Travel2.Controllers
         [HttpGet]
         public IActionResult Login() => View();
 
+
         [HttpPost]
         public async Task<IActionResult> Login(string correo, string contrasena)
         {
@@ -32,11 +33,10 @@ namespace Turis_Travel2.Controllers
                 return View();
             }
 
-            string hash = HashPassword(contrasena);
-
+            // Buscar usuario por correo
             var usuario = await _context.Usuarios
                 .Include(u => u.ID_rolNavigation)
-                .FirstOrDefaultAsync(u => u.Correo == correo && u.Contrasena == hash && u.Estado == 1);
+                .FirstOrDefaultAsync(u => u.Correo == correo && u.Estado == 1);
 
             if (usuario == null)
             {
@@ -44,28 +44,42 @@ namespace Turis_Travel2.Controllers
                 return View();
             }
 
-            var claims = new List<Claim>
+            // ✔ VERIFICAR CONTRASEÑA CON BCRYPT
+            bool passwordValida = BCrypt.Net.BCrypt.Verify(contrasena, usuario.Contrasena);
+
+            if (!passwordValida)
             {
-                new Claim("IdUsuario", usuario.ID_usuario.ToString()),
-                new Claim(ClaimTypes.Name, usuario.Nombre_usuario),
-                new Claim(ClaimTypes.Email, usuario.Correo),
-                new Claim(ClaimTypes.Role, usuario.ID_rolNavigation?.Nombre_rol ?? "Cliente")
-            };
+                ViewBag.Error = "Credenciales inválidas.";
+                return View();
+            }
+
+            // Crear claims
+            var claims = new List<Claim>
+    {
+        new Claim("IdUsuario", usuario.ID_usuario.ToString()),
+        new Claim(ClaimTypes.Name, usuario.Nombre_usuario),
+        new Claim(ClaimTypes.Email, usuario.Correo),
+        new Claim(ClaimTypes.Role, usuario.ID_rolNavigation?.Nombre_rol ?? "Cliente")
+    };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
-            var authProperties = new AuthenticationProperties
-            {
-                IsPersistent = true,
-                ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
-            };
 
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity), authProperties);
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
+                }
+            );
 
+            // Redirecciones según rol
             return usuario.ID_rolNavigation?.Nombre_rol == "Admin"
                 ? RedirectToAction("Index", "Dashboard")
                 : RedirectToAction("Index", "Home");
         }
+
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -91,7 +105,7 @@ namespace Turis_Travel2.Controllers
             }
 
             usuario.ID_rol = 2; // Asignar rol de Cliente
-            usuario.Contrasena = HashPassword(usuario.Contrasena);
+            usuario.Contrasena = BCrypt.Net.BCrypt.HashPassword(usuario.Contrasena);
             usuario.Estado = 1;
 
             _context.Add(usuario);

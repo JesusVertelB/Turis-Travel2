@@ -54,7 +54,9 @@ public partial class ApplicationDbContext : DbContext
     public virtual DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseMySql("server=20.81.230.41;port=3306;database=turistraveldb;user=turistravel;password=Turistravel2025*", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.44-mysql"));
+    {
+    }
+
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

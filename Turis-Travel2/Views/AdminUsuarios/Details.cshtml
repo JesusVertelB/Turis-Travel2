@@ -4,25 +4,37 @@
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 
-<div class="container">
-    <h2 class="mb-4">Detalles del Usuario</h2>
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-header bg-primary text-white">
+            <h3 class="mb-0"><i class="bi bi-person-lines-fill"></i> Detalles del Usuario</h3>
+        </div>
+        <div class="card-body">
+            <div class="row mb-3">
+                <div class="col-sm-3 fw-bold">ID:</div>
+                <div class="col-sm-9">@Model.ID_usuario</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3 fw-bold">Nombre:</div>
+                <div class="col-sm-9">@Model.Nombre_usuario</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3 fw-bold">Correo:</div>
+                <div class="col-sm-9">@Model.Correo</div>
+            </div>
+            <div class="row mb-3">
+                <div class="col-sm-3 fw-bold">Rol:</div>
+                <div class="col-sm-9">@Model.ID_rolNavigation?.Nombre_rol</div>
+            </div>
 
-    <div class="card p-4 shadow-sm">
-        <dl class="row">
-            <dt class="col-sm-3">ID</dt>
-            <dd class="col-sm-9">@Model.ID_usuario</dd>
-
-            <dt class="col-sm-3">Nombre</dt>
-            <dd class="col-sm-9">@Model.Nombre_usuario</dd>
-
-            <dt class="col-sm-3">Correo</dt>
-            <dd class="col-sm-9">@Model.Correo</dd>
-
-            <dt class="col-sm-3">Rol</dt>
-            <dd class="col-sm-9">@Model.ID_rolNavigation?.Nombre_rol</dd>
-        </dl>
-
-        <a asp-action="Index" class="btn btn-secondary">Volver</a>
-        <a asp-action="Edit" asp-route-id="@Model.ID_usuario" class="btn btn-primary">Editar</a>
+            <div class="mt-4">
+                <a asp-action="Index" class="btn btn-secondary me-2">
+                    <i class="bi bi-arrow-left-circle"></i> Volver
+                </a>
+                <a asp-action="Edit" asp-route-id="@Model.ID_usuario" class="btn btn-primary">
+                    <i class="bi bi-pencil-fill"></i> Editar
+                </a>
+            </div>
+        </div>
     </div>
 </div>
