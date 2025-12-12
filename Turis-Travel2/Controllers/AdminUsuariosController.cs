@@ -21,42 +21,42 @@ namespace Turis_Travel2.Controllers
         // =======================
         //      LISTA (INDEX)
         // =======================
-        public async Task<IActionResult> Index(string search, int? rol, int? estado, int page = 1)
-        {
-            int pageSize = 10;
-            var query = _context.Usuarios.Include(u => u.ID_rolNavigation).AsQueryable();
+public async Task<IActionResult> Index(string search, int? rol, int? estado, int page = 1)
+{
+    int pageSize = 10;
+    var query = _context.Usuarios.Include(u => u.ID_rolNavigation).AsQueryable();
 
-            // FILTRO búsqueda
-            if (!string.IsNullOrEmpty(search))
-                query = query.Where(u =>
-                    u.Nombre_usuario.Contains(search) ||
-                    u.Correo.Contains(search));
+    // FILTRO búsqueda
+    if (!string.IsNullOrEmpty(search))
+        query = query.Where(u =>
+            u.Nombre_usuario.Contains(search) ||
+            u.Correo.Contains(search));
 
-            // FILTRO rol
-            if (rol.HasValue)
-                query = query.Where(u => u.ID_rol == rol.Value);
+    // FILTRO rol
+    if (rol.HasValue)
+        query = query.Where(u => u.ID_rol == rol.Value);
 
-            // FILTRO estado
-            if (estado.HasValue)
-                query = query.Where(u => u.Estado == estado.Value);
+    // FILTRO estado
+    if (estado.HasValue)
+        query = query.Where(u => u.Estado == estado.Value);
 
-            // PAGINACIÓN
-            int totalUsuarios = await query.CountAsync();
-            var usuarios = await query
-                .OrderBy(u => u.Nombre_usuario)
-                .Skip((page - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
+    // PAGINACIÓN
+    int totalUsuarios = await query.CountAsync();
+    var usuarios = await query
+        .OrderBy(u => u.Nombre_usuario)
+        .Skip((page - 1) * pageSize)
+        .Take(pageSize)
+        .ToListAsync();
 
-            ViewBag.Roles = _context.Roles.ToList();
-            ViewBag.EstadoActual = estado;
-            ViewBag.RolActual = rol;
-            ViewBag.Search = search;
-            ViewBag.Page = page;
-            ViewBag.TotalPages = (int)Math.Ceiling(totalUsuarios / (double)pageSize);
+    ViewBag.Roles = _context.Roles.ToList();
+    ViewBag.EstadoActual = estado;
+    ViewBag.RolActual = rol;
+    ViewBag.Search = search;
+    ViewBag.Page = page;
+    ViewBag.TotalPages = (int)Math.Ceiling(totalUsuarios / (double)pageSize);
 
-            return View(usuarios);
-        }
+    return View(usuarios);
+}
 
         // =======================
         //      DETALLES
@@ -108,7 +108,7 @@ namespace Turis_Travel2.Controllers
             if (usuarioEnDb == null)
                 return NotFound();
 
-            // Actualizamos solo los campos permitidos
+            // Actualizamos solo los campos que queremos permitir
             usuarioEnDb.Nombre_usuario = usuario.Nombre_usuario;
             usuarioEnDb.Correo = usuario.Correo;
             usuarioEnDb.ID_rol = usuario.ID_rol;
@@ -116,12 +116,11 @@ namespace Turis_Travel2.Controllers
             // Guardamos cambios
             await _context.SaveChangesAsync();
 
+            // Redirigimos a la lista de usuarios
             return RedirectToAction(nameof(Index));
         }
 
-        // =======================
-        //        ELIMINAR
-        // =======================
+
         public async Task<IActionResult> Delete(int id)
         {
             var usuario = await _context.Usuarios
@@ -147,6 +146,7 @@ namespace Turis_Travel2.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+
     }
 }
 

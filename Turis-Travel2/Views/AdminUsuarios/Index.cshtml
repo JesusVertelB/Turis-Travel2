@@ -44,6 +44,7 @@
     .pagination .page-link {
         border-radius: 8px !important;
     }
+
 </style>
 
 <div class="container mt-4">
@@ -139,9 +140,9 @@
                             <!-- Rol -->
                             <td>
                                 <span class="badge badge-role
-                                            @(u.ID_rolNavigation?.Nombre_rol == "Admin" ? "bg-primary" :
-                                                                                                                  u.ID_rolNavigation?.Nombre_rol == "Soporte" ? "bg-warning text-dark" :
-                                                                                                                  "bg-secondary")">
+                                        @(u.ID_rolNavigation?.Nombre_rol == "Admin" ? "bg-primary" :
+                                                                            u.ID_rolNavigation?.Nombre_rol == "Soporte" ? "bg-warning text-dark" :
+                                                                            "bg-secondary")">
                                     @u.ID_rolNavigation?.Nombre_rol
                                 </span>
                             </td>
