@@ -1,4 +1,5 @@
-﻿CSS del dashboard: /* =============================== */ /* RESET GENERAL */ /* =============================== */ body {
+﻿/* CSS del dashboard: */
+body {
     margin: 0;
     padding: 0;
     background: #f5f6fa;
@@ -9,7 +10,7 @@
     height: 100vh;
     overflow: hidden;
 }
-/* =============================== */ /* SIDEBAR */ /* =============================== */
+/* SIDEBAR */
 
 .sidebar {
     width: 260px;
@@ -47,8 +48,8 @@
                 background: #e8f0ff;
                 color: #0d6efd;
             }
-/* FOOTER SIDEBAR */
 
+/* FOOTER SIDEBAR */
 .sidebar-footer {
     margin-top: auto;
     text-align: center;
@@ -74,15 +75,15 @@
         background: #0d6efd;
         color: #fff;
     }
-/* =============================== */ /* MAIN CONTENT */ /* =============================== */
 
+/* MAIN CONTENT */
 .main-content {
     flex: 1;
     padding: 40px;
     overflow-y: auto;
 }
-/* TITULOS */
 
+/* TITULOS */
 .dashboard-title {
     font-size: 32px;
     font-weight: bold;
@@ -92,8 +93,8 @@
     color: #6c757d;
     font-size: 16px;
 }
-/* =============================== */ /* TARJETAS */ /* =============================== */
 
+/* TARJETAS  */
 .stats-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -110,8 +111,8 @@
 .stat-positive {
     color: #28a745;
 }
-/* =============================== */ /* GRAFICAS */ /* =============================== */
 
+/* GRAFICAS */
 .charts-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -125,8 +126,8 @@
     border-radius: 14px;
     box-shadow: 0 2px 6px rgba(0,0,0,0.07);
 }
-/* CONTENEDOR DE TABLA */
 
+/* CONTENEDOR DE TABLA */
 .table-card {
     background: #fff;
     border-radius: 12px;
@@ -134,15 +135,17 @@
     box-shadow: 0 2px 10px rgba(0,0,0,0.05);
     margin-top: 25px;
 }
-/* TABLA */
 
+
+/* TABLA */
 .dashboard-table {
     width: 100%;
     border-collapse: separate;
     border-spacing: 0 10px;
 }
-    /* ENCABEZADOS */
 
+
+    /* ENCABEZADOS */
     .dashboard-table thead th {
         background: #f5f7fa;
         padding: 12px;
@@ -150,26 +153,26 @@
         color: #333;
         border-bottom: 2px solid #e5e7eb;
     }
-    /* FILAS */
 
+    /* FILAS */
     .dashboard-table tbody tr {
         background: #ffffff;
         transition: 0.2s ease;
     }
-    /* CELDAS */
 
+    /* CELDAS */
     .dashboard-table tbody td {
         padding: 14px 12px;
         border-top: 1px solid #f1f1f1;
     }
-    /* HOVER FILA */
 
+    /* HOVER FILA */
     .dashboard-table tbody tr:hover {
         background: #f6faff;
         transform: scale(1.01);
     }
-/* ESTADOS */
 
+/* ESTADOS */
 .estado-confirmada {
     background: #d1f7d6;
     color: #0f8a1f;
@@ -187,8 +190,8 @@
     font-size: 13px;
     font-weight: 600;
 }
-/* -------------------- RESPONSIVE SIDEBAR --------------------- */
 
+/* -------------------- RESPONSIVE SIDEBAR --------------------- */
 @media (max-width: 992px) {
     .dashboard-container {
         flex-direction: column;
@@ -216,3 +219,16 @@
         padding: 15px;
     }
 }
+
+.stat-card,
+.chart-card,
+.table-card {
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+    .stat-card:hover,
+    .chart-card:hover,
+    .table-card:hover {
+        transform: translateY(-6px);
+        box-shadow: 0 10px 25px rgba(0,0,0,0.12);
+    }

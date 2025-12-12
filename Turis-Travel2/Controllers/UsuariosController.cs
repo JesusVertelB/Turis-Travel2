@@ -8,7 +8,6 @@ using Turis_Travel2.Data;
 using Turis_Travel2.Models.Scaffolded;
 using Turis_Travel2.Models;
 
-
 namespace Turis_Travel2.Controllers
 {
     public class UsuariosController : Controller
@@ -19,6 +18,13 @@ namespace Turis_Travel2.Controllers
         {
             _context = context;
         }
+
+        // ✅ NUEVA ACCIÓN PARA LA VISTA Inicio.cshtml
+        public IActionResult Inicio()
+        {
+            return View();
+        }
+
         // GET: UsuariosController
         public async Task<IActionResult> Index(int? roleId = null, int? Id = null, string? q = null)
         {
@@ -27,6 +33,7 @@ namespace Turis_Travel2.Controllers
                 var ClaimId = User.FindFirstValue("IdUsuario");
                 if (ClaimId != null) Id = int.Parse(ClaimId);
             }
+
             var RoleList = await _context.Roles.OrderBy(r => r.Nombre_rol).ToListAsync();
             ViewData["Roles"] = new SelectList(_context.Roles, "IdRol", "NombreRol");
             ViewData["SelectedRole"] = roleId;
@@ -74,8 +81,6 @@ namespace Turis_Travel2.Controllers
             };
 
             return View(vmLista);
-
-
         }
 
         // GET: UsuariosController/Details/5
@@ -92,6 +97,7 @@ namespace Turis_Travel2.Controllers
             ViewData["SelectedRole"] = roleId;
 
             var query = _context.Usuarios.Include(u => u.ID_rolNavigation).AsQueryable();
+
             if (!string.IsNullOrEmpty(q))
             {
                 query = query.Where(u => u.Nombre_usuario.Contains(q) || u.Correo.Contains(q));
@@ -121,7 +127,6 @@ namespace Turis_Travel2.Controllers
                     Reserva = reservas
                 };
 
-
                 return View(vmDetalle);
             }
 
@@ -137,4 +142,3 @@ namespace Turis_Travel2.Controllers
         }
     }
 }
-

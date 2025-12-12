@@ -23,6 +23,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
 </head>
 <body class="bg-[#F0F7F4] min-h-screen">
+
     <!-- Sidebar -->
     <aside class="fixed left-0 top-0 h-full w-[265px] bg-white shadow-xl p-6 flex flex-col justify-between z-20">
         <div>
@@ -37,7 +38,9 @@
             </div>
 
             <nav class="space-y-4 font-semibold">
-                <a asp-controller="Usuarios" asp-action="Index"
+
+                <!-- ✅ BOTÓN INICIO MODIFICADO -->
+                <a asp-controller="Usuarios" asp-action="Inicio" href="#inicio"
                    class="flex items-center gap-2 p-2 rounded-md
                         @(action == "Index" ? "bg-green-600/50 text-green-800 shadow" : "text-gray-600 hover:bg-green-600/50 hover:text-green-800")">
                     <span class="material-symbols-outlined">home</span>
@@ -84,5 +87,20 @@
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
     @await RenderSectionAsync("Scripts", required: false)
+
+    <!-- ✅ SCROLL SUAVE PARA EL BOTÓN INICIO -->
+    <script>
+        document.querySelectorAll('a[href="#inicio"]').forEach(anchor => {
+            anchor.addEventListener("click", function (e) {
+                e.preventDefault();
+                const target = document.querySelector("#inicio");
+                if (target) {
+                    target.scrollIntoView({ behavior: "smooth" });
+                }
+            });
+        });
+    </script>
+
 </body>
 </html>
+

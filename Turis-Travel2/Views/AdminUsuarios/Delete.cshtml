@@ -1,0 +1,18 @@
+﻿@model Turis_Travel2.Models.Scaffolded.Usuario
+@{
+    ViewData["Title"] = "Eliminar Usuario";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="container">
+    <div class="alert alert-danger">
+        <h4>¿Seguro que deseas eliminar este usuario?</h4>
+        <p><strong>@Model.Nombre_usuario</strong> — @Model.Correo</p>
+    </div>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="ID_usuario" />
+        <button class="btn btn-danger">Eliminar</button>
+        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+    </form>
+</div>
