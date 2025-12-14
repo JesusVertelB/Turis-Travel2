@@ -2,9 +2,12 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Turis_Travel2.Data;
 using Turis_Travel2.Models;
 using Turis_Travel2.Models.Scaffolded;
+using BCrypt.Net;
+
 
 namespace Turis_Travel2.Controllers
 {
@@ -18,9 +21,7 @@ namespace Turis_Travel2.Controllers
             _context = context;
         }
 
-        // =======================
-        //      LISTA (INDEX)
-        // =======================
+        // LISTA (INDEX)
 public async Task<IActionResult> Index(string search, int? rol, int? estado, int page = 1)
 {
     int pageSize = 10;
@@ -42,13 +43,14 @@ public async Task<IActionResult> Index(string search, int? rol, int? estado, int
 
     // PAGINACIÓN
     int totalUsuarios = await query.CountAsync();
-    var usuarios = await query
-        .OrderBy(u => u.Nombre_usuario)
-        .Skip((page - 1) * pageSize)
-        .Take(pageSize)
-        .ToListAsync();
+            var usuarios = await query
+             .OrderByDescending(u => u.ID_usuario)
+             .Skip((page - 1) * pageSize)
+             .Take(pageSize)
+             .ToListAsync();
 
-    ViewBag.Roles = _context.Roles.ToList();
+
+            ViewBag.Roles = _context.Roles.ToList();
     ViewBag.EstadoActual = estado;
     ViewBag.RolActual = rol;
     ViewBag.Search = search;
@@ -58,9 +60,7 @@ public async Task<IActionResult> Index(string search, int? rol, int? estado, int
     return View(usuarios);
 }
 
-        // =======================
         //      DETALLES
-        // =======================
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
@@ -74,9 +74,7 @@ public async Task<IActionResult> Index(string search, int? rol, int? estado, int
             return View(usuario);
         }
 
-        // =======================
-        //         EDITAR
-        // =======================
+        // EDITAR
         [HttpGet]
         public async Task<IActionResult> Edit(int id)
         {
@@ -120,6 +118,14 @@ public async Task<IActionResult> Index(string search, int? rol, int? estado, int
             return RedirectToAction(nameof(Index));
         }
 
+        // Create Get
+        [HttpGet]
+        public IActionResult Create()
+        {
+            ViewBag.Roles = new SelectList(_context.Roles, "ID_rol", "Nombre_rol");
+            return View();
+        }
+
 
         public async Task<IActionResult> Delete(int id)
         {
@@ -146,6 +152,31 @@ public async Task<IActionResult> Index(string search, int? rol, int? estado, int
 
             return RedirectToAction(nameof(Index));
         }
+
+
+        // Create Post
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Create(Usuario usuario)
+        {
+            if (!ModelState.IsValid)
+            {
+                ViewBag.Roles = new SelectList(_context.Roles, "ID_rol", "Nombre_rol", usuario.ID_rol);
+                return View(usuario);
+            }
+
+            // Generar hash de contraseña
+            usuario.Contrasena = BCrypt.Net.BCrypt.HashPassword(usuario.Contrasena);
+
+            usuario.Fecha_creacion = DateTime.Now;
+            usuario.Estado = usuario.Estado ?? 1; // 1 = Activo por defecto
+
+            _context.Usuarios.Add(usuario);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
 
     }
 }

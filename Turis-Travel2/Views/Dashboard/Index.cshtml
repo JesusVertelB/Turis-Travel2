@@ -8,24 +8,41 @@
 </div>
 <h4 class="dashboard-subtitle">Resumen general del sistema</h4>
 
-<!-- TARJETAS DE ESTADÍSTICAS -->
 <div class="stats-grid">
+
+    <!-- CLIENTES -->
     <div class="stat-card">
-        <h4>Clientes Registrados</h4>
-        <h2>320</h2>
-        <span class="stat-positive">+12 este mes</span>
+        <h4>Clientes</h4>
+        <h2 id="totalClientes">0</h2>
+        <span class="growth @(ViewBag.CrecimientoClientes >= 0 ? "growth-up" : "growth-down")">
+            @(ViewBag.CrecimientoClientes >= 0 ? "▲" : "▼")
+            @ViewBag.CrecimientoClientes%
+        </span>
     </div>
+
+    <!-- RESERVAS -->
     <div class="stat-card">
         <h4>Reservas Activas</h4>
-        <h2>128</h2>
-        <span class="stat-positive">+8 este mes</span>
+        <h2 id="reservasActivas">0</h2>
+        <span class="growth @(ViewBag.CrecimientoReservas >= 0 ? "growth-up" : "growth-down")">
+            @(ViewBag.CrecimientoReservas >= 0 ? "▲" : "▼")
+            @ViewBag.CrecimientoReservas%
+        </span>
     </div>
+
+    <!-- PAQUETES -->
     <div class="stat-card">
-        <h4>Destinos Disponibles</h4>
-        <h2>24</h2>
-        <span class="stat-positive">+2 este mes</span>
+        <h4>Paquetes</h4>
+        <h2 id="totalPaquetes">0</h2>
+        <span class="growth growth-up">
+            ▲ 0%
+        </span>
     </div>
+
 </div>
+
+
+
 
 <!-- GRÁFICAS -->
 <div class="charts-grid">
@@ -39,90 +56,105 @@
     </div>
 </div>
 
-<!-- TABLA DE RESERVAS -->
 <div class="table-card">
-    <h4 class="mb-3">Reservas pendientes</h4>
-    <table class="dashboard-table">
-        <thead>
-            <tr>
-                <th>ID Reserva</th>
-                <th>Cliente</th>
-                <th>Destino</th>
-                <th>Fecha de Reserva</th>
-                <th>Estado</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr>
-                <td>#8A683C</td>
-                <td>Ana Torres</td>
-                <td>París, Francia</td>
-                <td>15/08/2024</td>
-                <td><span class="estado-confirmada">Confirmada</span></td>
-            </tr>
-            <tr>
-                <td>#9F2D7E</td>
-                <td>Carlos Méndez</td>
-                <td>Tokio, Japón</td>
-                <td>22/09/2024</td>
-                <td><span class="estado-confirmada">Confirmada</span></td>
-            </tr>
-            <tr>
-                <td>#1C58A9</td>
-                <td>Laura Gómez</td>
-                <td>Roma, Italia</td>
-                <td>05/10/2024</td>
-                <td><span class="estado-pendiente">Pendiente</span></td>
-            </tr>
-        </tbody>
-    </table>
+    <h5 class="table-title">Reservas pendientes</h5>
+
+    <div class="table-responsive">
+        <table class="dashboard-table">
+            <thead>
+                <tr>
+                    <th>Cliente</th>
+                    <th>Paquete</th>
+                    <th>Pasajeros</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var r in ViewBag.ReservasPendientes)
+                {
+                    <tr>
+                        <td>@r.ID_clienteNavigation.Nombre</td>
+                        <td>@r.ID_paqueteNavigation?.Nombre_paquete</td>
+                        <td>@r.Numero_pasajeros</td>
+                        <td>
+                            <span class="badge badge-warning">
+                                @r.Estado
+                            </span>
+                        </td>
+                        <td>@r.Fecha_solicitud?.ToString("dd/MM/yyyy")</td>
+                        <td>$@r.Precio_total</td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
+
+
 
 @section Scripts {
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            // Destinos más visitados
-            const ctx1 = document.getElementById('chartDestinos');
-            if (ctx1) {
-                new Chart(ctx1, {
-                    type: 'bar',
-                    data: {
-                        labels: ['París', 'Roma', 'Tokio', 'Cancún', 'Londres'],
-                        datasets: [{
-                            label: 'Visitas',
-                            data: [50, 45, 40, 38, 33],
-                            backgroundColor: '#4CAF50'
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: { legend: { display: false } }
-                    }
-                });
-            }
+        let chartDestinos;
+        let chartUsuarios;
 
-            // Usuarios nuevos
-            const ctx2 = document.getElementById('chartUsuarios');
-            if (ctx2) {
-                new Chart(ctx2, {
-                    type: 'line',
-                    data: {
-                        labels: ['Sem 1', 'Sem 2', 'Sem 3', 'Sem 4'],
-                        datasets: [{
-                            label: 'Usuarios nuevos',
-                            data: [14, 22, 18, 25],
-                            borderColor: '#4CAF50',
-                            fill: false,
-                            tension: 0.3
-                        }]
-                    },
-                    options: {
-                        responsive: true,
-                        plugins: { legend: { display: false } },
-                        scales: { y: { beginAtZero: true } }
+        function cargarDashboard() {
+            fetch('/Dashboard/DatosDashboard')
+                .then(res => res.json())
+                .then(data => {
+
+                    // CARDS
+                    document.querySelectorAll('.stat-card h2')[0].innerText = data.totalClientes;
+                    document.querySelectorAll('.stat-card h2')[1].innerText = data.reservasActivas;
+                    document.querySelectorAll('.stat-card h2')[2].innerText = data.totalPaquetes;
+
+                    // DESTINOS
+                    if (!chartDestinos) {
+                        chartDestinos = new Chart(document.getElementById('chartDestinos'), {
+                            type: 'bar',
+                            data: {
+                                labels: data.destinosLabels,
+                                datasets: [{
+                                    data: data.destinosData,
+                                    backgroundColor: '#4CAF50'
+                                }]
+                            },
+                            options: { plugins: { legend: { display: false } } }
+                        });
+                    } else {
+                        chartDestinos.data.labels = data.destinosLabels;
+                        chartDestinos.data.datasets[0].data = data.destinosData;
+                        chartDestinos.update();
+                    }
+
+                    // CLIENTES
+                    if (!chartUsuarios) {
+                        chartUsuarios = new Chart(document.getElementById('chartUsuarios'), {
+                            type: 'line',
+                            data: {
+                                labels: data.clientesLabels,
+                                datasets: [{
+                                    data: data.clientesData,
+                                    borderColor: '#4CAF50',
+                                    tension: 0.3
+                                }]
+                            },
+                            options: { plugins: { legend: { display: false } } }
+                        });
+                    } else {
+                        chartUsuarios.data.datasets[0].data = data.clientesData;
+                        chartUsuarios.update();
                     }
                 });
-            }
-        });
+        }
+
+        // cargar al inicio
+        cargarDashboard();
+
+        // refrescar cada 10 segundos
+        setInterval(cargarDashboard, 10000);
     </script>
 }
+
+    

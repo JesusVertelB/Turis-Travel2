@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using Turis_Travel2.Data;
 
@@ -15,15 +16,59 @@ namespace Turis_Travel2.Controllers
             _context = context;
         }
 
+        [HttpGet]
+        public IActionResult DatosDashboard()
+        {
+            var destinos = _context.Reservas
+                .Where(r => r.ID_paquete != null)
+                .GroupBy(r => r.ID_paqueteNavigation.Nombre_paquete)
+                .Select(g => new
+                {
+                    destino = g.Key,
+                    cantidad = g.Count()
+                })
+                .OrderByDescending(x => x.cantidad)
+                .Take(5)
+                .ToList();
+
+            var hoy = DateTime.Now;
+            var clientesPorSemana = new int[4];
+
+            for (int i = 0; i < 4; i++)
+            {
+                var inicio = hoy.AddDays(-(7 * (i + 1)));
+                var fin = hoy.AddDays(-(7 * i));
+
+                clientesPorSemana[3 - i] = _context.Clientes
+                    .Count(c => c.Fecha_registro >= inicio && c.Fecha_registro < fin);
+            }
+
+            return Json(new
+            {
+                totalClientes = _context.Clientes.Count(),
+                reservasActivas = _context.Reservas.Count(r =>
+                    r.Estado == "activa" || r.Estado == "pendiente" || r.Estado == "confirmada"),
+                totalPaquetes = _context.Paquetes_Turisticos.Count(),
+
+                destinosLabels = destinos.Select(d => d.destino),
+                destinosData = destinos.Select(d => d.cantidad),
+
+                clientesLabels = new[] { "Semana 1", "Semana 2", "Semana 3", "Semana 4" },
+                clientesData = clientesPorSemana
+            });
+        }
+
+        // Metodo Index
         public IActionResult Index()
         {
-            //   ===== CARDS PRINCIPALES =====
+            // ===== CARDS PRINCIPALES =====
             ViewBag.TotalUsuarios = _context.Usuarios.Count();
             ViewBag.TotalClientes = _context.Clientes.Count();
-            ViewBag.ReservasActivas = _context.Reservas.Count(r => r.Estado == "activa" || r.Estado == "pendiente" || r.Estado == "confirmada");
+            ViewBag.ReservasActivas = _context.Reservas.Count(r =>
+                r.Estado == "activa" || r.Estado == "pendiente" || r.Estado == "confirmada");
             ViewBag.TotalPaquetes = _context.Paquetes_Turisticos.Count();
 
-            //   ===== DESTINOS POPULARES =====
+            // ===== DESTINOS POPULARES =====
             var destinos = _context.Reservas
                 .Where(r => r.ID_paquete != null)
                 .GroupBy(r => r.ID_paqueteNavigation.Nombre_paquete)
@@ -39,10 +84,8 @@ namespace Turis_Travel2.Controllers
             ViewBag.DestinosLabels = destinos.Select(x => x.Destino).ToList();
             ViewBag.DestinosData = destinos.Select(x => x.Cantidad).ToList();
 
-
-            //   ===== NUEVOS CLIENTES (últimas 4 semanas) =====
+            // ===== NUEVOS CLIENTES (4 semanas) =====
             var hoy = DateTime.Now;
-
             var clientesPorSemana = new int[4];
 
             for (int i = 0; i < 4; i++)
@@ -57,7 +100,58 @@ namespace Turis_Travel2.Controllers
             ViewBag.NuevosClientesLabels = new[] { "Semana 1", "Semana 2", "Semana 3", "Semana 4" };
             ViewBag.NuevosClientesData = clientesPorSemana;
 
+            // ===== RESERVAS PENDIENTES (TABLA) =====
+            var reservasPendientes = _context.Reservas
+                .Include(r => r.ID_clienteNavigation)
+                .Include(r => r.ID_paqueteNavigation)
+                .Where(r => r.Estado == "pendiente")
+                .OrderByDescending(r => r.Fecha_solicitud)
+                .Take(5)
+                .ToList();
+
+            ViewBag.ReservasPendientes = reservasPendientes;
+
+            // ===== CRECIMIENTO DE CLIENTES =====
+
+            var clientesUltimoMes = _context.Clientes
+                .Count(c => c.Fecha_registro >= hoy.AddDays(-30));
+
+            var clientesMesAnterior = _context.Clientes
+                .Count(c => c.Fecha_registro >= hoy.AddDays(-60) &&
+                            c.Fecha_registro < hoy.AddDays(-30));
+
+            double crecimientoClientes = 0;
+
+            if (clientesMesAnterior > 0)
+            {
+                crecimientoClientes =
+                    ((double)(clientesUltimoMes - clientesMesAnterior) / clientesMesAnterior) * 100;
+            }
+
+            ViewBag.CrecimientoClientes = Math.Round(crecimientoClientes, 1);
+
+            // ===== CRECIMIENTO DE RESERVAS =====
+
+            var reservasUltimoMes = _context.Reservas
+                .Count(r => r.Fecha_solicitud >= hoy.AddDays(-30));
+
+            var reservasMesAnterior = _context.Reservas
+                .Count(r => r.Fecha_solicitud >= hoy.AddDays(-60) &&
+                            r.Fecha_solicitud < hoy.AddDays(-30));
+
+            double crecimientoReservas = 0;
+
+            if (reservasMesAnterior > 0)
+            {
+                crecimientoReservas =
+                    ((double)(reservasUltimoMes - reservasMesAnterior) / reservasMesAnterior) * 100;
+            }
+
+            ViewBag.CrecimientoReservas = Math.Round(crecimientoReservas, 1);
+
             return View();
         }
+
+
     }
 }

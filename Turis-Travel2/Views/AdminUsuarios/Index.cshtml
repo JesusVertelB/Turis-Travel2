@@ -45,6 +45,11 @@
         border-radius: 8px !important;
     }
 
+    .pagination li{
+        margin: 0 4px;
+    }
+
+
 </style>
 
 <div class="container mt-4">
@@ -178,6 +183,42 @@
                 </tbody>
 
             </table>
+
+            <!-- Paginación -->
+<nav aria-label="Page navigation">
+    <ul class="pagination justify-content-center mt-3 mb-4">
+        <!-- Flecha anterior -->
+        <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
+            <a class="page-link" href="@Url.Action("Index", new { 
+                search = ViewBag.Search, 
+                rol = ViewBag.RolActual, 
+                estado = ViewBag.EstadoActual, 
+                page = ViewBag.Page - 1 })">«</a>
+        </li>
+
+        <!-- Números de página -->
+        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+        {
+            <li class="page-item @(ViewBag.Page == i ? "active" : "")">
+                <a class="page-link" href="@Url.Action("Index", new { 
+                    search = ViewBag.Search, 
+                    rol = ViewBag.RolActual, 
+                    estado = ViewBag.EstadoActual, 
+                    page = i })">@i</a>
+            </li>
+        }
+
+        <!-- Flecha siguiente -->
+        <li class="page-item @(ViewBag.Page == ViewBag.TotalPages ? "disabled" : "")">
+            <a class="page-link" href="@Url.Action("Index", new { 
+                search = ViewBag.Search, 
+                rol = ViewBag.RolActual, 
+                estado = ViewBag.EstadoActual, 
+                page = ViewBag.Page + 1 })">»</a>
+        </li>
+    </ul>
+</nav>
+
 
         </div>
     </div>
