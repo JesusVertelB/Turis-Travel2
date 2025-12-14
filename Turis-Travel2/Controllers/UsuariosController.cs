@@ -140,5 +140,39 @@ namespace Turis_Travel2.Controllers
 
             return View(vmLista);
         }
+
+        
+
+        public async Task<IActionResult> Miperfil()
+        {
+            var idClaim = User.FindFirstValue("IdUsuario");
+
+            if (idClaim == null)
+                return RedirectToAction("Login", "Auth");
+
+            int idUsuario = int.Parse(idClaim);
+
+            var usuario = await _context.Usuarios
+                .Include(u => u.ID_rolNavigation)
+                .FirstOrDefaultAsync(u => u.ID_usuario == idUsuario);
+
+            if (usuario == null)
+                return NotFound();
+
+            var reservas = await _context.Reservas
+                .Include(r => r.ID_paqueteNavigation)
+                .Where(r => r.ID_cliente == idUsuario)
+                .ToListAsync();
+
+            var vm = new UsuariosViewModel
+            {
+                Usuario = new List<Usuario> { usuario },
+                Reserva = reservas
+            };
+
+            return View(vm);  // <<<<< ESTO ENVÍA EL MODELO CORRECTO A Miperfil.cshtml
+        }
+
+
     }
 }

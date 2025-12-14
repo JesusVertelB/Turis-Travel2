@@ -1,1 +1,175 @@
-﻿
+﻿@{
+    ViewData["Title"] = "Contacto";
+}
+
+<style>
+    .contact-container {
+        max-width: 1100px;
+        margin: 20px auto;
+        padding: 10px 20px;
+        font-family: Arial, sans-serif;
+    }
+
+    .contact-title {
+        font-size: 28px; /* 💥 Más pequeño */
+        font-weight: bold;
+        margin-bottom: 5px;
+    }
+
+    .contact-sub {
+        color: #555;
+        margin-bottom: 20px;
+        font-size: 15px; /* 💥 Más pequeño */
+    }
+
+    .contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+        align-items: stretch;
+    }
+
+    /* Panel izquierdo */
+    .left-box {
+        background: #1f2937;
+        color: white;
+        padding: 18px; /* 💥 Menos espacio interno */
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.12);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+        .left-box h3 {
+            font-size: 18px; /* 💥 Reducido */
+            margin-bottom: 5px;
+        }
+
+        .left-box p {
+            margin-bottom: 12px;
+            color: #d1d5db;
+            font-size: 14px;
+        }
+
+    /* MAPA */
+    .map {
+        width: 100%;
+        height: 200px; /* 💥 Mucho más pequeño */
+        border-radius: 10px;
+        margin-top: 10px;
+        border: none;
+        object-fit: cover;
+    }
+
+    /* Formulario */
+    .form-box {
+        background: white;
+        padding: 18px; /* 💥 Más compacto */
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+        .form-box label {
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .form-box input,
+        .form-box textarea {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            margin-top: 3px;
+            margin-bottom: 12px;
+            font-size: 14px;
+        }
+
+        .form-box textarea {
+            height: 90px; /* 💥 Más pequeño */
+            resize: none;
+        }
+
+    .send-btn {
+        width: 100%;
+        padding: 10px;
+        background: #1d4ed8;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-size: 15px;
+        cursor: pointer;
+        margin-top: auto;
+    }
+
+        .send-btn:hover {
+            background: #1e40af;
+        }
+</style>
+
+<div class="contact-container">
+    <h1 class="contact-title">Contáctanos</h1>
+    <p class="contact-sub">
+        Nos encantaría saber de ti. Completa el siguiente formulario o utiliza los datos de contacto para comunicarte.
+    </p>
+
+    <div class="contact-grid">
+
+        <!-- IZQUIERDA -->
+        <div class="left-box">
+            <h3>Dirección</h3>
+            <p>141 carrera, Medellin, Colombia</p>
+
+            <h3>Teléfono</h3>
+            <p>+57 (301 9212901)</p>
+
+            <h3>Correo Electrónico</h3>
+            <p>andresagudelocartagena0@gmail.com</p>
+
+            <!-- MAPA FUNCIONAL SIN API -->
+            <iframe class="map"
+                    src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d31726.5131490232!2d-75.654283470571!3d6.288143696687337!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8e442beee76c30e1%3A0xcab6bfab0d0483f8!2sParque%20Principal%20San%20Crist%C3%B3bal%20(Medellin)!5e0!3m2!1ses-419!2sco!4v1765332378458!5m2!1ses-419!2sco"
+                    allowfullscreen=""
+                    loading="lazy">
+            </iframe>
+        </div>
+
+        <!-- FORMULARIO DERECHA -->
+        @* Mensajes de éxito/error *@
+        @if (TempData["MensajeOk"] != null)
+        {
+            <div style="color: green; margin-bottom: 15px;">@TempData["MensajeOk"]</div>
+        }
+        @if (TempData["MensajeError"] != null)
+        {
+            <div style="color: red; margin-bottom: 15px;">@TempData["MensajeError"]</div>
+        }
+
+        <form class="form-box" method="post" asp-controller="Contacto" asp-action="EnviarMensaje">
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div>
+                    <label>Nombre completo</label>
+                    <input type="text" name="Nombre" placeholder="Escribe tu nombre" required>
+                </div>
+
+                <div>
+                    <label>Correo electrónico</label>
+                    <input type="email" name="Correo" placeholder="Escribe tu correo" required>
+                </div>
+            </div>
+
+            <label>Asunto</label>
+            <input type="text" name="Asunto" placeholder="Escribe el asunto" required>
+
+            <label>Tu mensaje</label>
+            <textarea name="Mensaje" placeholder="Escribe tu mensaje aquí..." required></textarea>
+
+            <button type="submit" class="send-btn">Enviar mensaje</button>
+        </form>
+
+    </div>
+</div>

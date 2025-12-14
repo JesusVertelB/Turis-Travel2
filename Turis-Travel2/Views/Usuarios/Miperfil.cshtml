@@ -1,0 +1,175 @@
+﻿@model Turis_Travel2.Models.UsuariosViewModel
+
+@{
+    ViewData["Title"] = "Mi Perfil";
+}
+
+<!-- TAILWIND -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<div class="max-w-7xl mx-auto px-6 py-10">
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+
+        <!-- SIDEBAR -->
+        <aside class="bg-gray-100 rounded-2xl p-6">
+            <h3 class="text-xl font-bold text-gray-800 mb-6">Mi Perfil</h3>
+
+            <nav class="space-y-3">
+                <a href="#"
+                   class="block px-4 py-2 rounded-xl font-semibold text-blue-600 bg-blue-100">
+                    Información Personal
+                </a>
+                <a href="#"
+                   class="block px-4 py-2 rounded-xl text-gray-600 hover:bg-blue-50 transition">
+                    Preferencias de Viaje
+                </a>
+                <a href="#"
+                   class="block px-4 py-2 rounded-xl text-gray-600 hover:bg-blue-50 transition">
+                    Métodos de Pago
+                </a>
+                <a href="#"
+                   class="block px-4 py-2 rounded-xl text-gray-600 hover:bg-blue-50 transition">
+                    Seguridad
+                </a>
+            </nav>
+        </aside>
+
+        <!-- CONTENIDO -->
+        <section class="md:col-span-3 space-y-8">
+
+            <!-- CARD PERFIL -->
+            <div class="bg-white rounded-2xl shadow p-6 flex items-center gap-6">
+                <img src="https://cdn-icons-png.flaticon.com/512/847/847969.png"
+                     class="w-24 h-24 rounded-full" />
+
+                <div>
+                    <h4 class="text-2xl font-bold text-gray-800">
+                        Hola, @Model.Usuario.FirstOrDefault()?.Nombre_usuario
+                    </h4>
+                    <p class="text-gray-500 mb-2">Bienvenido de nuevo</p>
+
+                    <button type="button"
+                            class="px-4 py-2 border border-blue-600 text-blue-600 rounded-lg
+                                   hover:bg-blue-50 transition">
+                        Subir Foto
+                    </button>
+                </div>
+            </div>
+
+            <!-- FORM -->
+            <div class="bg-white rounded-2xl shadow p-8">
+
+                <h5 class="text-xl font-bold text-gray-800 mb-6">
+                    Información Personal
+                </h5>
+
+                <form method="post" class="space-y-8">
+
+                    <!-- DATOS PERSONALES -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-1">
+                                Nombre Completo
+                            </label>
+                            <input asp-for="Usuario.FirstOrDefault().Nombre_usuario"
+                                   class="w-full rounded-xl border border-gray-300 px-4 py-2
+                                          focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-1">
+                                Correo Electrónico
+                            </label>
+                            <input asp-for="Usuario.FirstOrDefault().Correo"
+                                   class="w-full rounded-xl border border-gray-300 px-4 py-2
+                                          focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                        </div>
+
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-1">
+                                Número de Teléfono
+                            </label>
+                            <input asp-for="Telefono"
+                                   class="w-full rounded-xl border border-gray-300 px-4 py-2
+                                          focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-1">
+                                Fecha de Nacimiento
+                            </label>
+                            <input asp-for="FechaNacimiento"
+                                   type="date"
+                                   class="w-full rounded-xl border border-gray-300 px-4 py-2
+                                          focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                        </div>
+
+                    </div>
+
+                    <!-- PREFERENCIAS -->
+                    <h5 class="text-xl font-bold text-gray-800">
+                        Preferencias de Viaje
+                    </h5>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-1">
+                                Aeropuerto de Origen
+                            </label>
+                            <input asp-for="Aeropuerto"
+                                   class="w-full rounded-xl border border-gray-300 px-4 py-2
+                                          focus:ring-2 focus:ring-blue-500 focus:outline-none" />
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-semibold text-gray-600 mb-2">
+                                Tipo de Viaje
+                            </label>
+
+                            <div class="flex flex-wrap gap-3">
+                                <button type="button" class="px-4 py-2 rounded-lg border hover:bg-blue-50">
+                                    Aventura
+                                </button>
+                                <button type="button" class="px-4 py-2 rounded-lg border hover:bg-blue-50">
+                                    Playa
+                                </button>
+                                <button type="button" class="px-4 py-2 rounded-lg border hover:bg-blue-50">
+                                    Cultural
+                                </button>
+                                <button type="button" class="px-4 py-2 rounded-lg border hover:bg-blue-50">
+                                    Familiar
+                                </button>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- BOTONES -->
+                    <div class="flex justify-end gap-4 pt-6">
+                        <button type="button"
+                                class="px-6 py-2 rounded-lg border text-gray-600 hover:bg-gray-100">
+                            Cancelar
+                        </button>
+                        <button type="submit"
+                                class="px-6 py-2 rounded-lg bg-blue-600 text-white
+                                       hover:bg-blue-700 transition">
+                            Guardar Cambios
+                        </button>
+                    </div>
+
+                </form>
+
+            </div>
+
+        </section>
+
+    </div>
+
+</div>

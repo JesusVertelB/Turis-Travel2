@@ -4,100 +4,122 @@
     var user = User.Identity as ClaimsIdentity;
     var nombreUsuario = user?.FindFirst(ClaimTypes.Name)?.Value ?? "Usuario";
     var correoUsuario = user?.FindFirst(ClaimTypes.Email)?.Value ?? "correo@ejemplo.com";
-    var rolUsuario = user?.FindFirst(ClaimTypes.Role)?.Value ?? "";
-
-    // Obtener la acción y el controlador actuales para marcar el link activo
-    string action = Context.Request.RouteValues["action"]?.ToString() ?? "";
-    string controller = Context.Request.RouteValues["controller"]?.ToString() ?? "";
 }
 
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>@ViewData["Title"] - Turis Travel</title>
-    <link rel="stylesheet" href="~/css/output.css" asp-append-version="true" />
-    <link rel="stylesheet" href="~/Turis_Travel2.styles.css" asp-append-version="true" />
-    <script src="https://cdn.jsdelivr.net/npm/@@tailwindcss/browser@4"></script>
+
+    <!-- TAILWIND -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- ICONOS -->
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
+
+    <style>
+        body {
+            background: #f7f9fb;
+        }
+    </style>
 </head>
-<body class="bg-[#F0F7F4] min-h-screen">
 
-    <!-- Sidebar -->
-    <aside class="fixed left-0 top-0 h-full w-[265px] bg-white shadow-xl p-6 flex flex-col justify-between z-20">
-        <div>
-            <div class="flex items-center gap-3 mb-6">
-                <div class="w-10 h-10 rounded-full p-2 bg-green-100 flex items-center justify-center">
-                    <span class="text-green-600 font-semibold text-lg">@(!string.IsNullOrEmpty(nombreUsuario) ? nombreUsuario.Substring(0, 1).ToUpper() : "?")</span>
-                </div>
-                <div>
-                    <h2 class="text-md text-[#2E7D32] font-semibold">@nombreUsuario</h2>
-                    <p class="text-sm text-[#66BB6A]">@correoUsuario</p>
-                </div>
-            </div>
+<body class="min-h-screen bg-[#f7f9fb]">
 
-            <nav class="space-y-4 font-semibold">
+    <!-- NAVBAR -->
+    <header class="w-full bg-white shadow-sm py-4 px-10 flex items-center justify-between">
 
-                <!-- ✅ BOTÓN INICIO MODIFICADO -->
-                <a asp-controller="Usuarios" asp-action="Inicio" href="#inicio"
-                   class="flex items-center gap-2 p-2 rounded-md
-                        @(action == "Index" ? "bg-green-600/50 text-green-800 shadow" : "text-gray-600 hover:bg-green-600/50 hover:text-green-800")">
-                    <span class="material-symbols-outlined">home</span>
-                    <p>Inicio</p>
-                </a>
-
-                <a asp-controller="Usuarios" asp-action="ReservasUsuarios"
-                   class="flex items-center gap-2 p-2 rounded-md
-                        @(action == "ReservasUsuarios" ? "bg-green-600/50 text-green-800 shadow" : "text-gray-600 hover:bg-green-600/50 hover:text-green-800")">
-                    <span class="material-symbols-outlined">event</span>
-                    <p>Mis Reservas</p>
-                </a>
-
-                <a asp-controller="Usuarios" asp-action="Perfil"
-                   class="flex items-center gap-2 p-2 rounded-md
-                        @(action == "Perfil" ? "bg-green-600/50 text-green-800 shadow" : "text-gray-600 hover:bg-green-600/50 hover:text-green-800")">
-                    <span class="material-symbols-outlined">account_circle</span>
-                    <p>Mi Perfil</p>
-                </a>
-
-                <a asp-controller="Clientes" asp-action="Pagos"
-                   class="flex items-center gap-2 p-2 rounded-md
-                        text-gray-600 hover:bg-green-600/50 hover:text-green-800">
-                    <span class="material-symbols-outlined">payment</span>
-                    <p>Pagos</p>
-                </a>
-            </nav>
+        <!-- LOGO -->
+        <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-blue-600 text-3xl">
+                travel_explore
+            </span>
+            <span class="text-2xl font-bold text-gray-800">Turis Travel</span>
         </div>
 
-        <form id="logoutForm" asp-controller="Auth" asp-action="Logout" method="post">
-            <button type="submit" class="flex justify-center items-center text-lg font-semibold gap-1 text-white bg-green-600 hover:bg-green-700 w-full py-2 rounded-md mt-8">
-                <span class="material-symbols-outlined">logout</span>
-                <p>Logout</p>
-            </button>
-        </form>
-    </aside>
+        <!-- MENÚ CENTRAL -->
+        <nav class="hidden md:flex items-center gap-10 text-gray-600 font-medium">
 
-    <!-- Contenido principal -->
-    <main role="main" class="bg-[#F0F7F4] p-8 ml-[265px] min-h-screen">
+            <a asp-controller="Home" asp-action="Index" class="hover:text-blue-600 transition">
+                Inicio
+            </a>
+
+            <a asp-controller="Destinos" asp-action="Index" class="hover:text-blue-600 transition">
+                Destinos
+            </a>
+
+            <a asp-controller="ReservasUsuario"asp-action="Index"class="nav-link">
+                Mis Reservas
+            </a>
+
+
+
+            <!-- 🔥 CORREGIDO: ahora sí va al controlador Contacto -->
+            <a asp-controller="Contacto" asp-action="Index" class="hover:text-blue-600 transition">
+                Contacto
+            </a>
+
+        </nav>
+
+        <!-- USUARIO -->
+        <div class="relative">
+            <button id="userMenuBtn"
+                    class="w-10 h-10 bg-orange-300 text-white rounded-full flex items-center justify-center font-bold">
+                @nombreUsuario.Substring(0, 1).ToUpper()
+            </button>
+
+            <!-- DROPDOWN -->
+            <div id="userMenu"
+                 class="hidden absolute right-0 mt-3 w-56 bg-white shadow-xl rounded-xl p-3 z-50">
+
+                <div class="text-center font-bold">@nombreUsuario</div>
+                <div class="text-center text-gray-500 text-sm mb-2">@correoUsuario</div>
+
+                <hr class="my-2" />
+
+                <a asp-controller="Usuarios" asp-action="Miperfil"
+                   class="block px-3 py-2 hover:bg-gray-100 rounded-lg cursor-pointer">
+                    <span class="material-symbols-outlined text-gray-600 text-md mr-1">
+                        account_circle
+                    </span>
+                    Mi Perfil
+                </a>
+
+                <form asp-controller="Auth" asp-action="Logout" method="post">
+                    <button class="w-full text-left px-3 py-2 hover:bg-gray-100 rounded-lg text-red-600">
+                        <span class="material-symbols-outlined text-md mr-1">
+                            logout
+                        </span>
+                        Cerrar sesión
+                    </button>
+                </form>
+
+            </div>
+        </div>
+
+    </header>
+
+    <!-- CONTENIDO -->
+    <main class="px-12 py-10">
         @RenderBody()
     </main>
 
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @await RenderSectionAsync("Scripts", required: false)
-
-    <!-- ✅ SCROLL SUAVE PARA EL BOTÓN INICIO -->
+    <!-- JS PARA DROPDOWN -->
     <script>
-        document.querySelectorAll('a[href="#inicio"]').forEach(anchor => {
-            anchor.addEventListener("click", function (e) {
-                e.preventDefault();
-                const target = document.querySelector("#inicio");
-                if (target) {
-                    target.scrollIntoView({ behavior: "smooth" });
-                }
-            });
+        const btn = document.getElementById("userMenuBtn");
+        const menu = document.getElementById("userMenu");
+
+        btn.addEventListener("click", () => {
+            menu.classList.toggle("hidden");
+        });
+
+        // Cerrar si se hace click fuera
+        document.addEventListener("click", function (e) {
+            if (!btn.contains(e.target) && !menu.contains(e.target)) {
+                menu.classList.add("hidden");
+            }
         });
     </script>
 

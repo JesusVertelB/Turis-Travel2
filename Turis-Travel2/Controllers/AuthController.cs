@@ -36,7 +36,9 @@ namespace Turis_Travel2.Controllers
 
             var usuario = await _context.Usuarios
                 .Include(u => u.ID_rolNavigation)
-                .FirstOrDefaultAsync(u => u.Correo == correo && u.Contrasena == hash && u.Estado == 1);
+                .FirstOrDefaultAsync(u => u.Correo == correo &&
+                                          u.Contrasena == hash &&
+                                          u.Estado == 1);
 
             if (usuario == null)
             {
@@ -44,6 +46,7 @@ namespace Turis_Travel2.Controllers
                 return View();
             }
 
+            // Crear Claims
             var claims = new List<Claim>
             {
                 new Claim("IdUsuario", usuario.ID_usuario.ToString()),
@@ -52,19 +55,40 @@ namespace Turis_Travel2.Controllers
                 new Claim(ClaimTypes.Role, usuario.ID_rolNavigation?.Nombre_rol ?? "Cliente")
             };
 
-            var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var claimsIdentity = new ClaimsIdentity(
+                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
             var authProperties = new AuthenticationProperties
             {
                 IsPersistent = true,
                 ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
             };
 
-            await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme,
-                new ClaimsPrincipal(claimsIdentity), authProperties);
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(claimsIdentity),
+                authProperties);
 
-            return usuario.ID_rolNavigation?.Nombre_rol == "Admin"
-                ? RedirectToAction("Index", "Dashboard")
-                : RedirectToAction("Index", "Home");
+            // 🔥 REDIRECCIÓN ACTUALIZADA
+            // 🔥 REDIRECCIÓN CORRECTA SEGÚN EL ROL
+            if (usuario.ID_rolNavigation?.Nombre_rol == "Admin")
+            {
+                return RedirectToAction("Index", "Dashboard");
+            }
+
+            if (usuario.ID_rolNavigation?.Nombre_rol == "Usuario")
+            {
+                return RedirectToAction("MiPerfil", "Usuarios");
+            }
+
+            if (usuario.ID_rolNavigation?.Nombre_rol == "Cliente")
+            {
+                return RedirectToAction("MiPerfil", "Usuarios");
+            }
+
+            // Si por alguna razón no coincide → Home
+            return RedirectToAction("Miperfil", "Usuarios");
+
         }
 
         [HttpPost]
@@ -90,7 +114,7 @@ namespace Turis_Travel2.Controllers
                 return View(usuario);
             }
 
-            usuario.ID_rol = 2; // Asignar rol de Cliente
+            usuario.ID_rol = 2; // Cliente
             usuario.Contrasena = HashPassword(usuario.Contrasena);
             usuario.Estado = 1;
 
@@ -106,6 +130,6 @@ namespace Turis_Travel2.Controllers
             var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
             return Convert.ToBase64String(bytes);
         }
-
     }
 }
+

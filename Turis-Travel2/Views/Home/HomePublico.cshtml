@@ -1,0 +1,418 @@
+﻿@using System.Security.Claims
+
+@{
+    // Indicar que esta vista usa tu layout principal
+    Layout = "_Layout";
+    ViewData["Title"] = "Home Page";
+
+    var userIdentity = User.Identity as ClaimsIdentity;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Página Principal del Cliente - TurismoAventura</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#2b7cee",
+                "primary-dark": "#1a65d6",
+                "background-light": "#f8fafc", // Slightly cooler gray
+                "background-dark": "#0f172a", // Slate 900
+              },
+              fontFamily: {
+                "display": ["Plus Jakarta Sans", "sans-serif"]
+              },
+              boxShadow: {
+                  'soft': '0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03)',
+                  'glow': '0 0 15px rgba(43, 124, 238, 0.3)',
+              }
+            },
+          },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+
+        .no-scrollbar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .no-scrollbar {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark font-display text-slate-900 dark:text-slate-100 antialiased selection:bg-primary/20 selection:text-primary">
+    <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
+        <main class="flex-1 pt-20">
+            <section class="relative px-4 sm:px-6 lg:px-8 py-6 pb-12">
+                <div class="relative overflow-hidden rounded-[2rem] bg-slate-900 isolate">
+                    <div class="absolute inset-0 -z-10">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black/60 via-black/20 to-transparent z-10"></div>
+                        <div class="absolute inset-0 bg-gradient-to-r from-black/50 via-transparent to-transparent z-10"></div>
+                        <img alt="Paisaje montañoso" class="h-full w-full object-cover opacity-90 transform hover:scale-105 transition-transform duration-[20s] ease-out" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBv_nPxvtqEU_mkAlP3BThG7KdPhVUc_MWoioan7FZPuq_ubXOtOOZZYqbqdM9uYZPkvUozpxd1BYHSLQfCGcVLNQuH2Dsd2BhMbeyAT4QQ9106LZdyc_4vwOE92XVTkJJL-uBdYmmD9CW2WvGWTxAUkxP8EYSqLUPdksg4j9_Ugiz6LgBnmpvbZOvYFkilQ746euA2qTUCo6SgUfDmV0RXp2gvRLiEhGmKMnAqvhdjBQntV48eH865pLEMlAC_xf9yvxAgz8X3ydA" />
+                    </div>
+                    <div class="relative z-20 flex flex-col items-center justify-center min-h-[550px] px-6 text-center max-w-5xl mx-auto">
+                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-md border border-white/20 text-white text-xs font-medium mb-6 animate-fade-in-up">
+                            <span class="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+                            Explora el mundo sin límites
+                        </div>
+                        <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold tracking-tight text-white mb-6 drop-shadow-sm">
+                            Tu próxima aventura <br />
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-blue-200 to-white">comienza aquí</span>
+                        </h1>
+                        <p class="text-lg md:text-xl text-slate-200 mb-10 max-w-2xl font-light leading-relaxed">
+                            Descubre destinos extraordinarios, experiencias únicas y recuerdos que durarán toda la vida.
+                        </p>
+                        <div class="w-full max-w-4xl bg-white dark:bg-slate-800 rounded-2xl shadow-2xl p-3 transform transition-all hover:scale-[1.01]">
+                            <div class="flex flex-col md:flex-row gap-2">
+                                <div class="relative flex-1 group">
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                                        <span class="material-symbols-outlined text-primary group-focus-within:text-primary-dark transition-colors">location_on</span>
+                                    </div>
+                                    <input class="w-full h-14 pl-12 pr-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl border-transparent focus:border-primary focus:bg-white dark:focus:bg-slate-700 focus:ring-0 text-slate-900 dark:text-white placeholder-slate-400 font-medium transition-all" placeholder="¿A dónde quieres ir?" type="text" />
+                                    <label class="absolute -top-2.5 left-4 px-1 bg-white dark:bg-slate-800 text-xs font-semibold text-primary opacity-0 group-focus-within:opacity-100 transition-opacity">Destino</label>
+                                </div>
+                                <div class="relative flex-1 group">
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                                        <span class="material-symbols-outlined text-primary group-focus-within:text-primary-dark transition-colors">calendar_month</span>
+                                    </div>
+                                    <input class="w-full h-14 pl-12 pr-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl border-transparent focus:border-primary focus:bg-white dark:focus:bg-slate-700 focus:ring-0 text-slate-900 dark:text-white placeholder-slate-400 font-medium transition-all" placeholder="Fechas de viaje" type="text" />
+                                </div>
+                                <div class="relative flex-1 group hidden lg:block">
+                                    <div class="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                                        <span class="material-symbols-outlined text-primary group-focus-within:text-primary-dark transition-colors">group</span>
+                                    </div>
+                                    <input class="w-full h-14 pl-12 pr-4 bg-slate-50 dark:bg-slate-700/50 rounded-xl border-transparent focus:border-primary focus:bg-white dark:focus:bg-slate-700 focus:ring-0 text-slate-900 dark:text-white placeholder-slate-400 font-medium transition-all" placeholder="Viajeros" type="text" />
+                                </div>
+                                <button class="h-14 px-8 bg-primary hover:bg-primary-dark text-white rounded-xl font-bold shadow-lg shadow-primary/30 transition-all active:scale-95 flex items-center justify-center gap-2 min-w-[140px]">
+                                    <span class="material-symbols-outlined">search</span>
+                                    Explorar
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="py-12 md:py-16">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex items-end justify-between mb-8 md:mb-10">
+                        <div>
+                            <h2 class="text-3xl font-bold tracking-tight text-slate-900 dark:text-white">Ofertas Destacadas</h2>
+                            <p class="mt-2 text-slate-500 dark:text-slate-400">Selección exclusiva de destinos para tu próxima escapada.</p>
+                        </div>
+                        <a class="hidden sm:flex items-center gap-1 text-sm font-semibold text-primary hover:text-primary-dark transition-colors" href="#">
+                            Ver todo
+                            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                        </a>
+                    </div>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+                        <div class="group relative flex flex-col bg-white dark:bg-slate-800 rounded-2xl shadow-soft hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                            <div class="relative aspect-[4/5] overflow-hidden">
+                                <div class="absolute top-3 right-3 z-10 bg-white/90 dark:bg-slate-900/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-slate-900 dark:text-white shadow-sm">
+                                    -20% OFF
+                                </div>
+                                <img alt="Riviera Maya" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuA_wvynBE7iTOBI5IY-bDRCb8FKTgoB1jJnYOgng9sOjEQxC8bj1VlOtAUF14u3LwqtG24mUZpCvveHlwhN0tdCeHyxxQ9FaDnHLX-n3jkwv6kB2n1b7hOsDB8WfucemiEpJkMoPJG3w8IHmJG4mBRqhwWoICMIb3hG3WHB1DKC53R2yQa1hQXSLKJVfaBdctHa3qSqHqRf8Gg5sxSre78_QUyQtuAv6IqUxSF7AwIc-9CB8gi9BSE4WDksmok-QLtHAWfnirVunoA" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
+                                <div class="absolute bottom-4 left-4 right-4 text-white">
+                                    <h3 class="text-xl font-bold leading-tight mb-1">Riviera Maya</h3>
+                                    <div class="flex items-center gap-1 text-sm text-white/90">
+                                        <span class="material-symbols-outlined text-[16px]">location_on</span>
+                                        México
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-5 flex flex-col gap-3 flex-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-medium px-2 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-600 dark:text-blue-300 rounded-md">Todo Incluido</span>
+                                    <div class="flex items-center gap-1 text-amber-400">
+                                        <span class="material-symbols-outlined text-[18px] fill-current">star</span>
+                                        <span class="text-sm font-bold text-slate-700 dark:text-slate-200">4.8</span>
+                                    </div>
+                                </div>
+                                <div class="mt-auto pt-2 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <span class="text-xs text-slate-500 line-through">$1,560</span>
+                                        <p class="text-lg font-bold text-primary">$1,250 <span class="text-xs font-normal text-slate-500 dark:text-slate-400">/pers</span></p>
+                                    </div>
+                                    <button class="size-10 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined">arrow_forward</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group relative flex flex-col bg-white dark:bg-slate-800 rounded-2xl shadow-soft hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                            <div class="relative aspect-[4/5] overflow-hidden">
+                                <div class="absolute top-3 right-3 z-10 bg-white/90 dark:bg-slate-900/90 backdrop-blur px-3 py-1 rounded-full text-xs font-bold text-slate-900 dark:text-white shadow-sm">
+                                    Popular
+                                </div>
+                                <img alt="Roma" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBvOZnmtASp0jVjnC-VoBVht8dxokWYz468W5fthU-tZMBY8V3XYWoY1dKM1nc0rh34oK976HbDunMj6JPpcbKLkAeaWLeKwAMpOV_SY0XYmQctjGBXVKM_tehi07fWGNglxPH9Z69tQ0k-ZRJOTPxxYLhqi94kU6l3rVIKS_f0ju3CLcJWF1_6Us1Lr4EZEdtZ9PGZsqCIrz3mBvFgqr5La-MqifD3Bkm77LJfj8fuBE8Znmy-VIl-L6_V6jP_6WnQ-Yn7w_ep4x8" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
+                                <div class="absolute bottom-4 left-4 right-4 text-white">
+                                    <h3 class="text-xl font-bold leading-tight mb-1">Roma Histórica</h3>
+                                    <div class="flex items-center gap-1 text-sm text-white/90">
+                                        <span class="material-symbols-outlined text-[16px]">location_on</span>
+                                        Italia
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-5 flex flex-col gap-3 flex-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-medium px-2 py-1 bg-purple-50 dark:bg-purple-900/30 text-purple-600 dark:text-purple-300 rounded-md">Cultural</span>
+                                    <div class="flex items-center gap-1 text-amber-400">
+                                        <span class="material-symbols-outlined text-[18px] fill-current">star</span>
+                                        <span class="text-sm font-bold text-slate-700 dark:text-slate-200">4.9</span>
+                                    </div>
+                                </div>
+                                <div class="mt-auto pt-2 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <span class="text-xs text-slate-500">Precio desde</span>
+                                        <p class="text-lg font-bold text-primary">$890 <span class="text-xs font-normal text-slate-500 dark:text-slate-400">/pers</span></p>
+                                    </div>
+                                    <button class="size-10 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined">arrow_forward</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group relative flex flex-col bg-white dark:bg-slate-800 rounded-2xl shadow-soft hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                            <div class="relative aspect-[4/5] overflow-hidden">
+                                <img alt="Costa Rica" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuChsdn-xnoj8GnjwY1i9jEd82etye7rEOPDqDWDN_ia-N3NNptc_Oy-qlHHuZB06JAsy6wfts-O-_O0avXBNpr4w5X_d6tEhazhFdP3u8VpM975_PuOYLxbqQOmg4SH5u73ct0-Emrzo7JWfIcV_FF_V7UAb-1t8AoA0Legq84dPthoU5flbxxl7nEZdYwI61EkON3_HgllV9So5JNmqUCmTaMlNWOa2Nlg-a_53Gj9y8nuYKgPz55mCdz20v5P8vAEa0M8fDtoJ7Q" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
+                                <div class="absolute bottom-4 left-4 right-4 text-white">
+                                    <h3 class="text-xl font-bold leading-tight mb-1">Selva &amp; Playa</h3>
+                                    <div class="flex items-center gap-1 text-sm text-white/90">
+                                        <span class="material-symbols-outlined text-[16px]">location_on</span>
+                                        Costa Rica
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-5 flex flex-col gap-3 flex-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-medium px-2 py-1 bg-green-50 dark:bg-green-900/30 text-green-600 dark:text-green-300 rounded-md">Aventura</span>
+                                    <div class="flex items-center gap-1 text-amber-400">
+                                        <span class="material-symbols-outlined text-[18px] fill-current">star</span>
+                                        <span class="text-sm font-bold text-slate-700 dark:text-slate-200">5.0</span>
+                                    </div>
+                                </div>
+                                <div class="mt-auto pt-2 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <span class="text-xs text-slate-500">Precio desde</span>
+                                        <p class="text-lg font-bold text-primary">$1,100 <span class="text-xs font-normal text-slate-500 dark:text-slate-400">/pers</span></p>
+                                    </div>
+                                    <button class="size-10 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined">arrow_forward</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group relative flex flex-col bg-white dark:bg-slate-800 rounded-2xl shadow-soft hover:shadow-xl transition-all duration-300 hover:-translate-y-1 overflow-hidden">
+                            <div class="relative aspect-[4/5] overflow-hidden">
+                                <img alt="Kioto" class="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBw-OibS6TVsjp91h43Gt8iRj6_Bmx-t9bdsT-0gf6ikIUVGrCvVEHOcUkj8yNQ14qaC9v3E-oxeTzbobT3VHxJfta8LmyNfeyn4RLb5TMjH_iQ3NmArgAE-VuPcsA7LD0xJ5svNb-lQeEsAU9DGwAb7MbtCydUEcHTaQttH5H4xAhDq_B2EdlVlj90FS2rS6hL4SdvGQ-2j6vvm7_X0FpxVwHNc8rrbc4ypZc6dfLA_1aY-X-s-ljzctYOzSlhzJhWck4YebrcuvM" />
+                                <div class="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-60"></div>
+                                <div class="absolute bottom-4 left-4 right-4 text-white">
+                                    <h3 class="text-xl font-bold leading-tight mb-1">Misticismo Kioto</h3>
+                                    <div class="flex items-center gap-1 text-sm text-white/90">
+                                        <span class="material-symbols-outlined text-[16px]">location_on</span>
+                                        Japón
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="p-5 flex flex-col gap-3 flex-1">
+                                <div class="flex items-center justify-between">
+                                    <span class="text-xs font-medium px-2 py-1 bg-red-50 dark:bg-red-900/30 text-red-600 dark:text-red-300 rounded-md">Exótico</span>
+                                    <div class="flex items-center gap-1 text-amber-400">
+                                        <span class="material-symbols-outlined text-[18px] fill-current">star</span>
+                                        <span class="text-sm font-bold text-slate-700 dark:text-slate-200">4.7</span>
+                                    </div>
+                                </div>
+                                <div class="mt-auto pt-2 border-t border-slate-100 dark:border-slate-700 flex items-center justify-between">
+                                    <div class="flex flex-col">
+                                        <span class="text-xs text-slate-500">Precio desde</span>
+                                        <p class="text-lg font-bold text-primary">$1,800 <span class="text-xs font-normal text-slate-500 dark:text-slate-400">/pers</span></p>
+                                    </div>
+                                    <button class="size-10 rounded-full bg-slate-100 dark:bg-slate-700 text-slate-600 dark:text-slate-300 flex items-center justify-center group-hover:bg-primary group-hover:text-white transition-colors">
+                                        <span class="material-symbols-outlined">arrow_forward</span>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 flex justify-center sm:hidden">
+                        <a class="px-6 py-3 bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-lg text-sm font-semibold text-slate-900 dark:text-white shadow-sm" href="#">Ver todas las ofertas</a>
+                    </div>
+                </div>
+            </section>
+            <section class="py-12 bg-white dark:bg-slate-900/50 border-t border-slate-200 dark:border-slate-800">
+                <div class="max-w-4xl mx-auto px-4 sm:px-6">
+                    <div class="text-center mb-10">
+                        <span class="text-primary text-sm font-bold uppercase tracking-wider mb-2 block">Tu Itinerario</span>
+                        <h2 class="text-3xl font-bold text-slate-900 dark:text-white">Próximas Reservas</h2>
+                    </div>
+                    <div class="space-y-5">
+                        <div class="group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row gap-6 relative overflow-hidden">
+                            <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-primary rounded-l-2xl"></div>
+                            <div class="sm:w-40 h-40 sm:h-auto shrink-0 rounded-xl overflow-hidden relative">
+                                <img alt="Santorini" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCUHT_-9FMw8aV5UGQWc9xXBIzLhGUaDgiQFEtDcYO4haEy7X0OlqQEb2wMjCvEqjsUsLskAgQfolNI7wJkdXBvArbNQDT2LXkrO-YMzEr7JdOYaNZi30y-9WWGOsbdackVqar07Ae73d0zIpvMoOn34GEu9paFdq8BrV3wXnkHk1W_WjkdEgXgLCTm1ICLe1bKzJCWsubLKtXuHnhytThShsPOj8sOaosxbCCpocAgeNB0qkfOyHvxhcuJhXpnJakbW_YWJhWCtdw" />
+                                <div class="absolute inset-0 bg-black/10"></div>
+                            </div>
+                            <div class="flex-1 flex flex-col justify-center">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-300">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-green-500"></span> Confirmado
+                                    </span>
+                                    <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Ref: #TR-8832</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Viaje a Santorini, Grecia</h3>
+                                <div class="grid grid-cols-2 gap-y-2 gap-x-4 mb-4 text-sm">
+                                    <div class="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+                                        <span class="material-symbols-outlined text-[18px] text-primary">calendar_today</span>
+                                        15 Oct - 22 Oct, 2024
+                                    </div>
+                                    <div class="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+                                        <span class="material-symbols-outlined text-[18px] text-primary">flight_takeoff</span>
+                                        Vuelo IB-3024
+                                    </div>
+                                    <div class="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+                                        <span class="material-symbols-outlined text-[18px] text-primary">group</span>
+                                        2 Adultos
+                                    </div>
+                                    <div class="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+                                        <span class="material-symbols-outlined text-[18px] text-primary">hotel</span>
+                                        Oia Sunset Hotel
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <button class="flex-1 sm:flex-none px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-sm font-bold transition-colors">
+                                        Ver Detalles
+                                    </button>
+                                    <button class="flex-1 sm:flex-none px-4 py-2 border border-slate-200 dark:border-slate-600 hover:bg-slate-50 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-300 rounded-lg text-sm font-semibold transition-colors">
+                                        Gestionar
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="group bg-white dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded-2xl p-5 shadow-sm hover:shadow-md transition-all flex flex-col sm:flex-row gap-6 relative overflow-hidden">
+                            <div class="absolute left-0 top-0 bottom-0 w-1.5 bg-amber-500 rounded-l-2xl"></div>
+                            <div class="sm:w-40 h-40 sm:h-auto shrink-0 rounded-xl overflow-hidden relative">
+                                <img alt="Machu Picchu" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAZR1mGZbZhv8ewsnW4piVwaGbraTtJ5RY40kzfAnXOTl3rISRL1S0UiDYgtfzB3b0DGF8O5S9LmZHXBwOKSGQBvhSI6vJxQDUeMoCQvEToBieZyof-05K0tphf3eWJPYi2d87WKnnO7Wq7nU1jHr64mbf8Ah__7TryUNUQzcMKUdAzmoFbqt8R1krfOeRJJQSvTQzbN1CvLvAWoeVysirz-WBQn7C8I-fTTr2P9FsAjjnbaEW8ImzAc4m0o-jOhDFq5snmZBjqJAI" />
+                            </div>
+                            <div class="flex-1 flex flex-col justify-center">
+                                <div class="flex items-center justify-between mb-2">
+                                    <span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-xs font-medium bg-amber-100 text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
+                                        <span class="w-1.5 h-1.5 rounded-full bg-amber-500"></span> Pendiente de pago
+                                    </span>
+                                    <span class="text-xs text-slate-500 dark:text-slate-400 font-medium">Ref: #TR-9901</span>
+                                </div>
+                                <h3 class="text-xl font-bold text-slate-900 dark:text-white mb-2">Aventura en Cusco, Perú</h3>
+                                <div class="grid grid-cols-2 gap-y-2 gap-x-4 mb-4 text-sm">
+                                    <div class="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+                                        <span class="material-symbols-outlined text-[18px] text-amber-500">calendar_today</span>
+                                        05 Nov - 12 Nov, 2024
+                                    </div>
+                                    <div class="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+                                        <span class="material-symbols-outlined text-[18px] text-amber-500">hiking</span>
+                                        Tour Guiado
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-3">
+                                    <button class="flex-1 sm:flex-none px-4 py-2 bg-primary/10 hover:bg-primary/20 text-primary rounded-lg text-sm font-bold transition-colors">
+                                        Ver Detalles
+                                    </button>
+                                    <button class="flex-1 sm:flex-none px-4 py-2 bg-amber-50 hover:bg-amber-100 dark:bg-amber-900/20 dark:hover:bg-amber-900/30 text-amber-700 dark:text-amber-300 border border-amber-200 dark:border-amber-800 rounded-lg text-sm font-semibold transition-colors">
+                                        Completar Pago
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8 text-center">
+                        <a class="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 hover:text-primary transition-colors" href="#">
+                            Ver historial de viajes
+                            <span class="material-symbols-outlined text-[18px]">history</span>
+                        </a>
+                    </div>
+                </div>
+            </section>
+        </main>
+        <footer class="bg-white dark:bg-background-dark border-t border-slate-200 dark:border-slate-800 pt-16 pb-8">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-8 mb-12">
+                    <div class="col-span-2 lg:col-span-2 pr-8">
+                        <div class="flex items-center gap-2 mb-6">
+                            <div class="size-8 text-primary">
+                                <svg fill="none" viewBox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M44 11.2727C44 14.0109 39.8386 16.3957 33.69 17.6364C39.8386 18.877 44 21.2618 44 24C44 26.7382 39.8386 29.123 33.69 30.3636C39.8386 31.6043 44 33.9891 44 36.7273C44 40.7439 35.0457 44 24 44C12.9543 44 4 40.7439 4 36.7273C4 33.9891 8.16144 31.6043 14.31 30.3636C8.16144 29.123 4 26.7382 4 24C4 21.2618 8.16144 18.877 14.31 17.6364C8.16144 16.3957 4 14.0109 4 11.2727C4 7.25611 12.9543 4 24 4C35.0457 4 44 7.25611 44 11.2727Z" fill="currentColor"></path>
+                                </svg>
+                            </div>
+                            <span class="text-xl font-bold text-slate-900 dark:text-white">TurismoAventura</span>
+                        </div>
+                        <p class="text-slate-500 dark:text-slate-400 text-sm leading-relaxed mb-6">
+                            Hacemos que tus sueños de viaje se hagan realidad con experiencias personalizadas y destinos inolvidables alrededor del mundo.
+                        </p>
+                        <div class="flex gap-4">
+                            <a class="size-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-primary hover:text-white transition-colors" href="#">
+                                <svg aria-hidden="true" class="size-4" fill="currentColor" viewBox="0 0 24 24"><path clip-rule="evenodd" d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z" fill-rule="evenodd"></path></svg>
+                            </a>
+                            <a class="size-8 flex items-center justify-center rounded-full bg-slate-100 dark:bg-slate-800 text-slate-500 hover:bg-primary hover:text-white transition-colors" href="#">
+                                <svg aria-hidden="true" class="size-4" fill="currentColor" viewBox="0 0 24 24"><path clip-rule="evenodd" d="M12.315 2c2.43 0 2.784.013 3.808.06 1.064.049 1.791.218 2.427.465a4.902 4.902 0 011.772 1.153 4.902 4.902 0 011.153 1.772c.247.636.416 1.363.465 2.427.048 1.067.06 1.407.06 4.123v.08c0 2.643-.012 2.987-.06 4.043-.049 1.064-.218 1.791-.465 2.427a4.902 4.902 0 01-1.153 1.772 4.902 4.902 0 01-1.772 1.153c-.636.247-1.363.416-2.427.465-1.067.048-1.407.06-4.123.06h-.08c-2.643 0-2.987-.012-4.043-.06-1.064-.049-1.791-.218-2.427-.465a4.902 4.902 0 01-1.772-1.153 4.902 4.902 0 01-1.153-1.772c-.247-.636-.416-1.363-.465-2.427-.047-1.024-.06-1.379-.06-3.808v-.63c0-2.43.013-2.784.06-3.808.049-1.064.218-1.791.465-2.427a4.902 4.902 0 011.153-1.772A4.902 4.902 0 015.468 2.53c.636-.247 1.363-.416 2.427-.465C8.901 2.013 9.256 2 11.685 2h.63zm-.081 1.802h-.468c-2.456 0-2.784.011-3.807.058-.975.045-1.504.207-1.857.344-.467.182-.8.398-1.15.748-.35.35-.566.683-.748 1.15-.137.353-.3.882-.344 1.857-.047 1.023-.058 1.351-.058 3.807v.468c0 2.456.011 2.784.058 3.807.045.975.207 1.504.344 1.857.182.466.399.8.748 1.15.35.35.683.566 1.15.748.353.137.882.3 1.857.344 1.054.048 1.37.058 4.041.058h.08c2.597 0 2.917-.01 3.96-.058.976-.045 1.505-.207 1.858-.344.466-.182.8-.398 1.15-.748.35-.35.566-.683.748-1.15.137-.353.3-.882.344-1.857.048-1.055.058-1.37.058-4.041v-.08c0-2.597-.01-2.917-.058-3.96-.045-.976-.207-1.505-.344-1.858a3.097 3.097 0 00-.748-1.15 3.098 3.098 0 00-1.15-.748c-.353-.137-.882-.3-1.857-.344-1.023-.047-1.351-.058-3.807-.058zM12 6.865a5.135 5.135 0 110 10.27 5.135 5.135 0 010-10.27zm0 1.802a3.333 3.333 0 100 6.666 3.333 3.333 0 000-6.666zm5.338-3.205a1.2 1.2 0 110 2.4 1.2 1.2 0 010-2.4z" fill-rule="evenodd"></path></svg>
+                            </a>
+                        </div>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Descubrir</h3>
+                        <ul class="space-y-3">
+                            <li><a class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Destinos Populares</a></li>
+                            <li><a class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Ofertas Flash</a></li>
+                            <li><a class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Blog de Viajes</a></li>
+                            <li><a class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Nuevas Rutas</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Soporte</h3>
+                        <ul class="space-y-3">
+                            <li><a class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Centro de Ayuda</a></li>
+                            <li><a class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Contacto</a></li>
+                            <li><a class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Política de Cancelación</a></li>
+                            <li><a class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Mapa del Sitio</a></li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 class="text-sm font-semibold text-slate-900 dark:text-white uppercase tracking-wider mb-4">Empresa</h3>
+                        <ul class="space-y-3">
+                            <li><a class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Sobre Nosotros</a></li>
+                            <li><a class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Carreras</a></li>
+                            <li><a class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Términos y Condiciones</a></li>
+                            <li><a class="text-sm text-slate-600 dark:text-slate-400 hover:text-primary transition-colors" href="#">Privacidad</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="border-t border-slate-200 dark:border-slate-800 pt-8 flex flex-col md:flex-row items-center justify-between gap-4">
+                    <p class="text-sm text-slate-500 text-center md:text-left">© 2024 TurismoAventura. Todos los derechos reservados.</p>
+                    <div class="flex items-center gap-6">
+                        <span class="flex items-center gap-2 text-sm text-slate-500">
+                            <span class="material-symbols-outlined text-[18px]">language</span> Español
+                        </span>
+                        <span class="flex items-center gap-2 text-sm text-slate-500">
+                            <span class="material-symbols-outlined text-[18px]">currency_exchange</span> USD ($)
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,340 @@
+﻿@{
+    Layout = "_LayoutUsuarios";
+    ViewData["UseTailwind"] = "true";
+}
+
+<!DOCTYPE html>
+
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Página Principal del Cliente - Viajes Admin</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200..800&amp;family=Noto+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#2b7cee",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101822",
+                    },
+                    fontFamily: {
+                        "display": ["Plus Jakarta Sans", "Noto Sans", "sans-serif"],
+                        "body": ["Noto Sans", "sans-serif"]
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.5rem",
+                        "lg": "0.75rem",
+                        "xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-[#111418] dark:text-white font-display min-h-screen flex flex-col">
+
+  
+    <main class="flex-grow">
+        <!-- Hero & Welcome Section -->
+        <section class="max-w-[1200px] mx-auto px-6 py-10">
+            <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-8">
+                <div class="flex flex-col gap-2">
+                    <h1 class="text-[#111418] dark:text-white text-4xl font-black leading-tight tracking-[-0.033em]">
+                        Hola, @User.Identity?.Name
+                    </h1>
+
+                    <p class="text-[#617289] dark:text-[#9ca3af] text-lg font-normal">¿A dónde te gustaría viajar hoy?</p>
+                </div>
+                <div class="hidden md:block text-right">
+                    <p class="text-xs font-semibold text-[#617289] dark:text-[#9ca3af] uppercase tracking-wider mb-1">Membresía Platinum</p>
+                    <div class="flex items-center gap-1 justify-end text-primary font-bold">
+                        <span class="material-symbols-outlined text-sm">stars</span>
+                        <span>2,450 Puntos</span>
+                    </div>
+                </div>
+            </div>
+            <!-- Enhanced Search Bar -->
+            <div class="bg-white dark:bg-[#1e293b] p-6 rounded-2xl shadow-sm border border-[#e5e7eb] dark:border-[#334155] mb-10">
+                <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+                    <!-- Destination -->
+                    <div class="md:col-span-5">
+                        <label class="block text-xs font-bold text-[#617289] dark:text-[#9ca3af] mb-2 uppercase tracking-wide">Destino</label>
+                        <div class="relative flex items-center h-12 w-full rounded-lg bg-[#f0f2f4] dark:bg-[#0f172a] focus-within:ring-2 focus-within:ring-primary/50 transition-all">
+                            <div class="text-[#617289] dark:text-[#9ca3af] flex items-center justify-center pl-4">
+                                <span class="material-symbols-outlined">location_on</span>
+                            </div>
+                            <input class="w-full bg-transparent border-none text-[#111418] dark:text-white placeholder:text-[#94a3b8] focus:ring-0 px-3 text-base" placeholder="¿A dónde vas?" value="" />
+                        </div>
+                    </div>
+                    <!-- Dates -->
+                    <div class="md:col-span-3">
+                        <label class="block text-xs font-bold text-[#617289] dark:text-[#9ca3af] mb-2 uppercase tracking-wide">Fechas</label>
+                        <div class="relative flex items-center h-12 w-full rounded-lg bg-[#f0f2f4] dark:bg-[#0f172a] focus-within:ring-2 focus-within:ring-primary/50 transition-all cursor-pointer">
+                            <div class="text-[#617289] dark:text-[#9ca3af] flex items-center justify-center pl-4">
+                                <span class="material-symbols-outlined">calendar_today</span>
+                            </div>
+                            <input class="w-full bg-transparent border-none text-[#111418] dark:text-white placeholder:text-[#94a3b8] focus:ring-0 px-3 text-base" placeholder="Añadir fechas" readonly="" />
+                        </div>
+                    </div>
+                    <!-- Travelers -->
+                    <div class="md:col-span-2">
+                        <label class="block text-xs font-bold text-[#617289] dark:text-[#9ca3af] mb-2 uppercase tracking-wide">Viajeros</label>
+                        <div class="relative flex items-center h-12 w-full rounded-lg bg-[#f0f2f4] dark:bg-[#0f172a] focus-within:ring-2 focus-within:ring-primary/50 transition-all cursor-pointer">
+                            <div class="text-[#617289] dark:text-[#9ca3af] flex items-center justify-center pl-4">
+                                <span class="material-symbols-outlined">group</span>
+                            </div>
+                            <select class="w-full bg-transparent border-none text-[#111418] dark:text-white focus:ring-0 px-3 text-base appearance-none cursor-pointer">
+                                <option>2 Adultos</option>
+                                <option>1 Adulto</option>
+                                <option>Familia</option>
+                            </select>
+                        </div>
+                    </div>
+                    <!-- Search Button -->
+                    <div class="md:col-span-2">
+                        <button class="w-full h-12 bg-primary hover:bg-primary/90 text-white font-bold rounded-lg transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/30">
+                            <span class="material-symbols-outlined">search</span>
+                            <span>Buscar</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <!-- Dashboard Widgets Row -->
+            <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-12">
+                <!-- Active Trip Card (Prominent) -->
+                <div class="lg:col-span-2 bg-gradient-to-r from-blue-50 to-white dark:from-[#1e293b] dark:to-[#111827] rounded-xl border border-blue-100 dark:border-[#334155] p-6 relative overflow-hidden group">
+                    <div class="absolute top-0 right-0 p-4 opacity-10 dark:opacity-5 text-primary pointer-events-none">
+                        <span class="material-symbols-outlined text-[180px] leading-none">flight_takeoff</span>
+                    </div>
+                    <div class="relative z-10 flex flex-col h-full justify-between">
+                        <div class="flex justify-between items-start mb-4">
+                            <div>
+                                <h3 class="text-primary font-bold uppercase tracking-wider text-xs mb-1">Tu viaje activo</h3>
+                                <h2 class="text-[#111418] dark:text-white text-2xl font-bold">Cancún, México</h2>
+                                <p class="text-[#617289] dark:text-[#9ca3af] text-sm mt-1">15 Oct - 22 Oct, 2023 • 2 Adultos</p>
+                            </div>
+                            <span class="bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-400 text-xs font-bold px-3 py-1 rounded-full border border-green-200 dark:border-green-800">Confirmado</span>
+                        </div>
+                        <div class="flex gap-4 items-center mt-4">
+                            <div class="flex -space-x-2">
+                                <div class="w-8 h-8 rounded-full border-2 border-white dark:border-[#1e293b] bg-gray-200 bg-cover bg-center" data-alt="Traveler avatar 1" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCK9n-H2XVgK9N3mzihS4bBH01wBXSkNDO2pqf6ymLQ9BeW3Z3SNbLnOTn2GWr9pCm282AeLvECGFGavRgvTQAH0kMgX7V3guhp-_HyYrjXZbnPlEJoveBw-sznCZypXWxQX1QgX3kbrSLFgrWQRu2UpevNpip3WxPdWFxX-RV1aoV7MPb_02h73NkiznNjM_i98yfRPep59xng4J6yXyK5d9uA0RYiV_1HTBw7iTODxyv_Y0Cbv15LdeFvub9ZTPj3uGUrINR5rNs');"></div>
+                                <div class="w-8 h-8 rounded-full border-2 border-white dark:border-[#1e293b] bg-gray-200 bg-cover bg-center" data-alt="Traveler avatar 2" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBV9c8MmeS2bsyNz-jpWE43HssnlHl3pQiuB2PZaNNie7YPSif3h6M2lhvhvVuzmZqywPRcCcwjomWVzHCvzJ4UP5rJKThhZUStSd6RlTPR7QFyVda9zWcAUx4GJ8c8LLYqeaPBDcWdh3l2wMxXfc1LwHDtajLLhzYDrVDHJI4UCwKIfFhpA0gQSPavUpuzPkItDacS-LqBCtQG598DTWiRBtLfUouCx4hLmImUCJxu0T8Uu6wQzg46BtnxS3KX3PECZywdJ8cC7sI');"></div>
+                            </div>
+                            <div class="h-8 w-[1px] bg-gray-200 dark:bg-gray-700"></div>
+                            <div class="flex gap-3">
+                                <button class="text-sm font-semibold text-[#111418] dark:text-white hover:text-primary dark:hover:text-primary transition-colors flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-lg">receipt_long</span> Ticket
+                                </button>
+                                <button class="text-sm font-semibold text-[#111418] dark:text-white hover:text-primary dark:hover:text-primary transition-colors flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-lg">hotel</span> Hotel
+                                </button>
+                            </div>
+                            <div class="flex-1"></div>
+                            <button class="bg-white dark:bg-[#334155] text-[#111418] dark:text-white hover:bg-gray-50 dark:hover:bg-[#475569] border border-gray-200 dark:border-gray-600 font-medium text-sm px-4 py-2 rounded-lg transition-colors shadow-sm">
+                                Gestionar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <!-- Quick Stats Stack -->
+                <div class="grid grid-rows-2 gap-4">
+                    <div class="bg-white dark:bg-[#1e293b] p-5 rounded-xl border border-[#e5e7eb] dark:border-[#334155] flex items-center justify-between">
+                        <div>
+                            <p class="text-[#617289] dark:text-[#9ca3af] text-sm font-medium">Destinos Guardados</p>
+                            <p class="text-[#111418] dark:text-white text-2xl font-bold mt-1">12</p>
+                        </div>
+                        <div class="size-10 rounded-full bg-red-50 dark:bg-red-900/20 flex items-center justify-center text-red-500">
+                            <span class="material-symbols-outlined">favorite</span>
+                        </div>
+                    </div>
+                    <div class="bg-white dark:bg-[#1e293b] p-5 rounded-xl border border-[#e5e7eb] dark:border-[#334155] flex items-center justify-between">
+                        <div>
+                            <p class="text-[#617289] dark:text-[#9ca3af] text-sm font-medium">Alertas de Precio</p>
+                            <p class="text-[#111418] dark:text-white text-2xl font-bold mt-1">3</p>
+                        </div>
+                        <div class="size-10 rounded-full bg-yellow-50 dark:bg-yellow-900/20 flex items-center justify-center text-yellow-600 dark:text-yellow-500">
+                            <span class="material-symbols-outlined">notifications_active</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Featured Offers Section -->
+            <div class="mb-6 flex items-center justify-between">
+                <h2 class="text-[#111418] dark:text-white text-2xl font-bold tracking-tight">Ofertas destacadas para ti</h2>
+                <a class="text-primary font-semibold text-sm hover:underline flex items-center gap-1" href="#">
+                    Ver todas <span class="material-symbols-outlined text-base">arrow_forward</span>
+                </a>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12">
+                <!-- Offer Card 1 -->
+                <article class="group bg-white dark:bg-[#1e293b] rounded-xl overflow-hidden border border-[#e5e7eb] dark:border-[#334155] shadow-sm hover:shadow-md transition-shadow">
+                    <div class="relative h-48 overflow-hidden">
+                        <div class="absolute top-3 left-3 bg-primary text-white text-xs font-bold px-2 py-1 rounded shadow-sm z-10">Oferta Especial</div>
+                        <div class="absolute top-3 right-3 z-10">
+                            <button class="bg-white/80 dark:bg-black/50 hover:bg-white dark:hover:bg-black p-1.5 rounded-full backdrop-blur-sm text-[#111418] dark:text-white transition-colors">
+                                <span class="material-symbols-outlined text-lg block">favorite</span>
+                            </button>
+                        </div>
+                        <img alt="Paris city skyline with Eiffel Tower" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuADhhUMAGZtW-r6BzHLtnguzmEYXEUafhyh9akHoOO1IoQoa4ja12lw6vuvXuq4JXp6PbuIZMEsMuPehuI1oO4u-M5H7skzwjIHIQA60FHYdEh4vSu5Bs-iPR8Bnul9hjHgN03qBAU_TCnNkSak93SHe2BBSauRq-M_K_TCKPvZ3I0GaITNWFisEzNIGVVfFniuMrz2gPa2riKDTBzELH_M-ArxHD4Hd5zlZzTStJ9y58Qv17iTDfVen6SgsUfbpq7Y5CZuPOdFEHw" />
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="text-lg font-bold text-[#111418] dark:text-white">Escapada a París</h3>
+                                <p class="text-[#617289] dark:text-[#9ca3af] text-sm flex items-center gap-1 mt-1">
+                                    <span class="material-symbols-outlined text-sm">location_on</span> Francia
+                                </p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xs text-[#617289] dark:text-[#9ca3af] line-through">$1,200</p>
+                                <p class="text-xl font-bold text-primary">$850</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 my-4 text-xs font-medium text-[#617289] dark:text-[#9ca3af]">
+                            <span class="flex items-center gap-1 bg-[#f0f2f4] dark:bg-[#0f172a] px-2 py-1 rounded">
+                                <span class="material-symbols-outlined text-sm">calendar_month</span> 5 Días
+                            </span>
+                            <span class="flex items-center gap-1 bg-[#f0f2f4] dark:bg-[#0f172a] px-2 py-1 rounded">
+                                <span class="material-symbols-outlined text-sm">flight</span> Vuelo incl.
+                            </span>
+                        </div>
+                        <button class="w-full py-2.5 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white font-bold text-sm transition-colors">
+                            Ver Detalles
+                        </button>
+                    </div>
+                </article>
+                <!-- Offer Card 2 -->
+                <article class="group bg-white dark:bg-[#1e293b] rounded-xl overflow-hidden border border-[#e5e7eb] dark:border-[#334155] shadow-sm hover:shadow-md transition-shadow">
+                    <div class="relative h-48 overflow-hidden">
+                        <div class="absolute top-3 left-3 bg-[#111418] text-white text-xs font-bold px-2 py-1 rounded shadow-sm z-10">Popular</div>
+                        <div class="absolute top-3 right-3 z-10">
+                            <button class="bg-white/80 dark:bg-black/50 hover:bg-white dark:hover:bg-black p-1.5 rounded-full backdrop-blur-sm text-[#111418] dark:text-white transition-colors">
+                                <span class="material-symbols-outlined text-lg block">favorite</span>
+                            </button>
+                        </div>
+                        <img alt="Traditional Japanese street in Tokyo" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBk_Ro-rL5YorpnW1rMC-K06Io0J5pFECO-bSmCGt9fRJCN2-5vP2rEXA_5DcoX61vtJ9C_yhAVuVKkSJ7Aqj_gXyUL7QViNZaQUxMBNGJQ2OHmewVFXjTFkxJnWJ-QkygGnKdS998qWtFbJkXzDZ6xiqlay8kbmKrT5HfS9EsmIB3aZkdHS1rxpGTcgWrVZWug4zGOLNFxVYgx1i6mXMzNDp6NNDLDe6HHn9BAvosHajpR8zH1dYzuL9bTeFQopZ5gLFscXMuyNhA" />
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="text-lg font-bold text-[#111418] dark:text-white">Japón Tradicional</h3>
+                                <p class="text-[#617289] dark:text-[#9ca3af] text-sm flex items-center gap-1 mt-1">
+                                    <span class="material-symbols-outlined text-sm">location_on</span> Japón
+                                </p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xl font-bold text-primary">$1,200</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 my-4 text-xs font-medium text-[#617289] dark:text-[#9ca3af]">
+                            <span class="flex items-center gap-1 bg-[#f0f2f4] dark:bg-[#0f172a] px-2 py-1 rounded">
+                                <span class="material-symbols-outlined text-sm">calendar_month</span> 10 Días
+                            </span>
+                            <span class="flex items-center gap-1 bg-[#f0f2f4] dark:bg-[#0f172a] px-2 py-1 rounded">
+                                <span class="material-symbols-outlined text-sm">local_activity</span> Tour
+                            </span>
+                        </div>
+                        <button class="w-full py-2.5 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white font-bold text-sm transition-colors">
+                            Ver Detalles
+                        </button>
+                    </div>
+                </article>
+                <!-- Offer Card 3 -->
+                <article class="group bg-white dark:bg-[#1e293b] rounded-xl overflow-hidden border border-[#e5e7eb] dark:border-[#334155] shadow-sm hover:shadow-md transition-shadow">
+                    <div class="relative h-48 overflow-hidden">
+                        <div class="absolute top-3 left-3 bg-green-600 text-white text-xs font-bold px-2 py-1 rounded shadow-sm z-10">Nuevo</div>
+                        <div class="absolute top-3 right-3 z-10">
+                            <button class="bg-white/80 dark:bg-black/50 hover:bg-white dark:hover:bg-black p-1.5 rounded-full backdrop-blur-sm text-[#111418] dark:text-white transition-colors">
+                                <span class="material-symbols-outlined text-lg block">favorite</span>
+                            </button>
+                        </div>
+                        <img alt="Tropical Bali landscape with temple" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAtWyRGHHS0NXKQ_mTwWqY7s4CCtLikPHaRV8TyLwBKVw0dn38gxdfMFn6P2YCg9G63lu2qxqTSXujRU_TgeO_XUubXzfoh7NcLTe03ZF7AbCc2yy5l3uP-ON7CuQ7PBTyaUgXbRYyn9h-9xiyXKxhP-iDUDNWlq6X2f3g2CqJEPKSkPtpT9gOrCFr8lzW4CarxrUYPU1orZORe8wIONUV6gdNIpqtWFec2IMsVv1aRzL2gx4ono4WUwz6WgEjD6KTxBoz79vML0IY" />
+                    </div>
+                    <div class="p-5">
+                        <div class="flex justify-between items-start mb-2">
+                            <div>
+                                <h3 class="text-lg font-bold text-[#111418] dark:text-white">Relax en Bali</h3>
+                                <p class="text-[#617289] dark:text-[#9ca3af] text-sm flex items-center gap-1 mt-1">
+                                    <span class="material-symbols-outlined text-sm">location_on</span> Indonesia
+                                </p>
+                            </div>
+                            <div class="text-right">
+                                <p class="text-xl font-bold text-primary">$950</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 my-4 text-xs font-medium text-[#617289] dark:text-[#9ca3af]">
+                            <span class="flex items-center gap-1 bg-[#f0f2f4] dark:bg-[#0f172a] px-2 py-1 rounded">
+                                <span class="material-symbols-outlined text-sm">calendar_month</span> 7 Días
+                            </span>
+                            <span class="flex items-center gap-1 bg-[#f0f2f4] dark:bg-[#0f172a] px-2 py-1 rounded">
+                                <span class="material-symbols-outlined text-sm">spa</span> Spa
+                            </span>
+                        </div>
+                        <button class="w-full py-2.5 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white font-bold text-sm transition-colors">
+                            Ver Detalles
+                        </button>
+                    </div>
+                </article>
+            </div>
+            <!-- Categories / Quick Access -->
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
+                <a class="bg-white dark:bg-[#1e293b] p-6 rounded-xl border border-[#e5e7eb] dark:border-[#334155] flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors group" href="#">
+                    <div class="size-12 rounded-full bg-blue-50 dark:bg-blue-900/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-white transition-colors">
+                        <span class="material-symbols-outlined">beach_access</span>
+                    </div>
+                    <span class="font-bold text-[#111418] dark:text-white">Playa</span>
+                </a>
+                <a class="bg-white dark:bg-[#1e293b] p-6 rounded-xl border border-[#e5e7eb] dark:border-[#334155] flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors group" href="#">
+                    <div class="size-12 rounded-full bg-orange-50 dark:bg-orange-900/20 flex items-center justify-center text-orange-500 group-hover:bg-orange-500 group-hover:text-white transition-colors">
+                        <span class="material-symbols-outlined">hiking</span>
+                    </div>
+                    <span class="font-bold text-[#111418] dark:text-white">Aventura</span>
+                </a>
+                <a class="bg-white dark:bg-[#1e293b] p-6 rounded-xl border border-[#e5e7eb] dark:border-[#334155] flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors group" href="#">
+                    <div class="size-12 rounded-full bg-purple-50 dark:bg-purple-900/20 flex items-center justify-center text-purple-500 group-hover:bg-purple-500 group-hover:text-white transition-colors">
+                        <span class="material-symbols-outlined">museum</span>
+                    </div>
+                    <span class="font-bold text-[#111418] dark:text-white">Cultura</span>
+                </a>
+                <a class="bg-white dark:bg-[#1e293b] p-6 rounded-xl border border-[#e5e7eb] dark:border-[#334155] flex flex-col items-center justify-center gap-3 hover:border-primary/50 transition-colors group" href="#">
+                    <div class="size-12 rounded-full bg-green-50 dark:bg-green-900/20 flex items-center justify-center text-green-500 group-hover:bg-green-500 group-hover:text-white transition-colors">
+                        <span class="material-symbols-outlined">eco</span>
+                    </div>
+                    <span class="font-bold text-[#111418] dark:text-white">Ecoturismo</span>
+                </a>
+            </div>
+        </section>
+    </main>
+    <footer class="bg-white dark:bg-[#111418] border-t border-[#f0f2f4] dark:border-[#22303e] py-10 px-6">
+        <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div class="text-[#617289] dark:text-[#9ca3af] text-sm">
+                © 2023 Viajes Admin. Todos los derechos reservados.
+            </div>
+            <div class="flex gap-6">
+                <a class="text-[#617289] dark:text-[#9ca3af] hover:text-primary transition-colors" href="#">
+                    <span class="material-symbols-outlined">social_leaderboard</span>
+                </a>
+                <a class="text-[#617289] dark:text-[#9ca3af] hover:text-primary transition-colors" href="#">
+                    <span class="material-symbols-outlined">photo_camera</span> <!-- Instagram proxy -->
+                </a>
+                <a class="text-[#617289] dark:text-[#9ca3af] hover:text-primary transition-colors" href="#">
+                    <span class="material-symbols-outlined">alternate_email</span> <!-- Twitter/X proxy -->
+                </a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

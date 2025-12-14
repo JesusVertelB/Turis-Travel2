@@ -1,4 +1,4 @@
-using System.Diagnostics;
+﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Turis_Travel2.Models;
 
@@ -8,7 +8,14 @@ namespace Turis_Travel2.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            // Si el usuario está autenticado → redirige al HomeUsuarioController
+            if (User.Identity != null && User.Identity.IsAuthenticated)
+            {
+                return RedirectToAction("Index", "HomeUsuario");
+            }
+
+            // Usuario NO logueado → Home público
+            return View("HomePublico");
         }
 
         public IActionResult Privacy()
@@ -19,7 +26,10 @@ namespace Turis_Travel2.Controllers
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            return View(new ErrorViewModel
+            {
+                RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier
+            });
         }
     }
 }

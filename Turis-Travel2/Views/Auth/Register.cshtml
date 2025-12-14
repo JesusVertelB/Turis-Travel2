@@ -1,104 +1,83 @@
-﻿@model Turis_Travel2.Models.Scaffolded.Usuario
-@{
+﻿@{
     ViewData["Title"] = "Registro";
 }
 
-<!-- ESTILOS COMPLETOS (Bootstrap + personalizados) -->
-<style>
-    /* ===============================
-           TARJETA GENERAL DEL FORMULARIO
-           =============================== */
-    .register-card {
-        width: 100%;
-        max-width: 420px;
-        border-radius: 20px;
-        border: none;
-    }
+<!-- TAILWIND -->
+<script src="https://cdn.tailwindcss.com"></script>
 
-    .bg-register {
-        background-color: #f5f7fa !important;
-    }
+<div class="min-h-screen flex items-center justify-center bg-gray-100">
 
-    /* ===============================
-           INPUTS Y VALIDACIONES
-           =============================== */
-    .form-control:focus {
-        border-color: #007AA2;
-        box-shadow: 0 0 0 0.2rem rgba(0, 122, 162, 0.25);
-    }
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-8">
 
-    .text-danger {
-        font-size: 0.85rem;
-    }
-
-    /* ===============================
-           BOTONES
-           =============================== */
-    .custom-btn {
-        background-color: #007AA2;
-        border-color: #007AA2;
-    }
-
-        .custom-btn:hover {
-            background-color: #006488;
-            border-color: #006488;
-        }
-
-    a.text-primary:hover {
-        text-decoration: underline !important;
-    }
-</style>
-
-
-
-<!-- FORMULARIO DE REGISTRO -->
-<div class="d-flex align-items-center justify-content-center bg-register min-vh-100">
-    <div class="card shadow-lg p-4 register-card">
-
-        <h2 class="text-center mb-4 fw-bold text-dark">Crear cuenta</h2>
+        <h2 class="text-2xl font-bold text-center text-gray-800 mb-6">
+            Crear Cuenta
+        </h2>
 
         @if (ViewBag.Error != null)
         {
-            <div class="alert alert-danger">
+            <div class="mb-4 rounded-lg bg-red-100 text-red-700 px-4 py-3 text-sm">
                 @ViewBag.Error
             </div>
         }
 
-        <form asp-action="Register" method="post">
+        <form asp-action="Register" method="post" class="space-y-5">
 
-            <div class="mb-3">
-                <label asp-for="Nombre_usuario" class="form-label">Nombre de usuario</label>
-                <input asp-for="Nombre_usuario" class="form-control" />
-                <span asp-validation-for="Nombre_usuario" class="text-danger"></span>
+            <!-- NOMBRE -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Nombre completo
+                </label>
+                <input type="text"
+                       name="Nombre"
+                       required
+                       class="w-full rounded-lg border border-gray-300 px-4 py-2
+                              focus:outline-none focus:ring-2 focus:ring-[#007AA2]
+                              focus:border-[#007AA2]" />
             </div>
 
-            <div class="mb-3">
-                <label asp-for="Correo" class="form-label">Correo electrónico</label>
-                <input asp-for="Correo" type="email" class="form-control" />
-                <span asp-validation-for="Correo" class="text-danger"></span>
+            <!-- CORREO -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Correo electrónico
+                </label>
+                <input type="email"
+                       name="Correo"
+                       required
+                       class="w-full rounded-lg border border-gray-300 px-4 py-2
+                              focus:outline-none focus:ring-2 focus:ring-[#007AA2]
+                              focus:border-[#007AA2]" />
             </div>
 
-            <div class="mb-3">
-                <label asp-for="Contrasena" class="form-label">Contraseña</label>
-                <input asp-for="Contrasena" type="password" class="form-control" />
-                <span asp-validation-for="Contrasena" class="text-danger"></span>
+            <!-- CONTRASEÑA -->
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-1">
+                    Contraseña
+                </label>
+                <input type="password"
+                       name="Contrasena"
+                       required
+                       class="w-full rounded-lg border border-gray-300 px-4 py-2
+                              focus:outline-none focus:ring-2 focus:ring-[#007AA2]
+                              focus:border-[#007AA2]" />
             </div>
 
-            <button type="submit" class="btn btn-primary w-100 py-2 fw-semibold custom-btn">
-                Registrarse
+            <!-- BOTÓN -->
+            <button type="submit"
+                    class="w-full bg-[#007AA2] text-white py-2 rounded-lg
+                           font-semibold hover:bg-[#006488] transition">
+                Registrarme
             </button>
         </form>
 
-        <p class="text-center mt-4">
+        <!-- VOLVER A LOGIN -->
+        <p class="text-center text-sm text-gray-600 mt-6">
             ¿Ya tienes cuenta?
-            <a asp-action="Login" class="text-primary fw-semibold text-decoration-none">
+            <a asp-action="Login"
+               class="text-[#007AA2] font-semibold hover:underline">
                 Inicia sesión
             </a>
         </p>
+
     </div>
+
 </div>
-
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-}
-
