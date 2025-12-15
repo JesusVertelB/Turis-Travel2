@@ -21,6 +21,8 @@
         }
 
         <form asp-action="Register" method="post" class="space-y-5">
+            @Html.AntiForgeryToken()
+
 
             <!-- NOMBRE -->
             <div>
@@ -28,7 +30,7 @@
                     Nombre completo
                 </label>
                 <input type="text"
-                       name="Nombre"
+                       name="Nombre_usuario"
                        required
                        class="w-full rounded-lg border border-gray-300 px-4 py-2
                               focus:outline-none focus:ring-2 focus:ring-[#007AA2]

@@ -17,12 +17,14 @@ public partial class Permiso
 
     public int ID_modulo { get; set; }
 
-    public int? Estado_permiso { get; set; }
+    public int? Estado_permiso { get; set; } = 1;
 
+    // Relacion con modulo
     [ForeignKey("ID_modulo")]
     [InverseProperty("Permisos")]
     public virtual Modulo ID_moduloNavigation { get; set; } = null!;
 
+    // Relacion con rol
     [ForeignKey("ID_rol")]
     [InverseProperty("Permisos")]
     public virtual Role ID_rolNavigation { get; set; } = null!;

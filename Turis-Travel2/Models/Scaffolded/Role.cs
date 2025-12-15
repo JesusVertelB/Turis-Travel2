@@ -18,6 +18,7 @@ public partial class Role
     public int? Estado_rol { get; set; }
 
     [InverseProperty("ID_rolNavigation")]
+    [Required(ErrorMessage = "El nombre del rol es obligatorio")]
     public virtual ICollection<Permiso> Permisos { get; set; } = new List<Permiso>();
 
     [InverseProperty("ID_rolNavigation")]
