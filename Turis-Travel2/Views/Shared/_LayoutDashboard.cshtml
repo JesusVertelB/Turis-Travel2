@@ -4,6 +4,11 @@
     var nombre = User.FindFirstValue(ClaimTypes.Name);
     var correo = User.FindFirstValue(ClaimTypes.Email);
     var rol = User.FindFirstValue(ClaimTypes.Role);
+    var iniciales = !string.IsNullOrEmpty(nombre)
+       ? (nombre.Split(' ').Length > 1
+           ? $"{nombre.Split(' ')[0][0]}{nombre.Split(' ')[1][0]}"
+           : nombre.Substring(0, Math.Min(2, nombre.Length))).ToUpper()
+       : "AD";
 }
 
 @* Layout del Dashboard — Turis Travel *@
@@ -29,47 +34,125 @@
 
         <!-- SIDEBAR -->
         <aside class="sidebar shadow-sm">
+
+            <!-- LOGO / TITULO -->
             <div class="sidebar-header">
-                <h3 class="sidebar-title">Agencia de Viajes</h3>
+                <h3 class="sidebar-title">Turis Travel</h3>
+                <span class="sidebar-subtitle">Panel Administrativo</span>
             </div>
 
+            <!-- MENU -->
             <ul class="sidebar-menu">
+
+                <!-- DASHBOARD -->
+                <li class="menu-section">General</li>
                 <li>
-                    <a asp-controller="Dashboard" asp-action="Index">Dashboard</a>
+                    <a asp-controller="Dashboard" asp-action="Index">
+                        <i class="bi bi-speedometer2"></i>
+                        <span>Dashboard</span>
+                    </a>
                 </li>
 
                 @if (User.IsInRole("Admin"))
                 {
-                    <li><a asp-controller="AdminUsuarios" asp-action="Index">Usuarios</a></li>
-                    <li><a asp-controller="Reservas" asp-action="Index">Reservas</a></li>
-                    <li><a asp-controller="Destinos" asp-action="Index">Destinos</a></li>
-                    <li><a asp-controller="Informes" asp-action="Index">Informes</a></li>
+                    <!-- GESTIÓN -->
+                    <li class="menu-section">Gestión</li>
+
+                    <li>
+                        <a asp-controller="AdminUsuarios" asp-action="Index">
+                            <i class="bi bi-people"></i>
+                            <span>Usuarios</span>
+                        </a>
+                    </li>
+
                 }
+
+                <!-- OPERACIÓN -->
+                <li class="menu-section">Operación</li>
+
+                <li>
+                    <a asp-controller="Reservas" asp-action="Index">
+                        <i class="bi bi-calendar-check"></i>
+                        <span>Reservas</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="Paquetes" asp-action="Index">
+                        <i class="bi bi-bag-check"></i>
+                        <span>Paquetes</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="Itinerarios" asp-action="Index">
+                        <i class="bi bi-map"></i>
+                        <span>Itinerarios</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a asp-controller="Destinos" asp-action="Index">
+                        <i class="bi bi-geo-alt"></i>
+                        <span>Destinos</span>
+                    </a>
+                </li>
+
+                <!-- SISTEMA -->
+                @if (User.IsInRole("Admin"))
+                {
+                    <!-- SISTEMA -->
+                    <li class="menu-section">Sistema</li>
+
+                    <li class="submenu">
+                        <a href="#" class="submenu-toggle">
+                            <i class="bi bi-gear"></i>
+                            <span>Configuración</span>
+                            <i class="bi bi-chevron-down ms-auto"></i>
+                        </a>
+
+                        <ul class="submenu-items">
+                            <li>
+                                <a asp-controller="Roles" asp-action="Index">
+                                    <i class="bi bi-shield-lock"></i>
+                                    <span>Roles</span>
+                                </a>
+                            </li>
+
+                            <li>
+                                <a asp-controller="Permisos" asp-action="Index">
+                                    <i class="bi bi-key"></i>
+                                    <span>Permisos</span>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                }
+
+
             </ul>
 
-            <div class="sidebar-footer text-center">
-                <div class="profile-img d-flex align-items-center justify-content-center mx-auto"
-                     style="width: 70px; height: 70px; border-radius: 50%; background: #e9ecef;">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="38" height="38"
-                         fill="#6c757d" class="bi bi-person" viewBox="0 0 16 16">
-                        <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
-                        <path fill-rule="evenodd"
-                              d="M8 9a5 5 0 0 0-5 5 .5.5 0 0 0 .5.5h9a.5.5 0 0 0 .5-.5
-                                 5 5 0 0 0-5-5z" />
-                    </svg>
+            <!-- PERFIL -->
+            <div class="sidebar-footer">
+                <div class="profile-box">
+                    <div class="profile-avatar">@iniciales</div>
+
+                    <div class="profile-info">
+                        <span class="profile-name">@nombre</span>
+                        <span class="profile-role">@rol</span>
+                    </div>
                 </div>
 
-                <div class="mt-2">
-                    <p class="profile-name fw-bold">@nombre</p>
-                    <p class="profile-email text-muted">@correo</p>
-                    <span class="badge bg-primary">@rol</span>
-                </div>
+                <form asp-controller="Auth" asp-action="Logout" method="post">
+                    <button class="logout-btn" type="submit">
+                        <i class="bi bi-box-arrow-right"></i>
+                        Cerrar sesión
+                    </button>
+                </form>
             </div>
 
-            <form asp-controller="Auth" asp-action="Logout" method="post">
-                <button id="ButtonLogout" type="submit">Cerrar Sesión</button>
-            </form>
         </aside>
+
 
         <!-- CONTENIDO PRINCIPAL -->
         <main class="main-content">
@@ -83,5 +166,13 @@
 
     <!-- SCRIPTS DEL PROYECTO -->
     @RenderSection("Scripts", required: false)
+    <script>
+            document.querySelectorAll('.submenu-toggle').forEach(toggle => {
+            toggle.addEventListener('click', e => {
+                e.preventDefault();
+                toggle.parentElement.classList.toggle('open');
+            });
+        });
+    </script>
 </body>
 </html>

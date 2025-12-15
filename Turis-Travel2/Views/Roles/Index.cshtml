@@ -1,0 +1,53 @@
+﻿@model IEnumerable<Turis_Travel2.Models.Scaffolded.Role>
+@{
+    Layout = "_LayoutDashboard";
+    ViewData["Title"] = "Roles";
+}
+
+<div class="page-header">
+    <h2>Gestión de Roles</h2>
+    <a asp-action="Create" class="btn btn-primary">
+        <i class="bi bi-plus-circle"></i> Nuevo Rol
+    </a>
+</div>
+
+<div class="table-card">
+    <table class="dashboard-table">
+        <thead>
+            <tr>
+                <th>Rol</th>
+                <th>Estado</th>
+                <th style="width: 180px;">Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var rol in Model)
+            {
+                <tr>
+                    <td>@rol.Nombre_rol</td>
+                    <td>
+                        @if (rol.Estado_rol == 1)
+                        {
+                            <span class="badge badge-success">Activo</span>
+                        }
+                        else
+                        {
+                            <span class="badge badge-danger">Inactivo</span>
+                        }
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@rol.ID_rol" class="btn btn-sm btn-outline-primary">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <a asp-controller="Permisos"
+                           asp-action="Index"
+                           asp-route-idRol="@rol.ID_rol"
+                           class="btn btn-sm btn-outline-secondary">
+                            <i class="bi bi-key"></i>
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

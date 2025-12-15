@@ -1,31 +1,31 @@
-html {
-  font-size: 14px;
-}
+/* wwwroot/css/site.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
-@media (min-width: 768px) {
-  html {
-    font-size: 16px;
-  }
-}
+/* Componentes personalizados */
+@layer components {
+    .sidebar-link {
+        @apply flex items-center px-4 py-3 text-gray-300 hover:bg-blue-800 hover:text-white transition-all duration-200 rounded-lg;
+    }
 
-.btn:focus, .btn:active:focus, .btn-link.nav-link:focus, .form-control:focus, .form-check-input:focus {
-  box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;
-}
+        .sidebar-link.active {
+            @apply bg-blue-700 text-white font-medium;
+        }
 
-html {
-  position: relative;
-  min-height: 100%;
-}
+    .stat-card {
+        @apply bg-white rounded-xl shadow-md p-6 transition-all duration-300 hover:shadow-lg;
+    }
 
-body {
-  margin-bottom: 60px;
-}
+    .dashboard-card {
+        @apply bg-white rounded-xl shadow p-6;
+    }
 
-.form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
-  color: var(--bs-secondary-color);
-  text-align: end;
-}
+    .btn-primary {
+        @apply bg-blue-600 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded-lg transition-colors;
+    }
 
-.form-floating > .form-control-plaintext:focus::placeholder, .form-floating > .form-control:focus::placeholder {
-  text-align: start;
+    .btn-secondary {
+        @apply bg-gray-200 hover:bg-gray-300 text-gray-800 font-medium py-2 px-4 rounded-lg transition-colors;
+    }
 }
