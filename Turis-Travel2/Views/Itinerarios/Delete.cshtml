@@ -1,0 +1,60 @@
+﻿@model Turis_Travel2.Models.Scaffolded.Itinerario
+
+@{
+    ViewData["Title"] = "Eliminar Itinerario";
+    Layout = "_LayoutDashboard"; // O tu layout
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6">
+            <div class="card border-danger">
+                <div class="card-header bg-danger text-white">
+                    <h4 class="mb-0">
+                        <span class="material-symbols-outlined">warning</span>
+                        Confirmar Eliminación
+                    </h4>
+                </div>
+                <div class="card-body">
+                    <h5 class="text-danger">¿Está seguro que desea eliminar este itinerario?</h5>
+
+                    <dl class="row mt-4">
+                        <dt class="col-sm-4">Nombre:</dt>
+                        <dd class="col-sm-8">@Model.Nombre_itinerario</dd>
+
+                        <dt class="col-sm-4">Tipo:</dt>
+                        <dd class="col-sm-8">@Model.Tipo_itinerario</dd>
+
+                        <dt class="col-sm-4">Duración:</dt>
+                        <dd class="col-sm-8">@Model.Duracion_dias días</dd>
+
+                        @if (Model.ID_paqueteNavigation != null)
+                        {
+                            <dt class="col-sm-4">Paquete:</dt>
+                            <dd class="col-sm-8">@Model.ID_paqueteNavigation.Nombre_paquete</dd>
+                        }
+                    </dl>
+
+                    <div class="alert alert-warning">
+                        <span class="material-symbols-outlined">info</span>
+                        Esta acción no se puede deshacer.
+                    </div>
+                </div>
+                <div class="card-footer d-flex justify-content-between">
+                    <a asp-action="Index" class="btn btn-secondary">
+                        <span class="material-symbols-outlined">arrow_back</span>
+                        Cancelar
+                    </a>
+
+                    <form asp-action="Eliminar" method="post">
+                        <input type="hidden" asp-for="ID_itinerario" />
+                        <button type="submit" class="btn btn-danger">
+                            <span class="material-symbols-outlined">delete_forever</span>
+                            Eliminar Permanentemente
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

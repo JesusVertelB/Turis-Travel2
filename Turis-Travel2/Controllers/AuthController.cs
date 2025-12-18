@@ -100,26 +100,50 @@ namespace Turis_Travel2.Controllers
         public async Task<IActionResult> Register(Usuario usuario)
         {
             if (!ModelState.IsValid)
+                return View(usuario);
+
+            // 🔒 Validar correo duplicado
+            bool existeCorreo = await _context.Usuarios
+                .AnyAsync(u => u.Correo == usuario.Correo);
+
+            if (existeCorreo)
             {
+                ViewBag.Error = "Este correo ya está registrado.";
                 return View(usuario);
             }
 
-            usuario.ID_rol = 2; // Asignar rol de Cliente
+            usuario.ID_rol = 2; // Cliente
             usuario.Contrasena = BCrypt.Net.BCrypt.HashPassword(usuario.Contrasena);
             usuario.Estado = 1;
+            usuario.Fecha_creacion = DateTime.Now;
 
-            _context.Add(usuario);
+            _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction("Login");
+            // 🔑 AUTO LOGIN
+            var claims = new List<Claim>
+    {
+        new Claim("IdUsuario", usuario.ID_usuario.ToString()),
+        new Claim(ClaimTypes.Name, usuario.Nombre_usuario),
+        new Claim(ClaimTypes.Email, usuario.Correo),
+        new Claim(ClaimTypes.Role, "Cliente")
+    };
+
+            var identity = new ClaimsIdentity(
+                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+
+            await HttpContext.SignInAsync(
+                CookieAuthenticationDefaults.AuthenticationScheme,
+                new ClaimsPrincipal(identity),
+                new AuthenticationProperties
+                {
+                    IsPersistent = true,
+                    ExpiresUtc = DateTimeOffset.UtcNow.AddMinutes(30)
+                });
+
+            return RedirectToAction("Index", "Home");
         }
 
-        private string HashPassword(string password)
-        {
-            using var sha = SHA256.Create();
-            var bytes = sha.ComputeHash(Encoding.UTF8.GetBytes(password));
-            return Convert.ToBase64String(bytes);
-        }
     }
 }
 

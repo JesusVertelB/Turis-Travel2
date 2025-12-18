@@ -1,0 +1,76 @@
+﻿@model Turis_Travel2.Models.Scaffolded.Paquetes_Turistico
+@{
+    ViewData["Title"] = "Crear Paquete";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+
+<div class="container mt-4">
+
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="/Dashboard">Inicio</a></li>
+            <li class="breadcrumb-item"><a href="/Paquetes">Gestión de Paquetes</a></li> <!-- Corregido -->
+            <li class="breadcrumb-item active">Crear Paquete</li> <!-- Corregido -->
+        </ol>
+    </nav>
+
+    <div class="card shadow-sm p-4">
+        <h3 class="fw-bold mb-3">Registrar Nuevo Paquete</h3> <!-- Corregido -->
+        <p class="text-muted">Completa los campos para añadir un nuevo paquete al sistema</p>
+
+        <form asp-action="Create" method="post">
+
+            @Html.AntiForgeryToken()
+
+            <div class="mb-3">
+                <label class="form-label">Nombre del paquete turístico</label>
+                <input asp-for="Nombre_paquete" class="form-control" required />
+                <span asp-validation-for="Nombre_paquete" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Precio base</label> <!-- Corregido -->
+                <input asp-for="Precio_base" class="form-control" type="number" min="0" required />
+                <span asp-validation-for="Precio_base" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Fecha de inicio</label> <!-- Corregido -->
+                <input asp-for="Fecha_inicio" class="form-control" type="datetime-local" required /> <!-- Cambiado a datetime-local -->
+                <span asp-validation-for="Fecha_inicio" class="text-danger"></span> <!-- Corregido -->
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Fecha de fin</label> <!-- Añadido -->
+                <input asp-for="Fecha_fin" class="form-control" type="datetime-local" required />
+                <span asp-validation-for="Fecha_fin" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Estado</label> <!-- Corregido -->
+                <select asp-for="Estado" asp-items="ViewBag.Estados" class="form-select" required>
+                    <option value="">Seleccione un estado</option>
+                </select>
+                <span asp-validation-for="Estado" class="text-danger"></span>
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+                <a class="btn btn-outline-secondary" href="/Paquetes">
+                    <!-- Corregido -->
+                    <i class="bi bi-arrow-left"></i> Volver
+                </a>
+
+                <button type="submit" class="btn btn-primary">
+                    <i class="bi bi-check-lg"></i> Crear Paquete <!-- Corregido -->
+                </button>
+            </div>
+        </form>
+    </div>
+
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

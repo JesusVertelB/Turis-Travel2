@@ -1,0 +1,586 @@
+﻿body {
+    background-color: #f8f9fa;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.main-container {
+    padding: 30px;
+}
+
+.page-header {
+    margin-bottom: 30px;
+}
+
+.page-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1e3a8a;
+    margin-bottom: 8px;
+}
+
+.page-subtitle {
+    color: #64748b;
+    font-size: 15px;
+}
+
+.btn-primary-custom {
+    background-color: #1e40af;
+    border: none;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+    .btn-primary-custom:hover {
+        background-color: #1e3a8a;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+    }
+
+.stat-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    border: 1px solid #e2e8f0;
+    transition: all 0.3s;
+    height: 100%;
+}
+
+    .stat-card:hover {
+        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+        transform: translateY(-4px);
+    }
+
+.stat-label {
+    font-size: 13px;
+    color: #64748b;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-size: 32px;
+    font-weight: 700;
+    margin-bottom: 0;
+}
+
+.stat-icon {
+    font-size: 40px;
+    opacity: 0.9;
+}
+
+.stat-card.blue .stat-value {
+    color: #1e40af;
+}
+
+.stat-card.blue .stat-icon {
+    color: #3b82f6;
+}
+
+.stat-card.green .stat-value {
+    color: #059669;
+}
+
+.stat-card.green .stat-icon {
+    color: #10b981;
+}
+
+.stat-card.gray .stat-value {
+    color: #475569;
+}
+
+.stat-card.gray .stat-icon {
+    color: #64748b;
+}
+
+.stat-card.purple .stat-value {
+    color: #7c3aed;
+}
+
+.stat-card.purple .stat-icon {
+    color: #8b5cf6;
+}
+
+.filter-section {
+    background: white;
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 24px;
+}
+
+.form-control, .form-select {
+    border: 1px solid #cbd5e1;
+    border-radius: 8px;
+    padding: 10px 16px;
+    font-size: 14px;
+}
+
+    .form-control:focus, .form-select:focus {
+        border-color: #3b82f6;
+        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+    }
+
+.table-container {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+}
+
+.table {
+    margin-bottom: 0;
+}
+
+    .table thead {
+        background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+    }
+
+        .table thead th {
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            padding: 16px;
+            border: none;
+        }
+
+    .table tbody td {
+        padding: 20px 16px;
+        vertical-align: middle;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+    .table tbody tr:hover {
+        background-color: #f8fafc;
+    }
+
+    .table tbody tr:last-child td {
+        border-bottom: none;
+    }
+
+.itinerario-box {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.itinerario-icon {
+    width: 48px;
+    height: 48px;
+    background: #dbeafe;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+    .itinerario-icon .material-symbols-outlined {
+        color: #1e40af;
+        font-size: 24px;
+    }
+
+.itinerario-name {
+    font-weight: 600;
+    color: #1e293b;
+    margin-bottom: 4px;
+    font-size: 15px;
+}
+
+.itinerario-type {
+    color: #64748b;
+    font-size: 13px;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.badge-duration {
+    background: #ede9fe;
+    color: #7c3aed;
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.badge-status {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 13px;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+}
+
+    .badge-status.activo {
+        background: #d1fae5;
+        color: #065f46;
+    }
+
+    .badge-status.inactivo {
+        background: #f1f5f9;
+        color: #475569;
+    }
+
+.status-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+}
+
+    .status-dot.activo {
+        background: #10b981;
+    }
+
+    .status-dot.inactivo {
+        background: #64748b;
+    }
+
+.date-info {
+    font-size: 14px;
+    color: #475569;
+}
+
+.date-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+    .date-row:last-child {
+        margin-bottom: 0;
+    }
+
+    .date-row .material-symbols-outlined {
+        font-size: 16px;
+        color: #64748b;
+    }
+
+.price-value {
+    font-size: 18px;
+    font-weight: 700;
+    color: #059669;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+    .price-value .material-symbols-outlined {
+        font-size: 20px;
+    }
+
+.price-label {
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 2px;
+}
+
+.btn-action {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    border: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    text-decoration: none;
+}
+
+.btn-view {
+    background: #ede9fe;
+    color: #7c3aed;
+}
+
+    .btn-view:hover {
+        background: #ddd6fe;
+        transform: scale(1.1);
+    }
+
+.btn-edit {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+    .btn-edit:hover {
+        background: #bfdbfe;
+        transform: scale(1.1);
+    }
+
+.btn-delete {
+    background: #fee2e2;
+    color: #dc2626;
+}
+
+    .btn-delete:hover {
+        background: #fecaca;
+        transform: scale(1.1);
+    }
+
+.empty-state {
+    text-align: center;
+    padding: 60px 20px;
+}
+
+    .empty-state .material-symbols-outlined {
+        font-size: 80px;
+        color: #cbd5e1;
+        margin-bottom: 16px;
+    }
+
+    .empty-state p {
+        color: #64748b;
+        font-size: 16px;
+        margin-bottom: 16px;
+    }
+
+    .empty-state a {
+        color: #1e40af;
+        text-decoration: none;
+        font-weight: 600;
+    }
+
+        .empty-state a:hover {
+            text-decoration: underline;
+        }
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+/* Añade al inicio del CSS */
+:root {
+    --primary-color: #1e40af;
+    --secondary-color: #3b82f6;
+    --success-color: #059669;
+    --danger-color: #dc2626;
+}
+
+/* Mejora el contenedor principal */
+.main-container {
+    padding: 20px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+@media (max-width: 768px) {
+    .main-container {
+        padding: 15px;
+    }
+
+    .page-header {
+        flex-direction: column;
+        align-items: flex-start !important;
+        gap: 15px;
+    }
+
+    .stat-card {
+        padding: 16px;
+    }
+
+    .stat-value {
+        font-size: 24px;
+    }
+}
+
+/* Reemplaza o añade estas clases */
+.stat-card {
+    background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+    border-radius: 12px;
+    padding: 20px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    height: 100%;
+}
+
+    .stat-card:hover {
+        box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        transform: translateY(-5px);
+    }
+
+    .stat-card.blue {
+        border-left: 4px solid #1e40af;
+    }
+
+    .stat-card.green {
+        border-left: 4px solid #059669;
+    }
+
+    .stat-card.gray {
+        border-left: 4px solid #475569;
+    }
+
+    .stat-card.purple {
+        border-left: 4px solid #7c3aed;
+    }
+
+/* Añade estos estilos */
+.loading-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(255, 255, 255, 0.9);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    z-index: 10;
+}
+
+.highlight {
+    background-color: #fffacd !important;
+    transition: background-color 0.3s;
+}
+
+.tooltip-custom {
+    font-size: 12px;
+}
+
+/* Animaciones para cambios de estado */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.table tbody tr {
+    animation: fadeIn 0.3s ease-out;
+}
+
+
+/*Estilos de Detalles*/
+.detail-card {
+    background: white;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    overflow: hidden;
+}
+
+.detail-header {
+    background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+    padding: 24px 32px;
+    color: white;
+}
+
+.detail-body {
+    padding: 32px;
+}
+
+.info-section {
+    margin-bottom: 32px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid #f1f5f9;
+}
+
+    .info-section:last-child {
+        border-bottom: none;
+        margin-bottom: 0;
+    }
+
+.info-label {
+    font-size: 12px;
+    color: #64748b;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.info-value {
+    font-size: 16px;
+    color: #1e293b;
+    font-weight: 500;
+}
+
+.info-value-lg {
+    font-size: 20px;
+    font-weight: 600;
+    color: #1e40af;
+}
+
+.badge-detail {
+    display: inline-flex;
+    align-items: center;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.badge-active {
+    background: #d1fae5;
+    color: #065f46;
+}
+
+.badge-inactive {
+    background: #f1f5f9;
+    color: #475569;
+}
+
+.icon-circle {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.icon-blue {
+    background: #dbeafe;
+    color: #1e40af;
+}
+
+.price-display {
+    font-size: 28px;
+    font-weight: 700;
+    color: #059669;
+}
+
+.material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}
+
+.btn-back {
+    background: #f1f5f9;
+    color: #475569;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: all 0.3s;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+}
+
+    .btn-back:hover {
+        background: #e2e8f0;
+        transform: translateY(-2px);
+        color: #1e293b;
+    }
+

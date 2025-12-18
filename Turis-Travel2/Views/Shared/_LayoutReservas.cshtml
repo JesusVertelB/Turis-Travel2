@@ -1,7 +1,6 @@
 ﻿@using System.Security.Claims
 
 @{
-    Layout = null;
 
     var nombre = User.FindFirstValue(ClaimTypes.Name);
     var correo = User.FindFirstValue(ClaimTypes.Email);

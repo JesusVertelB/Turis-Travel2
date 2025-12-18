@@ -1,0 +1,531 @@
+﻿@model Turis_Travel2.Models.Scaffolded.Itinerario
+@{
+    ViewData["Title"] = "Detalle del Itinerario";
+    Layout = "_LayoutDashboard";
+}
+
+    <style>
+        .gradient-header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+        }
+
+        .card-hover {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+            .card-hover:hover {
+                transform: translateY(-2px);
+                box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.75rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .info-card {
+            background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .icon-wrapper {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.5s ease-out;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.3s ease-out;
+        }
+
+        @@keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @@keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .print-only {
+            display: none;
+        }
+
+        @@media print {
+            .no-print {
+                display: none !important;
+            }
+
+            .print-only {
+                display: block !important;
+            }
+
+            body {
+                background: white !important;
+            }
+
+            .card {
+                box-shadow: none !important;
+                border: 1px solid #ddd !important;
+            }
+        }
+    </style>
+}
+
+<div class="min-h-screen bg-gradient-to-br from-gray-50 to-blue-50 p-4 md:p-6 animate-fade-in">
+    <!-- Header con navegación -->
+    <div class="max-w-6xl mx-auto mb-6 no-print">
+        <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+            <div class="flex items-center gap-3">
+                <a asp-action="Index"
+                   class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200 shadow-sm hover:shadow">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                    </svg>
+                    Volver a itinerarios
+                </a>
+
+                <div class="hidden sm:block text-sm text-gray-500">
+                    <span class="mx-2">•</span>
+                    <span>Detalles del itinerario</span>
+                </div>
+            </div>
+
+            <div class="flex items-center gap-2">
+                <button onclick="window.print()"
+                        class="inline-flex items-center gap-2 px-4 py-2 bg-white dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-700 transition-all duration-200">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                    </svg>
+                    Imprimir
+                </button>
+
+                <a asp-action="Editar" asp-route-id="@Model.ID_itinerario"
+                   class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-sm hover:shadow">
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                    </svg>
+                    Editar
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tarjeta principal -->
+    <div class="max-w-6xl mx-auto">
+        <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-xl overflow-hidden border border-gray-200 dark:border-gray-700 card-hover animate-slide-up">
+            <!-- Header con gradiente -->
+            <div class="gradient-header px-6 py-8 md:px-8 md:py-10 text-white">
+                <div class="flex flex-col md:flex-row md:items-center gap-6">
+                    <!-- Icono principal -->
+                    <div class="flex-shrink-0">
+                        <div class="w-20 h-20 rounded-2xl bg-white/20 backdrop-blur-sm flex items-center justify-center border border-white/30">
+                            <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7"></path>
+                            </svg>
+                        </div>
+                    </div>
+
+                    <!-- Título y estado -->
+                    <div class="flex-1">
+                        <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                            <div>
+                                <h1 class="text-2xl md:text-3xl font-bold mb-2">@Model.Nombre_itinerario</h1>
+                                <div class="flex flex-wrap items-center gap-3">
+                                    <!-- Badge de estado -->
+                                    <span class="status-badge @(Model.Estado == "Activo" ? "bg-emerald-100 text-emerald-800" : Model.Estado == "Borrador" ? "bg-yellow-100 text-yellow-800" : "bg-gray-100 text-gray-800")">
+                                        @if (Model.Estado == "Activo")
+                                        {
+                                            <svg class="w-3 h-3 mr-1.5" fill="currentColor" viewBox="0 0 8 8">
+                                                <circle cx="4" cy="4" r="3" />
+                                            </svg>
+                                        }
+                                        @Model.Estado
+                                    </span>
+
+                                    <!-- Tipo -->
+                                    <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-100 text-blue-800 text-sm font-medium">
+                                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
+                                        </svg>
+                                        @Model.Tipo_itinerario
+                                    </span>
+
+                                    <!-- ID -->
+                                    <span class="text-sm text-white/80">
+                                        ID: ITN-@Model.ID_itinerario.ToString("D4")
+                                    </span>
+                                </div>
+                            </div>
+
+                            <!-- Acciones rápidas (solo móvil) -->
+                            <div class="md:hidden flex gap-2">
+                                <button onclick="window.print()"
+                                        class="p-2 rounded-lg bg-white/20 hover:bg-white/30 transition-colors">
+                                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contenido principal -->
+            <div class="px-6 py-8 md:px-8 md:py-10">
+                <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                    <!-- Columna izquierda - Información principal -->
+                    <div class="lg:col-span-2 space-y-8">
+                        <!-- Tarjeta: Información general -->
+                        <div class="info-card p-6 animate-slide-up" style="animation-delay: 0.1s">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Información General
+                            </h3>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <!-- Paquete asociado -->
+                                <div>
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="icon-wrapper bg-blue-100 text-blue-600">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M20 7l-8-4-8 4m16 0l-8 4m8-4v10l-8 4m0-10L4 7m8 4v10M4 7v10l8 4"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Paquete Asociado</p>
+                                            <p class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                @(Model.ID_paqueteNavigation?.Nombre_paquete ?? "Sin paquete asignado")
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Duración -->
+                                <div>
+                                    <div class="flex items-center gap-3 mb-4">
+                                        <div class="icon-wrapper bg-green-100 text-green-600">
+                                            <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                            </svg>
+                                        </div>
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Duración</p>
+                                            <p class="text-lg font-semibold text-gray-900 dark:text-white">
+                                                @Model.Duracion_dias días
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Fechas -->
+                                <div class="md:col-span-2">
+                                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Fecha de Inicio</p>
+                                            <div class="flex items-center gap-2 text-gray-900 dark:text-white">
+                                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                                </svg>
+                                                <span class="font-medium">
+                                                    @(Model.Fecha_inicio?.ToString("dddd, dd MMMM yyyy", new System.Globalization.CultureInfo("es-ES")) ?? "No definida")
+                                                </span>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Fecha de Fin</p>
+                                            <div class="flex items-center gap-2 text-gray-900 dark:text-white">
+                                                <svg class="w-5 h-5 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
+                                                </svg>
+                                                <span class="font-medium">
+                                                    @(Model.Fecha_fin?.ToString("dddd, dd MMMM yyyy", new System.Globalization.CultureInfo("es-ES")) ?? "No definida")
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tarjeta: Precio -->
+                        <div class="info-card p-6 animate-slide-up" style="animation-delay: 0.2s">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                                <svg class="w-5 h-5 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                Información de Precio
+                            </h3>
+
+                            @if (Model.Precio_por_persona.HasValue)
+                            {
+                                <div class="text-center">
+                                    <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Precio por Persona</p>
+                                    <div class="flex items-center justify-center gap-3">
+                                        <div class="text-4xl md:text-5xl font-bold text-emerald-600">
+                                            @Model.Precio_por_persona.Value.ToString("C0", new System.Globalization.CultureInfo("es-CO"))
+                                        </div>
+                                    </div>
+                                    <p class="text-sm text-gray-500 dark:text-gray-400 mt-3">
+                                        <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                        </svg>
+                                        Impuestos incluidos
+                                    </p>
+                                </div>
+                            }
+                            else
+                            {
+                                <div class="text-center py-6">
+                                    <svg class="w-12 h-12 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                    </svg>
+                                    <p class="text-gray-500 dark:text-gray-400 mt-3">Precio no definido</p>
+                                </div>
+                            }
+                        </div>
+
+                        <!-- Tarjeta: Descripción -->
+                        @if (!string.IsNullOrEmpty(Model.Descripcion))
+                        {
+                            <div class="info-card p-6 animate-slide-up" style="animation-delay: 0.3s">
+                                <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-6 flex items-center gap-2">
+                                    <svg class="w-5 h-5 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 8h10M7 12h4m1 8l-4-4H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-3l-4 4z"></path>
+                                    </svg>
+                                    Descripción
+                                </h3>
+
+                                <div class="prose prose-blue max-w-none">
+                                    <div class="bg-gray-50 dark:bg-gray-900/50 rounded-lg p-6 border border-gray-200 dark:border-gray-700">
+                                        @Html.Raw(Model.Descripcion.Replace("\n", "<br>"))
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                    </div>
+
+                    <!-- Columna derecha - Sidebar -->
+                    <div class="space-y-8">
+                        <!-- Tarjeta: Resumen rápido -->
+                        <div class="bg-gradient-to-br from-blue-50 to-blue-100 dark:from-blue-900/20 dark:to-blue-900/10 border border-blue-200 dark:border-blue-800 rounded-xl p-6 animate-slide-up" style="animation-delay: 0.4s">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Resumen Rápido</h3>
+
+                            <div class="space-y-4">
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600 dark:text-gray-400">Estado:</span>
+                                    <span class="font-medium @(Model.Estado == "Activo" ? "text-emerald-600" : "text-gray-600")">
+                                        @Model.Estado
+                                    </span>
+                                </div>
+
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600 dark:text-gray-400">Tipo:</span>
+                                    <span class="font-medium text-blue-600">@Model.Tipo_itinerario</span>
+                                </div>
+
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600 dark:text-gray-400">Duración:</span>
+                                    <span class="font-medium text-gray-900 dark:text-white">@Model.Duracion_dias días</span>
+                                </div>
+
+                                <div class="flex justify-between items-center">
+                                    <span class="text-sm text-gray-600 dark:text-gray-400">Paquete:</span>
+                                    <span class="font-medium text-gray-900 dark:text-white text-right">
+                                        @(Model.ID_paqueteNavigation?.Nombre_paquete ?? "No asignado")
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tarjeta: Estadísticas -->
+                        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm animate-slide-up" style="animation-delay: 0.5s">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Estadísticas</h3>
+
+                            <div class="grid grid-cols-2 gap-4">
+                                <div class="text-center p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
+                                    <div class="text-2xl font-bold text-gray-900 dark:text-white">@Model.Duracion_dias</div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Días totales</div>
+                                </div>
+
+                                <div class="text-center p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
+                                    <div class="text-2xl font-bold text-emerald-600">
+                                        @(Model.Precio_por_persona.HasValue ? "$" + Model.Precio_por_persona.Value.ToString("N0") : "N/A")
+                                    </div>
+                                    <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Precio/persona</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Tarjeta: Acciones rápidas -->
+                        <div class="bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-xl p-6 shadow-sm animate-slide-up" style="animation-delay: 0.6s">
+                            <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Acciones</h3>
+
+                            <div class="space-y-3">
+                                <a asp-action="Editar" asp-route-id="@Model.ID_itinerario"
+                                   class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
+                                    </svg>
+                                    Editar Itinerario
+                                </a>
+
+                                <a asp-action="Index"
+                                   class="w-full flex items-center justify-center gap-2 px-4 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path>
+                                    </svg>
+                                    Volver a la lista
+                                </a>
+
+                                <button onclick="window.print()"
+                                        class="w-full flex items-center justify-center gap-2 px-4 py-3 border border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 rounded-lg hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors font-medium">
+                                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 17h2a2 2 0 002-2v-4a2 2 0 00-2-2H5a2 2 0 00-2 2v4a2 2 0 002 2h2m2 4h6a2 2 0 002-2v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4a2 2 0 002 2zm8-12V5a2 2 0 00-2-2H9a2 2 0 00-2 2v4h10z"></path>
+                                    </svg>
+                                    Imprimir detalles
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Tarjeta: Información adicional -->
+                        <div class="bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-xl p-6 animate-slide-up" style="animation-delay: 0.7s">
+                            <div class="flex items-start gap-3">
+                                <svg class="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                                </svg>
+                                <div>
+                                    <h4 class="text-sm font-medium text-blue-800 dark:text-blue-300">Información útil</h4>
+                                    <p class="text-sm text-blue-700 dark:text-blue-400 mt-1">
+                                        Este itinerario está listo para ser asignado a paquetes turísticos.
+                                        Asegúrate de que toda la información sea correcta antes de publicarlo.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Versión para imprimir -->
+<div class="print-only">
+    <div class="p-8">
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-900">@Model.Nombre_itinerario</h1>
+            <p class="text-gray-600">Detalles del itinerario - @DateTime.Now.ToString("dd/MM/yyyy HH:mm")</p>
+        </div>
+
+        <div class="grid grid-cols-2 gap-6 mb-6">
+            <div>
+                <p class="text-sm text-gray-500">ID:</p>
+                <p class="font-semibold">ITN-@Model.ID_itinerario.ToString("D4")</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500">Estado:</p>
+                <p class="font-semibold">@Model.Estado</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500">Tipo:</p>
+                <p class="font-semibold">@Model.Tipo_itinerario</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500">Duración:</p>
+                <p class="font-semibold">@Model.Duracion_dias días</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500">Paquete:</p>
+                <p class="font-semibold">@(Model.ID_paqueteNavigation?.Nombre_paquete ?? "No asignado")</p>
+            </div>
+            <div>
+                <p class="text-sm text-gray-500">Precio/persona:</p>
+                <p class="font-semibold">@(Model.Precio_por_persona?.ToString("C", new System.Globalization.CultureInfo("es-CO")) ?? "No definido")</p>
+            </div>
+        </div>
+
+        @if (!string.IsNullOrEmpty(Model.Descripcion))
+        {
+            <div class="mt-6">
+                <h3 class="text-lg font-semibold mb-2">Descripción:</h3>
+                <p class="text-gray-700">@Model.Descripcion</p>
+            </div>
+        }
+
+        <div class="mt-8 pt-6 border-t border-gray-300 text-xs text-gray-500 text-center">
+            <p>Generado por Turis Travel - @DateTime.Now.ToString("dd/MM/yyyy HH:mm")</p>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Animación al cargar
+            const cards = document.querySelectorAll('.animate-slide-up');
+            cards.forEach((card, index) => {
+                card.style.animationDelay = `${0.1 * index}s`;
+            });
+
+            // Copiar ID al portapapeles
+            const copyIdButton = document.getElementById('copyIdButton');
+            if (copyIdButton) {
+                copyIdButton.addEventListener('click', function() {
+                    const id = 'ITN-' + @Model.ID_itinerario.ToString("D4");
+                    navigator.clipboard.writeText(id).then(() => {
+                        // Mostrar feedback
+                        const originalText = copyIdButton.innerHTML;
+                        copyIdButton.innerHTML = '<svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg> Copiado!';
+
+                        setTimeout(() => {
+                            copyIdButton.innerHTML = originalText;
+                        }, 2000);
+                    });
+                });
+            }
+
+            // Configuración de impresión
+            window.addEventListener('beforeprint', () => {
+                document.body.classList.add('printing');
+            });
+
+            window.addEventListener('afterprint', () => {
+                document.body.classList.remove('printing');
+            });
+        });
+    </script>
+}

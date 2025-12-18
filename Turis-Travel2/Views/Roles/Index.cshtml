@@ -1,53 +1,104 @@
 ﻿@model IEnumerable<Turis_Travel2.Models.Scaffolded.Role>
+
 @{
     Layout = "_LayoutDashboard";
-    ViewData["Title"] = "Roles";
+    ViewData["Title"] = "Gestión de Roles";
 }
 
-<div class="page-header">
-    <h2>Gestión de Roles</h2>
-    <a asp-action="Create" class="btn btn-primary">
-        <i class="bi bi-plus-circle"></i> Nuevo Rol
-    </a>
-</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
 
-<div class="table-card">
-    <table class="dashboard-table">
-        <thead>
-            <tr>
-                <th>Rol</th>
-                <th>Estado</th>
-                <th style="width: 180px;">Acciones</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var rol in Model)
-            {
+    <!-- LISTADO DE ROLES -->
+    <div class="lg:col-span-2 bg-white rounded-xl shadow p-6">
+
+        <div class="flex justify-between items-center mb-4">
+            <h2 class="text-lg font-semibold text-gray-800">
+                Listado de Roles
+            </h2>
+
+            <input type="text"
+                   placeholder="Buscar rol..."
+                   class="border rounded-lg px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 outline-none">
+        </div>
+
+        <table class="w-full text-sm">
+            <thead class="text-gray-500 border-b">
                 <tr>
-                    <td>@rol.Nombre_rol</td>
-                    <td>
-                        @if (rol.Estado_rol == 1)
-                        {
-                            <span class="badge badge-success">Activo</span>
-                        }
-                        else
-                        {
-                            <span class="badge badge-danger">Inactivo</span>
-                        }
-                    </td>
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@rol.ID_rol" class="btn btn-sm btn-outline-primary">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        <a asp-controller="Permisos"
-                           asp-action="Index"
-                           asp-route-idRol="@rol.ID_rol"
-                           class="btn btn-sm btn-outline-secondary">
-                            <i class="bi bi-key"></i>
-                        </a>
-                    </td>
+                    <th class="text-left py-3">Rol</th>
+                    <th class="text-center py-3">Estado</th>
+                    <th class="text-center py-3">Acciones</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var rol in Model)
+                {
+                    <tr class="border-b hover:bg-gray-50">
+                        <td class="py-3 text-gray-700">
+                            @rol.Nombre_rol
+                        </td>
+
+                        <td class="text-center">
+                            @if (rol.Estado_rol == 1)
+                            {
+                                <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-700">
+                                    Activo
+                                </span>
+                            }
+                            else
+                            {
+                                <span class="px-3 py-1 text-xs rounded-full bg-yellow-100 text-yellow-700">
+                                    Inactivo
+                                </span>
+                            }
+                        </td>
+
+                        <td class="text-center">
+                            <a asp-controller="Permisos"
+                               asp-action="Index"
+                               asp-route-id="@rol.ID_rol"
+                               class="text-blue-600 hover:underline text-sm">
+                                Configurar
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <!-- CONFIGURAR ROL -->
+    <div class="bg-white rounded-xl shadow p-6">
+
+        <h2 class="text-lg font-semibold text-gray-800 mb-4">
+            Configurar Rol
+        </h2>
+
+        <form asp-action="Create" method="post">
+
+            <div class="mb-4">
+                <label class="block text-sm text-gray-600 mb-1">
+                    Nombre del Rol
+                </label>
+                <input type="text"
+                       name="Nombre_rol"
+                       class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                       placeholder="Ej: Gestor de Reservas">
+            </div>
+
+            <div class="mb-6">
+                <label class="block text-sm text-gray-600 mb-1">
+                    Descripción
+                </label>
+                <textarea class="w-full border rounded-lg px-3 py-2 focus:ring-2 focus:ring-blue-500 outline-none"
+                          rows="3"
+                          placeholder="Breve descripción del rol"></textarea>
+            </div>
+
+            <button type="submit"
+                    class="w-full bg-blue-600 text-white py-2 rounded-lg hover:bg-blue-700 transition">
+                Guardar Rol
+            </button>
+
+        </form>
+    </div>
+
 </div>

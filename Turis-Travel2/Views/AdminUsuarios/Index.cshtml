@@ -4,6 +4,7 @@
     ViewData["Title"] = "Gestión de Usuarios";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
+
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
 
 <style>
@@ -75,40 +76,37 @@
     </div>
 
     <!-- Search and filters -->
-    <div class="card shadow-sm p-3 mt-3">
-        <div class="row g-3">
+    <form method="get"
+      asp-action="Index"
+      asp-controller="AdminUsuarios"
+      class="card shadow-sm p-3 mt-3"
+      id="filtrosForm">
 
-            <div class="col-md-5 search-box">
-                <input type="text" id="search" class="form-control" placeholder="Buscar por nombre o correo...">
-            </div>
+    <div class="row g-3">
 
-            <div class="col-md-3 filter-box">
-                <select class="form-select" id="estadoFilter">
-                    <option value="">Estado: Todos</option>
-                    <option value="1">Activo</option>
-                    <option value="0">Inactivo</option>
-                    <option value="2">Pendiente</option>
-                </select>
-            </div>
-
-
-            <div class="col-md-3 filter-box">
-                <select class="form-select" id="estadoFilter">
-                    <option value="">Estado: Todos</option>
-                    <option value="Activo">Activo</option>
-                    <option value="Inactivo">Inactivo</option>
-                    <option value="Pendiente">Pendiente</option>
-                </select>
-            </div>
-
-            <div class="col-md-1">
-                <button class="btn btn-outline-secondary w-100">
-                    <i class="bi bi-funnel"></i>
-                </button>
-            </div>
-
+        <div class="col-md-5 search-box">
+            <input type="text"
+                   id="search"
+                   name="search"
+                   value="@ViewBag.Search"
+                   class="form-control"
+                   placeholder="Buscar por nombre o correo..." />
         </div>
+
+        <div class="col-md-3 filter-box">
+            <select id="estado"
+                    name="estado"
+                    class="form-select">
+                <option value="">Estado: Todos</option>
+                <option value="1" selected="@(ViewBag.EstadoActual == 1)">Activo</option>
+                <option value="0" selected="@(ViewBag.EstadoActual == 0)">Inactivo</option>
+                <option value="2" selected="@(ViewBag.EstadoActual == 2)">Pendiente</option>
+            </select>
+        </div>
+
     </div>
+</form>
+
 
     <!-- Table -->
     <div class="card mt-4 shadow-sm">
@@ -222,5 +220,27 @@
 
         </div>
     </div>
+
+    <script>
+    const form = document.getElementById("filtrosForm");
+    const search = document.getElementById("search");
+    const estado = document.getElementById("estado");
+
+    let delay = null;
+
+    search.addEventListener("keyup", () => {
+        clearTimeout(delay);
+        delay = setTimeout(() => {
+            form.submit();
+        }, 500);
+    });
+
+    estado.addEventListener("change", () => {
+        form.submit();
+    });
+</script>
+
+   
+
 
 </div>

@@ -1,0 +1,386 @@
+﻿@model Turis_Travel2.Models.Scaffolded.Itinerario
+@{
+    ViewData["Title"] = "Editar Itinerario";
+    Layout = "_LayoutDashboard";
+}
+
+<style>
+    .form-card {
+        background: white;
+        border-radius: 12px;
+        border: 1px solid #e2e8f0;
+        overflow: hidden;
+    }
+
+    .form-header {
+        background: linear-gradient(135deg, #3b82f6 0%, #1e40af 100%);
+        padding: 24px 32px;
+        color: white;
+    }
+
+    .form-body {
+        padding: 32px;
+    }
+
+    .form-label {
+        font-weight: 600;
+        color: #475569;
+        margin-bottom: 8px;
+        font-size: 14px;
+    }
+
+    .form-control, .form-select {
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        padding: 12px 16px;
+        font-size: 15px;
+        transition: all 0.3s;
+    }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+        }
+
+    .input-icon {
+        position: relative;
+    }
+
+        .input-icon .material-symbols-outlined {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #64748b;
+            pointer-events: none;
+        }
+
+        .input-icon .form-control,
+        .input-icon .form-select {
+            padding-left: 48px;
+        }
+
+    .btn-primary-custom {
+        background: linear-gradient(135deg, #1e40af 0%, #1e3a8a 100%);
+        border: none;
+        color: white;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+
+        .btn-primary-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 64, 175, 0.3);
+        }
+
+    .btn-outline-custom {
+        border: 2px solid #e2e8f0;
+        color: #64748b;
+        padding: 12px 24px;
+        border-radius: 8px;
+        font-weight: 600;
+        transition: all 0.3s;
+    }
+
+        .btn-outline-custom:hover {
+            border-color: #cbd5e1;
+            background: #f8fafc;
+        }
+
+    .required-star {
+        color: #dc2626;
+    }
+
+    .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    }
+
+    .form-section {
+        margin-bottom: 32px;
+        padding-bottom: 24px;
+        border-bottom: 1px solid #f1f5f9;
+    }
+
+        .form-section:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+        }
+
+    .section-title {
+        font-size: 18px;
+        font-weight: 600;
+        color: #1e293b;
+        margin-bottom: 20px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+    }
+</style>
+
+<div class="container-fluid py-4">
+    <div class="row">
+        <div class="col-lg-10 col-xl-8 mx-auto">
+            <form asp-action="Editar" method="post" id="editForm">
+                @Html.AntiForgeryToken()
+                <input type="hidden" asp-for="ID_itinerario" />
+
+                <div class="form-card">
+                    <!-- Header -->
+                    <div class="form-header">
+                        <h1 class="h2 mb-2">
+                            <span class="material-symbols-outlined">edit</span>
+                            Editar Itinerario
+                        </h1>
+                        <p class="mb-0 opacity-75">Modifica la información del itinerario @Model.Nombre_itinerario</p>
+                    </div>
+
+                    <!-- Body -->
+                    <div class="form-body">
+                        <!-- Información Básica -->
+                        <div class="form-section">
+                            <h3 class="section-title">
+                                <span class="material-symbols-outlined">info</span>
+                                Información Básica
+                            </h3>
+
+                            <div class="row g-3">
+                                <!-- Nombre del Itinerario -->
+                                <div class="col-md-12">
+                                    <label asp-for="Nombre_itinerario" class="form-label">
+                                        Nombre del Itinerario <span class="required-star">*</span>
+                                    </label>
+                                    <div class="input-icon">
+                                        <span class="material-symbols-outlined">route</span>
+                                        <input asp-for="Nombre_itinerario" class="form-control"
+                                               placeholder="Ej: Tour por la Ciudad de México" />
+                                    </div>
+                                    <span asp-validation-for="Nombre_itinerario" class="text-danger small"></span>
+                                </div>
+
+                                <!-- Tipo de Itinerario -->
+                                <div class="col-md-6">
+                                    <label asp-for="Tipo_itinerario" class="form-label">
+                                        Tipo de Itinerario <span class="required-star">*</span>
+                                    </label>
+                                    <div class="input-icon">
+                                        <span class="material-symbols-outlined">category</span>
+                                        <select asp-for="Tipo_itinerario" class="form-select">
+                                            <option value="">Seleccionar tipo</option>
+                                            <option value="Aventura">Aventura</option>
+                                            <option value="Cultural">Cultural</option>
+                                            <option value="Relax">Relax</option>
+                                            <option value="Gastronómico">Gastronómico</option>
+                                            <option value="Ecoturismo">Ecoturismo</option>
+                                            <option value="Romántico">Romántico</option>
+                                            <option value="Familiar">Familiar</option>
+                                            <option value="Lujo">Lujo</option>
+                                        </select>
+                                    </div>
+                                    <span asp-validation-for="Tipo_itinerario" class="text-danger small"></span>
+                                </div>
+
+                                <!-- Estado -->
+                                <div class="col-md-6">
+                                    <label asp-for="Estado" class="form-label">
+                                        Estado <span class="required-star">*</span>
+                                    </label>
+                                    <div class="input-icon">
+                                        <span class="material-symbols-outlined">toggle_on</span>
+                                        <select asp-for="Estado" class="form-select">
+                                            <option value="Activo">Activo</option>
+                                            <option value="Inactivo">Inactivo</option>
+                                            <option value="Borrador">Borrador</option>
+                                            <option value="En Revisión">En Revisión</option>
+                                        </select>
+                                    </div>
+                                    <span asp-validation-for="Estado" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Duración y Fechas -->
+                        <div class="form-section">
+                            <h3 class="section-title">
+                                <span class="material-symbols-outlined">schedule</span>
+                                Duración y Fechas
+                            </h3>
+
+                            <div class="row g-3">
+                                <!-- Duración en días -->
+                                <div class="col-md-6">
+                                    <label asp-for="Duracion_dias" class="form-label">
+                                        Duración (días) <span class="required-star">*</span>
+                                    </label>
+                                    <div class="input-icon">
+                                        <span class="material-symbols-outlined">today</span>
+                                        <input asp-for="Duracion_dias" type="number" class="form-control"
+                                               min="1" max="365" placeholder="Ej: 7" />
+                                    </div>
+                                    <span asp-validation-for="Duracion_dias" class="text-danger small"></span>
+                                </div>
+
+                                <!-- Paquete Asociado -->
+                                <div class="col-md-6">
+                                    <label asp-for="ID_paquete" class="form-label">Paquete Asociado</label>
+                                    <div class="input-icon">
+                                        <span class="material-symbols-outlined">package_2</span>
+                                        <select asp-for="ID_paquete" asp-items="ViewBag.Paquetes" class="form-select">
+                                            <option value="">Sin paquete asignado</option>
+                                        </select>
+                                    </div>
+                                    <span asp-validation-for="ID_paquete" class="text-danger small"></span>
+                                </div>
+
+                                <!-- Fecha de Inicio -->
+                                <div class="col-md-6">
+                                    <label asp-for="Fecha_inicio" class="form-label">Fecha de Inicio</label>
+                                    <div class="input-icon">
+                                        <span class="material-symbols-outlined">flight_takeoff</span>
+                                        <input asp-for="Fecha_inicio" type="date" class="form-control" />
+                                    </div>
+                                    <span asp-validation-for="Fecha_inicio" class="text-danger small"></span>
+                                </div>
+
+                                <!-- Fecha de Fin -->
+                                <div class="col-md-6">
+                                    <label asp-for="Fecha_fin" class="form-label">Fecha de Fin</label>
+                                    <div class="input-icon">
+                                        <span class="material-symbols-outlined">flight_land</span>
+                                        <input asp-for="Fecha_fin" type="date" class="form-control" />
+                                    </div>
+                                    <span asp-validation-for="Fecha_fin" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Precio -->
+                        <div class="form-section">
+                            <h3 class="section-title">
+                                <span class="material-symbols-outlined">payments</span>
+                                Información de Precio
+                            </h3>
+
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <label asp-for="Precio_por_persona" class="form-label">Precio por Persona (COP)</label>
+                                    <div class="input-icon">
+                                        <span class="material-symbols-outlined">attach_money</span>
+                                        <input asp-for="Precio_por_persona" type="number" step="0.01"
+                                               class="form-control" placeholder="Ej: 1500000" />
+                                    </div>
+                                    <div class="form-text">Precio en pesos colombianos por persona</div>
+                                    <span asp-validation-for="Precio_por_persona" class="text-danger small"></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Botones -->
+                        <div class="d-flex justify-content-between align-items-center pt-4 border-top">
+                            <a asp-action="Detalle" asp-route-id="@Model.ID_itinerario" class="btn btn-outline-custom">
+                                <span class="material-symbols-outlined">visibility</span>
+                                Ver Detalles
+                            </a>
+
+                            <div class="d-flex gap-3">
+                                <a asp-action="Index" class="btn btn-outline-secondary">
+                                    <span class="material-symbols-outlined">close</span>
+                                    Cancelar
+                                </a>
+                                <button type="submit" class="btn btn-primary-custom">
+                                    <span class="material-symbols-outlined">save</span>
+                                    Guardar Cambios
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Validación de fechas
+            const fechaInicio = document.getElementById('Fecha_inicio');
+            const fechaFin = document.getElementById('Fecha_fin');
+            const duracion = document.getElementById('Duracion_dias');
+
+            function calcularFechaFin() {
+                if (fechaInicio.value && duracion.value) {
+                    const startDate = new Date(fechaInicio.value);
+                    const days = parseInt(duracion.value) || 0;
+                    const endDate = new Date(startDate);
+                    endDate.setDate(startDate.getDate() + days);
+
+                    // Formato YYYY-MM-DD para input date
+                    fechaFin.value = endDate.toISOString().split('T')[0];
+                }
+            }
+
+            // Calcular fecha fin cuando cambia la duración o fecha inicio
+            if (fechaInicio && duracion && fechaFin) {
+                fechaInicio.addEventListener('change', calcularFechaFin);
+                duracion.addEventListener('input', calcularFechaFin);
+            }
+
+            // Validación del formulario
+            const form = document.getElementById('editForm');
+            form.addEventListener('submit', function (e) {
+                let isValid = true;
+
+                // Validar campos requeridos
+                const requiredFields = form.querySelectorAll('[required]');
+                requiredFields.forEach(field => {
+                    if (!field.value.trim()) {
+                        isValid = false;
+                        field.classList.add('is-invalid');
+                    } else {
+                        field.classList.remove('is-invalid');
+                    }
+                });
+
+                // Validar que fecha fin sea mayor a fecha inicio
+                if (fechaInicio.value && fechaFin.value) {
+                    const inicio = new Date(fechaInicio.value);
+                    const fin = new Date(fechaFin.value);
+
+                    if (fin < inicio) {
+                        isValid = false;
+                        fechaFin.classList.add('is-invalid');
+                        alert('La fecha de fin debe ser mayor a la fecha de inicio');
+                    } else {
+                        fechaFin.classList.remove('is-invalid');
+                    }
+                }
+
+                if (!isValid) {
+                    e.preventDefault();
+                    alert('Por favor complete todos los campos requeridos correctamente');
+                }
+            });
+
+            // Auto-calcular duración basada en fechas
+            if (fechaInicio && fechaFin) {
+                function calcularDuracion() {
+                    if (fechaInicio.value && fechaFin.value) {
+                        const start = new Date(fechaInicio.value);
+                        const end = new Date(fechaFin.value);
+                        const diffTime = Math.abs(end - start);
+                        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+                        if (diffDays > 0 && diffDays <= 365) {
+                            duracion.value = diffDays;
+                        }
+                    }
+                }
+
+                fechaInicio.addEventListener('change', calcularDuracion);
+                fechaFin.addEventListener('change', calcularDuracion);
+            }
+        });
+    </script>
+}

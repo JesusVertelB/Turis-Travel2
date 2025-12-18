@@ -111,5 +111,29 @@ namespace Turis_Travel2.Controllers
 
             return RedirectToAction(nameof(Index));
         }
+        // Guardar Permisos POST
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IActionResult GuardarPermisos(List<int> permisosSeleccionados)
+        {
+            var permisos = _context.Permisos.ToList();
+
+            foreach (var permiso in permisos)
+            {
+                if (permisosSeleccionados != null &&
+                    permisosSeleccionados.Contains(permiso.ID_permiso))
+                {
+                    permiso.Estado_permiso = 1;
+                }
+                else
+                {
+                    permiso.Estado_permiso = 0;
+                }
+            }
+
+            _context.SaveChanges();
+            return RedirectToAction(nameof(Index));
+        }
+
     }
 }

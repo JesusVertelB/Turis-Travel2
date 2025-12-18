@@ -1,8 +1,8 @@
-﻿@model IEnumerable<Turis_Travel2.Models.Scaffolded.Reserva>
+﻿@model IEnumerable<Turis_Travel2.Models.Scaffolded.Paquetes_Turistico>
 @using System.Linq
 
 @{
-    ViewData["Title"] = "Reservas";
+    ViewData["Title"] = "Paquetes Turisticos";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 
@@ -14,12 +14,12 @@
 
             <h5 class="fw-semibold m-0">
                 <i class="bi bi-card-checklist me-2 text-primary"></i>
-                Lista de Reservas
+                Lista de paquetes turisticos
             </h5>
 
             <a asp-action="Create" class="btn btn-primary btn-sm px-3">
                 <i class="bi bi-plus-circle me-1"></i>
-                Nueva Reserva
+                Nuevo paquete
             </a>
 
         </div>
@@ -43,9 +43,11 @@
                         <thead class="table-light">
                             <tr>
                                 <th>ID</th>
-                                <th>Cliente</th>
-                                <th>Paquete</th>
+                                <th>Nombre Paquete</th>
+                                <th>Precio Base</th>
                                 <th>Fecha</th>
+                                <th>Fecha Inico</th>
+                                <th>Fecha Fin</th>
                                 <th>Estado</th>
                                 <th class="text-center">Acciones</th>
                             </tr>
@@ -55,13 +57,18 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@item.ID_reserva</td>
+                                    <td>@item.ID_paquete</td>
 
-                                    <td>@item.ID_clienteNavigation?.Nombre</td>
+                                    <td>@item.Nombre_paquete</td>
 
-                                    <td>@item.ID_paqueteNavigation?.Nombre_paquete</td>
+                                    <td>@item.Precio_base</td>
 
-                                    <td>@item.Fecha_solicitud?.ToString("yyyy-MM-dd")</td>
+                                    <td>@item.Fecha_creacion?.ToString("yyyy-MM-dd")</td>
+
+
+                                    <td>@item.Fecha_inicio?.ToString("yyyy-MM-dd")</td>
+
+                                    <td>@item.Fecha_fin?.ToString("yyyy-MM-dd")</td>
 
                                     <td>
                                         @{
@@ -80,19 +87,19 @@
                                         </span>
                                     </td>
 
-                                    <td class="text-center">
+                                    <td class="text-center d-flex">
 
-                                        <a asp-action="Edit" asp-route-id="@item.ID_reserva"
+                                        <a asp-action="Edit" asp-route-id="@item.ID_paquete"
                                            class="btn btn-warning btn-sm me-1 px-3">
                                             <i class="bi bi-pencil-square"></i>
                                             Editar
                                         </a>
-
-                                        <a asp-action="Delete" asp-route-id="@item.ID_reserva"
-                                           class="btn btn-danger btn-sm px-3">
-                                            <i class="bi bi-trash3"></i>
-                                            Eliminar
-                                        </a>
+                                        <form asp-action="Delete" method="post" asp-route-id="@item.ID_paquete">
+                                            <button class="btn btn-danger btn-sm px-3">
+                                                <i class="bi bi-trash3"></i>
+                                                Eliminar
+                                            </button>
+                                        </form>
 
                                     </td>
                                 </tr>

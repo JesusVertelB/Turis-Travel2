@@ -1,0 +1,405 @@
+﻿@model Turis_Travel2.Models.Scaffolded.Itinerario
+@{
+    ViewData["Title"] = "Crear Nuevo Itinerario";
+    Layout = "_LayoutDashboard";
+}
+
+
+<style>
+    /* Custom scrollbar for better desktop feel */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+    }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+    .dark ::-webkit-scrollbar-thumb {
+        background: #475569;
+    }
+
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+</style>
+<style>
+    /* Custom scrollbar for better desktop feel */
+    ::-webkit-scrollbar {
+        width: 8px;
+        height: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+        background: transparent;
+    }
+
+    ::-webkit-scrollbar-thumb {
+        background: #cbd5e1;
+        border-radius: 4px;
+    }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #94a3b8;
+        }
+
+    .dark ::-webkit-scrollbar-thumb {
+        background: #475569;
+    }
+
+        .dark ::-webkit-scrollbar-thumb:hover {
+            background: #64748b;
+        }
+</style>
+<!-- Main Workspace -->
+<main class="flex-1 overflow-hidden flex flex-row relative">
+    <!-- Left Column: Form Builder (Scrollable) -->
+    <div class="flex-1 h-full overflow-y-auto bg-background-light dark:bg-background-dark p-6 lg:p-10">
+        <div class="max-w-4xl mx-auto flex flex-col gap-8 pb-20">
+            <!-- Page Heading -->
+            <div class="flex flex-col gap-2">
+                <div class="flex items-center gap-2 text-sm text-text-secondary-light dark:text-text-secondary-dark">
+                    <a class="hover:underline" href="#">Itineraries</a>
+                    <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                    <span>New Itinerary</span>
+                </div>
+                <h1 class="text-3xl font-black tracking-tight text-text-main-light dark:text-text-main-dark">New Itinerary</h1>
+                <p class="text-text-secondary-light dark:text-text-secondary-dark">Create a detailed travel plan for your client.</p>
+            </div>
+            <!-- Section 1: Trip Basics -->
+            <div class="bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm p-6 flex flex-col gap-6">
+                <div class="flex items-center gap-3 border-b border-border-light dark:border-border-dark pb-4">
+                    <div class="size-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary">
+                        <span class="material-symbols-outlined">description</span>
+                    </div>
+                    <h3 class="font-bold text-lg">Trip Basics</h3>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <label class="flex flex-col gap-2">
+                        <span class="text-sm font-medium text-text-main-light dark:text-text-main-dark">Itinerary Title</span>
+                        <input class="w-full rounded-lg bg-background-light dark:bg-background-dark border-border-light dark:border-border-dark focus:border-primary focus:ring-primary text-text-main-light dark:text-text-main-dark h-12 px-4" placeholder="e.g. Summer in Tuscany" value="European Summer Escape 2024" />
+                    </label>
+                    <label class="flex flex-col gap-2">
+                        <span class="text-sm font-medium text-text-main-light dark:text-text-main-dark">Client Name</span>
+                        <div class="relative">
+                            <input class="w-full rounded-lg bg-background-light dark:bg-background-dark border-border-light dark:border-border-dark focus:border-primary focus:ring-primary text-text-main-light dark:text-text-main-dark h-12 pl-10 pr-4" placeholder="Search client..." value="Sarah Jenkins" />
+                            <span class="material-symbols-outlined absolute left-3 top-3 text-text-secondary-light dark:text-text-secondary-dark">person_search</span>
+                        </div>
+                    </label>
+                </div>
+                <!-- Date Selection -->
+                <div class="flex flex-col gap-4">
+                    <span class="text-sm font-medium text-text-main-light dark:text-text-main-dark">Travel Dates</span>
+                    <div class="bg-background-light dark:bg-background-dark rounded-xl border border-border-light dark:border-border-dark p-4 overflow-x-auto">
+                        <!-- Dual Calendar View (Simplified for Layout) -->
+                        <div class="flex gap-8 min-w-[600px] justify-center">
+                            <!-- Month 1 -->
+                            <div class="flex-1 max-w-[320px]">
+                                <div class="flex items-center justify-between mb-4">
+                                    <button class="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full">
+                                        <span class="material-symbols-outlined text-sm">chevron_left</span>
+                                    </button>
+                                    <span class="font-bold text-sm">July 2024</span>
+                                    <div class="w-8"></div>
+                                </div>
+                                <div class="grid grid-cols-7 gap-1 text-center text-xs mb-2 text-text-secondary-light">
+                                    <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+                                </div>
+                                <div class="grid grid-cols-7 gap-1 text-sm">
+                                    <div class="h-9 flex items-center justify-center text-text-secondary-light opacity-30">30</div>
+                                    <div class="h-9 flex items-center justify-center text-text-secondary-light opacity-30">1</div>
+                                    <div class="h-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">2</div>
+                                    <div class="h-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">3</div>
+                                    <div class="h-9 flex items-center justify-center rounded-l-full bg-primary text-white font-bold shadow-md">4</div>
+                                    <div class="h-9 flex items-center justify-center bg-primary/20">5</div>
+                                    <div class="h-9 flex items-center justify-center bg-primary/20">6</div>
+                                    <div class="h-9 flex items-center justify-center bg-primary/20">7</div>
+                                    <div class="h-9 flex items-center justify-center bg-primary/20">8</div>
+                                    <div class="h-9 flex items-center justify-center bg-primary/20">9</div>
+                                    <div class="h-9 flex items-center justify-center bg-primary/20">10</div>
+                                    <div class="h-9 flex items-center justify-center bg-primary/20">11</div>
+                                    <div class="h-9 flex items-center justify-center bg-primary/20">12</div>
+                                    <div class="h-9 flex items-center justify-center bg-primary/20">13</div>
+                                    <div class="h-9 flex items-center justify-center bg-primary/20">14</div>
+                                    <div class="h-9 flex items-center justify-center bg-primary/20">15</div>
+                                    <div class="h-9 flex items-center justify-center bg-primary/20">16</div>
+                                    <div class="h-9 flex items-center justify-center bg-primary/20">17</div>
+                                    <div class="h-9 flex items-center justify-center bg-primary/20 rounded-r-full">18</div>
+                                    <div class="h-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">19</div>
+                                    <div class="h-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">20</div>
+                                    <!-- ... rest of month -->
+                                </div>
+                            </div>
+                            <!-- Month 2 -->
+                            <div class="flex-1 max-w-[320px]">
+                                <div class="flex items-center justify-between mb-4">
+                                    <div class="w-8"></div>
+                                    <span class="font-bold text-sm">August 2024</span>
+                                    <button class="p-1 hover:bg-gray-200 dark:hover:bg-gray-700 rounded-full">
+                                        <span class="material-symbols-outlined text-sm">chevron_right</span>
+                                    </button>
+                                </div>
+                                <div class="grid grid-cols-7 gap-1 text-center text-xs mb-2 text-text-secondary-light">
+                                    <div>Su</div><div>Mo</div><div>Tu</div><div>We</div><div>Th</div><div>Fr</div><div>Sa</div>
+                                </div>
+                                <div class="grid grid-cols-7 gap-1 text-sm">
+                                    <!-- Start on Thursday -->
+                                    <div class="col-start-5 h-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">1</div>
+                                    <div class="h-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">2</div>
+                                    <div class="h-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">3</div>
+                                    <div class="h-9 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 cursor-pointer">4</div>
+                                    <!-- ... rest of month -->
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Section 2: Details Accordion -->
+            <div class="flex flex-col gap-4">
+                <!-- Destinations -->
+                <details class="group bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm overflow-hidden" open="">
+                    <summary class="flex cursor-pointer items-center justify-between p-6 list-none select-none hover:bg-background-light dark:hover:bg-background-dark/50 transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="size-10 rounded-full bg-blue-100 dark:bg-blue-900/30 text-blue-600 dark:text-blue-400 flex items-center justify-center">
+                                <span class="material-symbols-outlined">map</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg text-text-main-light dark:text-text-main-dark">Destinations &amp; Route</h3>
+                                <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Manage cities and regions</p>
+                            </div>
+                        </div>
+                        <span class="material-symbols-outlined transform group-open:rotate-180 transition-transform">keyboard_arrow_down</span>
+                    </summary>
+                    <div class="px-6 pb-6 pt-2 border-t border-border-light dark:border-border-dark">
+                        <!-- Active Destinations List -->
+                        <div class="flex flex-col gap-3 mb-4">
+                            <div class="flex items-center justify-between p-3 rounded-lg bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark">
+                                <div class="flex items-center gap-3">
+                                    <div class="size-10 rounded overflow-hidden bg-gray-200">
+                                        <img class="w-full h-full object-cover" data-alt="Venice canals" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCzK1mGvGLULI1UwYYTZgMEHwIjf6ZdjiSLAd1atSDh8fdbzQrJrNWDr3Bzv6RpuL_7ZmTjPsZ3uT9_Z2uj1pAgTakomS0NjHCeRFE0oYT-bV0h3EmCsN5Goaz74H5w1OWxskML7qDOeDgzamq3q198dqyTGl5Jjq5vyErrf0GuCVh-TDfiDunyAUebQIwLahbl9wcrSk7S2NwsPYrUoJ7ZpxZwL0r-6ZSWcbkY6U7pktvmKty5AYkT086seVtWGXA_e75dJTx-SsCC" />
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-sm">Venice, Italy</p>
+                                        <p class="text-xs text-text-secondary-light">July 4 - July 7 (3 Nights)</p>
+                                    </div>
+                                </div>
+                                <button class="text-text-secondary-light hover:text-red-500 transition-colors">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </div>
+                            <div class="flex items-center justify-between p-3 rounded-lg bg-background-light dark:bg-background-dark border border-border-light dark:border-border-dark">
+                                <div class="flex items-center gap-3">
+                                    <div class="size-10 rounded overflow-hidden bg-gray-200">
+                                        <img class="w-full h-full object-cover" data-alt="Florence architecture" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCgsz6yMEU8klzyHGc0jVPct24DTETzRK0GbKKNjwBnQ8MKlYkN3IfDWxOXTydud03lu5n-dWQ-4Ued34p7psE8hMBavjImKNXZT4TfsaCP08yV8VThl_cUpE4BI74P_bHnE-GDRg4PHJerVV_oF7mJ9FhgvCTBQUj3BIcwuZn5IhTIWyVsqfrLiJKF6I1FRN228BtG7A6FaK4-JE2ds0_YZN-i9qAjUbhPTzVMMvt_L20bNPQuvDhZAXT9KPgh68juRualolo_1aqB" />
+                                    </div>
+                                    <div>
+                                        <p class="font-semibold text-sm">Florence, Italy</p>
+                                        <p class="text-xs text-text-secondary-light">July 7 - July 12 (5 Nights)</p>
+                                    </div>
+                                </div>
+                                <button class="text-text-secondary-light hover:text-red-500 transition-colors">
+                                    <span class="material-symbols-outlined">delete</span>
+                                </button>
+                            </div>
+                        </div>
+                        <button class="flex items-center justify-center gap-2 w-full py-3 border-2 border-dashed border-border-light dark:border-border-dark rounded-lg text-text-secondary-light hover:text-primary hover:border-primary hover:bg-primary/5 transition-all">
+                            <span class="material-symbols-outlined">add_location_alt</span>
+                            <span class="font-medium">Add Destination</span>
+                        </button>
+                    </div>
+                </details>
+                <!-- Accommodations -->
+                <details class="group bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm overflow-hidden">
+                    <summary class="flex cursor-pointer items-center justify-between p-6 list-none select-none hover:bg-background-light dark:hover:bg-background-dark/50 transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="size-10 rounded-full bg-purple-100 dark:bg-purple-900/30 text-purple-600 dark:text-purple-400 flex items-center justify-center">
+                                <span class="material-symbols-outlined">hotel</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg text-text-main-light dark:text-text-main-dark">Accommodations</h3>
+                                <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Hotels and stays</p>
+                            </div>
+                        </div>
+                        <span class="material-symbols-outlined transform group-open:rotate-180 transition-transform">keyboard_arrow_down</span>
+                    </summary>
+                    <div class="px-6 pb-6 pt-2 border-t border-border-light dark:border-border-dark">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Hotel Card 1 -->
+                            <div class="border border-border-light dark:border-border-dark rounded-lg p-4 flex flex-col gap-3">
+                                <div class="flex justify-between items-start">
+                                    <div>
+                                        <span class="text-xs font-bold text-purple-600 bg-purple-100 dark:bg-purple-900/50 dark:text-purple-300 px-2 py-1 rounded">Venice</span>
+                                        <h4 class="font-bold text-base mt-2">Hotel Danieli</h4>
+                                    </div>
+                                    <button class="text-text-secondary-light hover:text-primary"><span class="material-symbols-outlined">edit</span></button>
+                                </div>
+                                <div class="flex gap-4 text-sm text-text-secondary-light">
+                                    <div class="flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[16px]">calendar_today</span>
+                                        July 4 - 7
+                                    </div>
+                                    <div class="flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[16px]">bedroom_parent</span>
+                                        1 Room, 2 Guests
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Add New Hotel Placeholder -->
+                            <button class="border-2 border-dashed border-border-light dark:border-border-dark rounded-lg p-4 flex flex-col items-center justify-center gap-2 text-text-secondary-light hover:text-primary hover:border-primary hover:bg-primary/5 transition-all min-h-[120px]">
+                                <span class="material-symbols-outlined text-3xl">add</span>
+                                <span class="font-medium text-sm">Add Accommodation</span>
+                            </button>
+                        </div>
+                    </div>
+                </details>
+                <!-- Activities -->
+                <details class="group bg-surface-light dark:bg-surface-dark rounded-xl border border-border-light dark:border-border-dark shadow-sm overflow-hidden">
+                    <summary class="flex cursor-pointer items-center justify-between p-6 list-none select-none hover:bg-background-light dark:hover:bg-background-dark/50 transition-colors">
+                        <div class="flex items-center gap-4">
+                            <div class="size-10 rounded-full bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 flex items-center justify-center">
+                                <span class="material-symbols-outlined">local_activity</span>
+                            </div>
+                            <div>
+                                <h3 class="font-bold text-lg text-text-main-light dark:text-text-main-dark">Daily Activities</h3>
+                                <p class="text-sm text-text-secondary-light dark:text-text-secondary-dark">Tours and events</p>
+                            </div>
+                        </div>
+                        <span class="material-symbols-outlined transform group-open:rotate-180 transition-transform">keyboard_arrow_down</span>
+                    </summary>
+                    <div class="px-6 pb-6 pt-2 border-t border-border-light dark:border-border-dark">
+                        <div class="space-y-4">
+                            <!-- Day 1 -->
+                            <div class="flex gap-4">
+                                <div class="flex flex-col items-center min-w-[60px]">
+                                    <span class="text-xs font-bold text-text-secondary-light uppercase">Day 1</span>
+                                    <span class="text-xl font-black text-text-main-light dark:text-text-main-dark">04</span>
+                                    <span class="h-full w-px bg-border-light dark:bg-border-dark my-2"></span>
+                                </div>
+                                <div class="flex-1 pb-6">
+                                    <div class="bg-background-light dark:bg-background-dark rounded-lg p-3 border border-border-light dark:border-border-dark flex items-center justify-between">
+                                        <div>
+                                            <p class="font-medium text-sm">Private Gondola Ride</p>
+                                            <p class="text-xs text-text-secondary-light">17:00 • Grand Canal</p>
+                                        </div>
+                                        <span class="material-symbols-outlined text-text-secondary-light text-[20px]">drag_indicator</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Day 2 -->
+                            <div class="flex gap-4">
+                                <div class="flex flex-col items-center min-w-[60px]">
+                                    <span class="text-xs font-bold text-text-secondary-light uppercase">Day 2</span>
+                                    <span class="text-xl font-black text-text-main-light dark:text-text-main-dark">05</span>
+                                    <span class="h-full w-px bg-border-light dark:bg-border-dark my-2"></span>
+                                </div>
+                                <div class="flex-1 pb-6">
+                                    <button class="text-sm text-primary hover:underline font-medium flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[16px]">add_circle</span>
+                                        Add Activity
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </details>
+            </div>
+        </div>
+    </div>
+    <!-- Right Column: Sticky Summary Sidebar -->
+    <aside class="w-[360px] flex-none bg-surface-light dark:bg-surface-dark border-l border-border-light dark:border-border-dark h-full flex flex-col z-10 shadow-xl lg:shadow-none hidden lg:flex">
+        <div class="flex-1 overflow-y-auto p-6 flex flex-col gap-6">
+            <!-- Status Card -->
+            <div class="flex items-center justify-between">
+                <span class="inline-flex items-center rounded-full bg-yellow-100 dark:bg-yellow-900/30 px-2.5 py-0.5 text-xs font-medium text-yellow-800 dark:text-yellow-500 ring-1 ring-inset ring-yellow-600/20">
+                    Draft Mode
+                </span>
+                <span class="text-xs text-text-secondary-light dark:text-text-secondary-dark">Last saved 2m ago</span>
+            </div>
+            <!-- Preview Image -->
+            <div class="relative w-full aspect-video rounded-lg overflow-hidden group">
+                <div class="absolute inset-0 bg-black/20 group-hover:bg-black/10 transition-colors z-10"></div>
+                <img class="w-full h-full object-cover" data-alt="Cover image of Italian coast" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDdzx69Oot0txvFgqmJN4PRhwSWyYRJx2yG9YJ0Gg-EquN845fFolgj_gJoZst3v84r0fb4sOU5E6yR2oyXgu14u-eAtwN0N_LZJ1rrvGAeL9uMVBZ4EoNwOc_AzPJP1t1-birfgJoGG8iD15ARrx3IKxnggp1auFLcEE8s80L9T4WXx4um264qFWtbp0l79NVGAyZ1tkjgA3vsvGFA4ptdSW3vpgAiHjViYD5Gw9nmOxNtuB-d0Amvkfp_EOcObBEcfh_jDYNgthfG" />
+                <button class="absolute bottom-3 right-3 z-20 bg-white/90 dark:bg-black/70 hover:bg-white text-text-main-light dark:text-white p-2 rounded-lg text-xs font-bold shadow-sm backdrop-blur-sm transition-all flex items-center gap-1">
+                    <span class="material-symbols-outlined text-[16px]">image</span> Change Cover
+                </button>
+            </div>
+            <!-- Trip Stats -->
+            <div class="grid grid-cols-3 gap-2 text-center">
+                <div class="p-3 bg-background-light dark:bg-background-dark rounded-lg">
+                    <span class="block text-xl font-bold text-text-main-light dark:text-text-main-dark">15</span>
+                    <span class="text-xs text-text-secondary-light">Days</span>
+                </div>
+                <div class="p-3 bg-background-light dark:bg-background-dark rounded-lg">
+                    <span class="block text-xl font-bold text-text-main-light dark:text-text-main-dark">3</span>
+                    <span class="text-xs text-text-secondary-light">Cities</span>
+                </div>
+                <div class="p-3 bg-background-light dark:bg-background-dark rounded-lg">
+                    <span class="block text-xl font-bold text-text-main-light dark:text-text-main-dark">2</span>
+                    <span class="text-xs text-text-secondary-light">Travelers</span>
+                </div>
+            </div>
+            <hr class="border-border-light dark:border-border-dark" />
+            <!-- Cost Breakdown -->
+            <div>
+                <h4 class="font-bold text-sm mb-4 text-text-main-light dark:text-text-main-dark uppercase tracking-wider">Estimated Costs</h4>
+                <div class="flex flex-col gap-3 text-sm">
+                    <div class="flex justify-between items-center text-text-secondary-light dark:text-text-secondary-dark">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[18px]">flight</span>
+                            Transportation
+                        </div>
+                        <span>$1,200</span>
+                    </div>
+                    <div class="flex justify-between items-center text-text-secondary-light dark:text-text-secondary-dark">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[18px]">hotel</span>
+                            Accommodation
+                        </div>
+                        <span>$2,450</span>
+                    </div>
+                    <div class="flex justify-between items-center text-text-secondary-light dark:text-text-secondary-dark">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[18px]">local_activity</span>
+                            Activities
+                        </div>
+                        <span>$450</span>
+                    </div>
+                    <div class="flex justify-between items-center text-text-secondary-light dark:text-text-secondary-dark">
+                        <div class="flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[18px]">receipt_long</span>
+                            Fees &amp; Taxes
+                        </div>
+                        <span>$150</span>
+                    </div>
+                    <div class="h-px bg-border-light dark:bg-border-dark my-1"></div>
+                    <div class="flex justify-between items-center text-lg font-bold text-primary">
+                        <span>Total</span>
+                        <span>$4,250</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Sticky Bottom Actions -->
+        <div class="p-6 border-t border-border-light dark:border-border-dark bg-surface-light dark:bg-surface-dark flex flex-col gap-3">
+            <button class="w-full h-11 bg-primary hover:bg-sky-500 text-white font-bold rounded-lg transition-colors flex items-center justify-center gap-2 shadow-lg shadow-primary/20">
+                <span class="material-symbols-outlined text-[20px]">send</span>
+                Publish Itinerary
+            </button>
+            <button class="w-full h-11 bg-background-light dark:bg-background-dark hover:bg-gray-200 dark:hover:bg-gray-800 text-text-main-light dark:text-text-main-dark font-medium rounded-lg transition-colors flex items-center justify-center gap-2 border border-transparent hover:border-border-light">
+                <span class="material-symbols-outlined text-[20px]">save</span>
+                Save as Draft
+            </button>
+        </div>
+    </aside>
+</main>

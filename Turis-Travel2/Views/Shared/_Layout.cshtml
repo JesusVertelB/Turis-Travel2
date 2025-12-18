@@ -18,6 +18,10 @@
     <!-- TAILWIND -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="~/css/output.css" />
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;300;400;500;600;700;800&display=swap" rel="stylesheet" 
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet" />
+
 
 
     <!-- ICONOS GOOGLE -->
@@ -30,7 +34,7 @@
 <body class="bg-gray-100">
 
     <!-- NAVBAR TAILWIND -->
-    <header class="bg-white shadow-sm">
+    <header id="navbar" class="fixed top-0 w-full bg-white/80 backdrop-blur shadow-sm z-50 transition-all">
         <nav class="container mx-auto flex items-center justify-between py-4 px-4">
 
             <!-- Logo -->
@@ -39,15 +43,18 @@
                 <span class="material-symbols-outlined text-blue-600 text-3xl">
                     travel
                 </span>
-                <span class="text-xl font-bold text-gray-700">Turis Travel</span>
+                <span class="text-2xl font-extrabold tracking-tight text-gray-800">
+                    Turis<span class="text-blue-600">Travel</span>
+                </span>
+
             </a>
 
             <!-- Menu Desktop -->
-            <ul class="hidden md:flex gap-6 text-gray-700 font-medium">
+            <ul class="hidden md:flex gap-8 text-gray-800 font-semibold tracking-wide">
                 <li><a asp-controller="Home" asp-action="Index" class="hover:text-blue-600">Inicio</a></li>
                 <li><a href="#" class="hover:text-blue-600">Destinos</a></li>
                 <li><a asp-controller="Contacto" asp-action="Index" class="hover:text-blue-600">Contacto</a></li>
-            </ul>
+            </>
 
             <!-- Botones derecha -->
             <div class="hidden md:flex items-center gap-3">
@@ -133,9 +140,12 @@
     </header>
 
     <!-- CONTENIDO -->
-    <main class="container mx-auto py-6 px-4">
+    <main class="pt-24">
+    <div class="container mx-auto px-4">
         @RenderBody()
-    </main>
+    </div>
+</main>
+
 
     <!-- FOOTER -->
     <footer class="bg-white border-t py-4 text-center text-gray-500">
@@ -153,6 +163,23 @@
             menu.classList.toggle("hidden");
         });
     </script>
+
+
+    <script>
+        const navbar = document.getElementById("navbar");
+
+        window.addEventListener("scroll", () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add("bg-white/90", "backdrop-blur", "shadow-md");
+                navbar.classList.remove("bg-transparent");
+            } else {
+                navbar.classList.remove("bg-white/90", "backdrop-blur", "shadow-md");
+                navbar.classList.add("bg-transparent");
+            }
+        });
+    </script>
+
+
 
     @await RenderSectionAsync("Scripts", required: false)
 
