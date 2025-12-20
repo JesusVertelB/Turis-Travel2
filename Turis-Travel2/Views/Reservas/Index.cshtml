@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Turis_Travel2.Models.Scaffolded.Reserva>
+﻿@model IEnumerable<Turis_Travel2.Models.Reserva>
 @using System.Linq
 
 @{
@@ -55,13 +55,13 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@item.ID_reserva</td>
+                                    <td>@item.IdReserva</td>
 
-                                    <td>@item.ID_clienteNavigation?.Nombre</td>
+                                    <td>@item.IdClienteNavigation?.Nombre</td>
 
-                                    <td>@item.ID_paqueteNavigation?.Nombre_paquete</td>
+                                    <td>@item.IdPaqueteNavigation?.NombrePaquete</td>
 
-                                    <td>@item.Fecha_solicitud?.ToString("yyyy-MM-dd")</td>
+                                    <td>@item.FechaSolicitud?.ToString("yyyy-MM-dd")</td>
 
                                     <td>
                                         @{
@@ -82,13 +82,13 @@
 
                                     <td class="text-center">
 
-                                        <a asp-action="Edit" asp-route-id="@item.ID_reserva"
+                                        <a asp-action="Edit" asp-route-id="@item.IdReserva"
                                            class="btn btn-warning btn-sm me-1 px-3">
                                             <i class="bi bi-pencil-square"></i>
                                             Editar
                                         </a>
 
-                                        <a asp-action="Delete" asp-route-id="@item.ID_reserva"
+                                        <a asp-action="Delete" asp-route-id="@item.IdReserva"
                                            class="btn btn-danger btn-sm px-3">
                                             <i class="bi bi-trash3"></i>
                                             Eliminar

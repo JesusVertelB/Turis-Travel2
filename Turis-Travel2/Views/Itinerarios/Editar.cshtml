@@ -1,4 +1,4 @@
-﻿@model Turis_Travel2.Models.Scaffolded.Itinerario
+﻿@model Turis_Travel2.Models.Itinerario
 @{
     ViewData["Title"] = "Editar Itinerario";
     Layout = "_LayoutDashboard";
@@ -124,7 +124,7 @@
         <div class="col-lg-10 col-xl-8 mx-auto">
             <form asp-action="Editar" method="post" id="editForm">
                 @Html.AntiForgeryToken()
-                <input type="hidden" asp-for="ID_itinerario" />
+                <input type="hidden" asp-for="IdItinerario" />
 
                 <div class="form-card">
                     <!-- Header -->
@@ -133,7 +133,7 @@
                             <span class="material-symbols-outlined">edit</span>
                             Editar Itinerario
                         </h1>
-                        <p class="mb-0 opacity-75">Modifica la información del itinerario @Model.Nombre_itinerario</p>
+                        <p class="mb-0 opacity-75">Modifica la información del itinerario @Model.NombreItinerario</p>
                     </div>
 
                     <!-- Body -->
@@ -148,25 +148,25 @@
                             <div class="row g-3">
                                 <!-- Nombre del Itinerario -->
                                 <div class="col-md-12">
-                                    <label asp-for="Nombre_itinerario" class="form-label">
+                                    <label asp-for="NombreItinerario" class="form-label">
                                         Nombre del Itinerario <span class="required-star">*</span>
                                     </label>
                                     <div class="input-icon">
                                         <span class="material-symbols-outlined">route</span>
-                                        <input asp-for="Nombre_itinerario" class="form-control"
+                                        <input asp-for="NombreItinerario" class="form-control"
                                                placeholder="Ej: Tour por la Ciudad de México" />
                                     </div>
-                                    <span asp-validation-for="Nombre_itinerario" class="text-danger small"></span>
+                                    <span asp-validation-for="NombreItinerario" class="text-danger small"></span>
                                 </div>
 
                                 <!-- Tipo de Itinerario -->
                                 <div class="col-md-6">
-                                    <label asp-for="Tipo_itinerario" class="form-label">
+                                    <label asp-for="TipoItinerario" class="form-label">
                                         Tipo de Itinerario <span class="required-star">*</span>
                                     </label>
                                     <div class="input-icon">
                                         <span class="material-symbols-outlined">category</span>
-                                        <select asp-for="Tipo_itinerario" class="form-select">
+                                        <select asp-for="TipoItinerario" class="form-select">
                                             <option value="">Seleccionar tipo</option>
                                             <option value="Aventura">Aventura</option>
                                             <option value="Cultural">Cultural</option>
@@ -178,7 +178,7 @@
                                             <option value="Lujo">Lujo</option>
                                         </select>
                                     </div>
-                                    <span asp-validation-for="Tipo_itinerario" class="text-danger small"></span>
+                                    <span asp-validation-for="TipoItinerario" class="text-danger small"></span>
                                 </div>
 
                                 <!-- Estado -->
@@ -210,47 +210,47 @@
                             <div class="row g-3">
                                 <!-- Duración en días -->
                                 <div class="col-md-6">
-                                    <label asp-for="Duracion_dias" class="form-label">
+                                    <label asp-for="DuracionDias" class="form-label">
                                         Duración (días) <span class="required-star">*</span>
                                     </label>
                                     <div class="input-icon">
                                         <span class="material-symbols-outlined">today</span>
-                                        <input asp-for="Duracion_dias" type="number" class="form-control"
+                                        <input asp-for="DuracionDias" type="number" class="form-control"
                                                min="1" max="365" placeholder="Ej: 7" />
                                     </div>
-                                    <span asp-validation-for="Duracion_dias" class="text-danger small"></span>
+                                    <span asp-validation-for="DuracionDias" class="text-danger small"></span>
                                 </div>
 
                                 <!-- Paquete Asociado -->
                                 <div class="col-md-6">
-                                    <label asp-for="ID_paquete" class="form-label">Paquete Asociado</label>
+                                    <label asp-for="IdPaquete" class="form-label">Paquete Asociado</label>
                                     <div class="input-icon">
                                         <span class="material-symbols-outlined">package_2</span>
-                                        <select asp-for="ID_paquete" asp-items="ViewBag.Paquetes" class="form-select">
+                                        <select asp-for="IdPaquete" asp-items="ViewBag.Paquetes" class="form-select">
                                             <option value="">Sin paquete asignado</option>
                                         </select>
                                     </div>
-                                    <span asp-validation-for="ID_paquete" class="text-danger small"></span>
+                                    <span asp-validation-for="IdPaquete" class="text-danger small"></span>
                                 </div>
 
                                 <!-- Fecha de Inicio -->
                                 <div class="col-md-6">
-                                    <label asp-for="Fecha_inicio" class="form-label">Fecha de Inicio</label>
+                                    <label asp-for="FechaInicio" class="form-label">Fecha de Inicio</label>
                                     <div class="input-icon">
                                         <span class="material-symbols-outlined">flight_takeoff</span>
-                                        <input asp-for="Fecha_inicio" type="date" class="form-control" />
+                                        <input asp-for="FechaInicio" type="date" class="form-control" />
                                     </div>
-                                    <span asp-validation-for="Fecha_inicio" class="text-danger small"></span>
+                                    <span asp-validation-for="FechaInicio" class="text-danger small"></span>
                                 </div>
 
                                 <!-- Fecha de Fin -->
                                 <div class="col-md-6">
-                                    <label asp-for="Fecha_fin" class="form-label">Fecha de Fin</label>
+                                    <label asp-for="FechaFin" class="form-label">Fecha de Fin</label>
                                     <div class="input-icon">
                                         <span class="material-symbols-outlined">flight_land</span>
-                                        <input asp-for="Fecha_fin" type="date" class="form-control" />
+                                        <input asp-for="FechaFin" type="date" class="form-control" />
                                     </div>
-                                    <span asp-validation-for="Fecha_fin" class="text-danger small"></span>
+                                    <span asp-validation-for="FechaFin" class="text-danger small"></span>
                                 </div>
                             </div>
                         </div>
@@ -264,21 +264,21 @@
 
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    <label asp-for="Precio_por_persona" class="form-label">Precio por Persona (COP)</label>
+                                    <label asp-for="PrecioPorPersona" class="form-label">Precio por Persona (COP)</label>
                                     <div class="input-icon">
                                         <span class="material-symbols-outlined">attach_money</span>
-                                        <input asp-for="Precio_por_persona" type="number" step="0.01"
+                                        <input asp-for="PrecioPorPersona" type="number" step="0.01"
                                                class="form-control" placeholder="Ej: 1500000" />
                                     </div>
                                     <div class="form-text">Precio en pesos colombianos por persona</div>
-                                    <span asp-validation-for="Precio_por_persona" class="text-danger small"></span>
+                                    <span asp-validation-for="PrecioPorPersona" class="text-danger small"></span>
                                 </div>
                             </div>
                         </div>
 
                         <!-- Botones -->
                         <div class="d-flex justify-content-between align-items-center pt-4 border-top">
-                            <a asp-action="Detalle" asp-route-id="@Model.ID_itinerario" class="btn btn-outline-custom">
+                            <a asp-action="Detalle" asp-route-id="@Model.IdItinerario" class="btn btn-outline-custom">
                                 <span class="material-symbols-outlined">visibility</span>
                                 Ver Detalles
                             </a>

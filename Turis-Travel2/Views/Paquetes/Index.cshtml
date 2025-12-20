@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Turis_Travel2.Models.Scaffolded.Paquetes_Turistico>
+﻿@model IEnumerable<Turis_Travel2.Models.PaquetesTuristico>
 @using System.Linq
 
 @{
@@ -57,18 +57,18 @@
                             @foreach (var item in Model)
                             {
                                 <tr>
-                                    <td>@item.ID_paquete</td>
+                                    <td>@item.IdPaquete</td>
 
-                                    <td>@item.Nombre_paquete</td>
+                                    <td>@item.NombrePaquete</td>
 
-                                    <td>@item.Precio_base</td>
+                                    <td>@item.PrecioBase</td>
 
-                                    <td>@item.Fecha_creacion?.ToString("yyyy-MM-dd")</td>
+                                    <td>@item.FechaCreacion?.ToString("yyyy-MM-dd")</td>
 
 
-                                    <td>@item.Fecha_inicio?.ToString("yyyy-MM-dd")</td>
+                                    <td>@item.FechaInicio?.ToString("yyyy-MM-dd")</td>
 
-                                    <td>@item.Fecha_fin?.ToString("yyyy-MM-dd")</td>
+                                    <td>@item.FechaFin?.ToString("yyyy-MM-dd")</td>
 
                                     <td>
                                         @{
@@ -89,12 +89,12 @@
 
                                     <td class="text-center d-flex">
 
-                                        <a asp-action="Edit" asp-route-id="@item.ID_paquete"
+                                        <a asp-action="Edit" asp-route-id="@item.IdPaquete"
                                            class="btn btn-warning btn-sm me-1 px-3">
                                             <i class="bi bi-pencil-square"></i>
                                             Editar
                                         </a>
-                                        <form asp-action="Delete" method="post" asp-route-id="@item.ID_paquete">
+                                        <form asp-action="Delete" method="post" asp-route-id="@item.IdPaquete">
                                             <button class="btn btn-danger btn-sm px-3">
                                                 <i class="bi bi-trash3"></i>
                                                 Eliminar

@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Turis_Travel2.Models.Scaffolded;
+using Turis_Travel2.Models;
 
 namespace Turis_Travel2.Models
 {

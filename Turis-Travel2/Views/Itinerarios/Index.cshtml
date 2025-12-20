@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Turis_Travel2.Models.Scaffolded.Itinerario>
+﻿@model IEnumerable<Turis_Travel2.Models.Itinerario>
 
 @{
     Layout = "_LayoutDashboard";
@@ -66,7 +66,7 @@
                 <div class="d-flex justify-content-between align-items-center">
                     <div>
                         <div class="stat-label">Días Promedio</div>
-                        <p class="stat-value">@(Model.Any() ? Math.Round(Model.Average(x => x.Duracion_dias ?? 0), 0) : 0)</p>
+                        <p class="stat-value">@(Model.Any() ? Math.Round(Model.Average(x => x.DuracionDias ?? 0), 0) : 0)</p>
                     </div>
                     <span class="material-symbols-outlined stat-icon">schedule</span>
                 </div>
@@ -152,11 +152,11 @@
                     {
                         @foreach (var i in Model)
                         {
-                            <tr data-nombre="@i.Nombre_itinerario?.ToLower()"
-                                data-paquete="@(i.ID_paqueteNavigation?.Nombre_paquete?.ToLower() ?? "")"
-                                data-tipo="@i.Tipo_itinerario?.ToLower()"
+                            <tr data-nombre="@i.NombreItinerario?.ToLower()"
+                                data-paquete="@(i.IdPaqueteNavigation?.NombrePaquete?.ToLower() ?? "")"
+                                data-tipo="@i.TipoItinerario?.ToLower()"
                                 data-estado="@i.Estado"
-                                data-duracion="@i.Duracion_dias">
+                                data-duracion="@i.DuracionDias">
 
                                 <td>
                                     <div class="itinerario-box">
@@ -164,37 +164,37 @@
                                             <span class="material-symbols-outlined">route</span>
                                         </div>
                                         <div>
-                                            <div class="itinerario-name">@i.Nombre_itinerario</div>
+                                            <div class="itinerario-name">@i.NombreItinerario</div>
                                             <div class="itinerario-type">
                                                 <span class="material-symbols-outlined" style="font-size: 14px;">category</span>
-                                                @i.Tipo_itinerario
+                                                @i.TipoItinerario
                                             </div>
                                         </div>
                                     </div>
                                 </td>
 
                                 <td>
-                                    <span style="color: #475569; font-size: 14px;">@(i.ID_paqueteNavigation?.Nombre_paquete ?? "Sin asignar")</span>
+                                    <span style="color: #475569; font-size: 14px;">@(i.IdPaqueteNavigation?.NombrePaquete ?? "Sin asignar")</span>
                                 </td>
 
                                 <td>
                                     <span class="badge-duration">
                                         <span class="material-symbols-outlined" style="font-size: 16px;">schedule</span>
-                                        @i.Duracion_dias días
+                                        @i.DuracionDias días
                                     </span>
                                 </td>
 
                                 <td>
-                                    @if (i.Fecha_inicio != null && i.Fecha_fin != null)
+                                    @if (i.FechaInicio != null && i.FechaFin != null)
                                     {
                                         <div class="date-info">
                                             <div class="date-row">
                                                 <span class="material-symbols-outlined">flight_takeoff</span>
-                                                @i.Fecha_inicio.Value.ToString("dd/MM/yyyy")
+                                                @i.FechaInicio.Value.ToString("dd/MM/yyyy")
                                             </div>
                                             <div class="date-row">
                                                 <span class="material-symbols-outlined">flight_land</span>
-                                                @i.Fecha_fin.Value.ToString("dd/MM/yyyy")
+                                                @i.FechaFin.Value.ToString("dd/MM/yyyy")
                                             </div>
                                         </div>
                                     }
@@ -205,12 +205,12 @@
                                 </td>
 
                                 <td>
-                                    @if (i.Precio_por_persona != null)
+                                    @if (i.PrecioPorPersona != null)
                                     {
                                         <div>
                                             <div class="price-value">
                                                 <span class="material-symbols-outlined">payments</span>
-                                                $@i.Precio_por_persona.Value.ToString("N0")
+                                                $@i.PrecioPorPersona.Value.ToString("N0")
                                             </div>
                                             <div class="price-label">por persona</div>
                                         </div>
@@ -230,15 +230,15 @@
 
                                 <td>
                                     <div class="d-flex justify-content-end gap-2">
-                                        <a asp-action="Detalle" asp-route-id="@i.ID_itinerario" class="btn-action btn-view" title="Ver detalles" aria-label="Ver detalles del itinerario @i.Nombre_itinerario">
+                                        <a asp-action="Detalle" asp-route-id="@i.IdItinerario" class="btn-action btn-view" title="Ver detalles" aria-label="Ver detalles del itinerario @i.NombreItinerario">
                                             <span class="material-symbols-outlined" style="font-size: 18px;">visibility</span>
                                         </a>
 
-                                        <a asp-action="Editar" asp-route-id="@i.ID_itinerario" class="btn-action btn-edit" title="Editar">
+                                        <a asp-action="Editar" asp-route-id="@i.IdItinerario" class="btn-action btn-edit" title="Editar">
                                             <span class="material-symbols-outlined" style="font-size: 18px;">edit</span>
                                         </a>
 
-                                        <a asp-action="Eliminar" asp-route-id="@i.ID_itinerario" class="btn-action btn-delete" title="Eliminar"
+                                        <a asp-action="Eliminar" asp-route-id="@i.IdItinerario" class="btn-action btn-delete" title="Eliminar"
                                            onclick="return confirm('¿Estás seguro de eliminar este itinerario?')">
                                             <span class="material-symbols-outlined" style="font-size: 18px;">delete</span>
                                         </a>

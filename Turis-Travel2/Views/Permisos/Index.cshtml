@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Turis_Travel2.Models.Scaffolded.Permiso>
+﻿@model IEnumerable<Turis_Travel2.Models.Permiso>
 
 @{
     Layout = "_LayoutDashboard";
@@ -20,18 +20,18 @@
 
                     <div>
                         <p class="font-medium text-gray-700">
-                            @p.ID_moduloNavigation.Nombre_modulo
+                            @p.IdModuloNavigation.NombreModulo
                         </p>
                         <p class="text-sm text-gray-500">
-                            @p.ID_moduloNavigation.Descripcion
+                            @p.IdModuloNavigation.Descripcion
                         </p>
                     </div>
 
                     <input type="checkbox"
                            name="permisosSeleccionados"
-                           value="@p.ID_permiso"
+                           value="@p.IdPermiso"
                            class="w-5 h-5 text-blue-600 rounded focus:ring-blue-500"
-                           @(p.Estado_permiso == 1 ? "checked" : "") />
+                           @(p.EstadoPermiso == 1 ? "checked" : "") />
                 </div>
             }
         </div>

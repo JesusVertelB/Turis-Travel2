@@ -1,4 +1,4 @@
-﻿@model Turis_Travel2.Models.Scaffolded.Usuario
+﻿@model Turis_Travel2.Models.Usuario
 @{
     ViewData["Title"] = "Detalles del Usuario";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
@@ -12,11 +12,11 @@
         <div class="card-body">
             <div class="row mb-3">
                 <div class="col-sm-3 fw-bold">ID:</div>
-                <div class="col-sm-9">@Model.ID_usuario</div>
+                <div class="col-sm-9">@Model.IdUsuario</div>
             </div>
             <div class="row mb-3">
                 <div class="col-sm-3 fw-bold">Nombre:</div>
-                <div class="col-sm-9">@Model.Nombre_usuario</div>
+                <div class="col-sm-9">@Model.NombreUsuario</div>
             </div>
             <div class="row mb-3">
                 <div class="col-sm-3 fw-bold">Correo:</div>
@@ -24,14 +24,14 @@
             </div>
             <div class="row mb-3">
                 <div class="col-sm-3 fw-bold">Rol:</div>
-                <div class="col-sm-9">@Model.ID_rolNavigation?.Nombre_rol</div>
+                <div class="col-sm-9">@Model.IdRolNavigation?.NombreRol</div>
             </div>
 
             <div class="mt-4">
                 <a asp-action="Index" class="btn btn-secondary me-2">
                     <i class="bi bi-arrow-left-circle"></i> Volver
                 </a>
-                <a asp-action="Edit" asp-route-id="@Model.ID_usuario" class="btn btn-primary">
+                <a asp-action="Edit" asp-route-id="@Model.IdUsuario" class="btn btn-primary">
                     <i class="bi bi-pencil-fill"></i> Editar
                 </a>
             </div>

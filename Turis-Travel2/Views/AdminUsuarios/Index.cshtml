@@ -1,4 +1,4 @@
-﻿@model List<Turis_Travel2.Models.Scaffolded.Usuario>
+﻿@model List<Turis_Travel2.Models.Usuario>
 
 @{
     ViewData["Title"] = "Gestión de Usuarios";
@@ -130,11 +130,11 @@
                             <!-- Usuario + foto -->
                             <td>
                                 <div class="d-flex align-items-center">
-                                    <img src="https://ui-avatars.com/api/?name=@u.Nombre_usuario&background=random"
+                                    <img src="https://ui-avatars.com/api/?name=@u.NombreUsuario&background=random"
                                          class="user-avatar me-3" />
 
                                     <div>
-                                        <strong>@u.Nombre_usuario</strong><br />
+                                        <strong>@u.NombreUsuario</strong><br />
                                         <small class="text-muted">@u.Correo</small>
                                     </div>
                                 </div>
@@ -143,10 +143,10 @@
                             <!-- Rol -->
                             <td>
                                 <span class="badge badge-role
-                                        @(u.ID_rolNavigation?.Nombre_rol == "Admin" ? "bg-primary" :
-                                                                            u.ID_rolNavigation?.Nombre_rol == "Soporte" ? "bg-warning text-dark" :
+                                        @(u.IdRolNavigation?.NombreRol == "Admin" ? "bg-primary" :
+                                                                            u.IdRolNavigation?.NombreRol == "Soporte" ? "bg-warning text-dark" :
                                                                             "bg-secondary")">
-                                    @u.ID_rolNavigation?.Nombre_rol
+                                    @u.IdRolNavigation?.NombreRol
                                 </span>
                             </td>
 
@@ -166,13 +166,13 @@
 
                             <!-- Acciones -->
                             <td class="text-end">
-                                <a asp-action="Edit" asp-route-id="@u.ID_usuario" class="btn btn-sm btn-outline-primary me-1">
+                                <a asp-action="Edit" asp-route-id="@u.IdUsuario" class="btn btn-sm btn-outline-primary me-1">
                                     <i class="bi bi-pencil"></i>
                                 </a>
-                                <a asp-action="Details" asp-route-id="@u.ID_usuario" class="btn btn-sm btn-outline-info me-1">
+                                <a asp-action="Details" asp-route-id="@u.IdUsuario" class="btn btn-sm btn-outline-info me-1">
                                     <i class="bi bi-eye"></i>
                                 </a>
-                                <a asp-action="Delete" asp-route-id="@u.ID_usuario" class="btn btn-sm btn-outline-danger">
+                                <a asp-action="Delete" asp-route-id="@u.IdUsuario" class="btn btn-sm btn-outline-danger">
                                     <i class="bi bi-trash"></i>
                                 </a>
                             </td>

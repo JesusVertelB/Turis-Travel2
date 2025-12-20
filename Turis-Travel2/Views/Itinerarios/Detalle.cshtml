@@ -1,4 +1,4 @@
-﻿@model Turis_Travel2.Models.Scaffolded.Itinerario
+﻿@model Turis_Travel2.Models.Itinerario
 @{
     ViewData["Title"] = "Detalle del Itinerario";
     Layout = "_LayoutDashboard";
@@ -129,7 +129,7 @@
                     Imprimir
                 </button>
 
-                <a asp-action="Editar" asp-route-id="@Model.ID_itinerario"
+                <a asp-action="Editar" asp-route-id="@Model.IdItinerario"
                    class="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-all duration-200 shadow-sm hover:shadow">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
@@ -159,7 +159,7 @@
                     <div class="flex-1">
                         <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                             <div>
-                                <h1 class="text-2xl md:text-3xl font-bold mb-2">@Model.Nombre_itinerario</h1>
+                                <h1 class="text-2xl md:text-3xl font-bold mb-2">@Model.NombreItinerario</h1>
                                 <div class="flex flex-wrap items-center gap-3">
                                     <!-- Badge de estado -->
                                     <span class="status-badge @(Model.Estado == "Activo" ? "bg-emerald-100 text-emerald-800" : Model.Estado == "Borrador" ? "bg-yellow-100 text-yellow-800" : "bg-gray-100 text-gray-800")">
@@ -177,12 +177,12 @@
                                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"></path>
                                         </svg>
-                                        @Model.Tipo_itinerario
+                                        @Model.TipoItinerario
                                     </span>
 
                                     <!-- ID -->
                                     <span class="text-sm text-white/80">
-                                        ID: ITN-@Model.ID_itinerario.ToString("D4")
+                                        ID: ITN-@Model.IdItinerario.ToString("D4")
                                     </span>
                                 </div>
                             </div>
@@ -227,7 +227,7 @@
                                         <div>
                                             <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Paquete Asociado</p>
                                             <p class="text-lg font-semibold text-gray-900 dark:text-white">
-                                                @(Model.ID_paqueteNavigation?.Nombre_paquete ?? "Sin paquete asignado")
+                                                @(Model.IdPaqueteNavigation?.NombrePaquete ?? "Sin paquete asignado")
                                             </p>
                                         </div>
                                     </div>
@@ -244,7 +244,7 @@
                                         <div>
                                             <p class="text-sm font-medium text-gray-500 dark:text-gray-400">Duración</p>
                                             <p class="text-lg font-semibold text-gray-900 dark:text-white">
-                                                @Model.Duracion_dias días
+                                                @Model.DuracionDias días
                                             </p>
                                         </div>
                                     </div>
@@ -260,7 +260,7 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                                 </svg>
                                                 <span class="font-medium">
-                                                    @(Model.Fecha_inicio?.ToString("dddd, dd MMMM yyyy", new System.Globalization.CultureInfo("es-ES")) ?? "No definida")
+                                                    @(Model.FechaInicio?.ToString("dddd, dd MMMM yyyy", new System.Globalization.CultureInfo("es-ES")) ?? "No definida")
                                                 </span>
                                             </div>
                                         </div>
@@ -272,7 +272,7 @@
                                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                                                 </svg>
                                                 <span class="font-medium">
-                                                    @(Model.Fecha_fin?.ToString("dddd, dd MMMM yyyy", new System.Globalization.CultureInfo("es-ES")) ?? "No definida")
+                                                    @(Model.FechaFin?.ToString("dddd, dd MMMM yyyy", new System.Globalization.CultureInfo("es-ES")) ?? "No definida")
                                                 </span>
                                             </div>
                                         </div>
@@ -290,13 +290,13 @@
                                 Información de Precio
                             </h3>
 
-                            @if (Model.Precio_por_persona.HasValue)
+                            @if (Model.PrecioPorPersona.HasValue)
                             {
                                 <div class="text-center">
                                     <p class="text-sm font-medium text-gray-500 dark:text-gray-400 mb-2">Precio por Persona</p>
                                     <div class="flex items-center justify-center gap-3">
                                         <div class="text-4xl md:text-5xl font-bold text-emerald-600">
-                                            @Model.Precio_por_persona.Value.ToString("C0", new System.Globalization.CultureInfo("es-CO"))
+                                            @Model.PrecioPorPersona.Value.ToString("C0", new System.Globalization.CultureInfo("es-CO"))
                                         </div>
                                     </div>
                                     <p class="text-sm text-gray-500 dark:text-gray-400 mt-3">
@@ -354,18 +354,18 @@
 
                                 <div class="flex justify-between items-center">
                                     <span class="text-sm text-gray-600 dark:text-gray-400">Tipo:</span>
-                                    <span class="font-medium text-blue-600">@Model.Tipo_itinerario</span>
+                                    <span class="font-medium text-blue-600">@Model.TipoItinerario</span>
                                 </div>
 
                                 <div class="flex justify-between items-center">
                                     <span class="text-sm text-gray-600 dark:text-gray-400">Duración:</span>
-                                    <span class="font-medium text-gray-900 dark:text-white">@Model.Duracion_dias días</span>
+                                    <span class="font-medium text-gray-900 dark:text-white">@Model.DuracionDias días</span>
                                 </div>
 
                                 <div class="flex justify-between items-center">
                                     <span class="text-sm text-gray-600 dark:text-gray-400">Paquete:</span>
                                     <span class="font-medium text-gray-900 dark:text-white text-right">
-                                        @(Model.ID_paqueteNavigation?.Nombre_paquete ?? "No asignado")
+                                        @(Model.IdPaqueteNavigation?.NombrePaquete ?? "No asignado")
                                     </span>
                                 </div>
                             </div>
@@ -377,13 +377,13 @@
 
                             <div class="grid grid-cols-2 gap-4">
                                 <div class="text-center p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
-                                    <div class="text-2xl font-bold text-gray-900 dark:text-white">@Model.Duracion_dias</div>
+                                    <div class="text-2xl font-bold text-gray-900 dark:text-white">@Model.DuracionDias</div>
                                     <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Días totales</div>
                                 </div>
 
                                 <div class="text-center p-3 bg-gray-50 dark:bg-gray-900/50 rounded-lg">
                                     <div class="text-2xl font-bold text-emerald-600">
-                                        @(Model.Precio_por_persona.HasValue ? "$" + Model.Precio_por_persona.Value.ToString("N0") : "N/A")
+                                        @(Model.PrecioPorPersona.HasValue ? "$" + Model.PrecioPorPersona.Value.ToString("N0") : "N/A")
                                     </div>
                                     <div class="text-xs text-gray-500 dark:text-gray-400 mt-1">Precio/persona</div>
                                 </div>
@@ -395,7 +395,7 @@
                             <h3 class="text-lg font-semibold text-gray-900 dark:text-white mb-4">Acciones</h3>
 
                             <div class="space-y-3">
-                                <a asp-action="Editar" asp-route-id="@Model.ID_itinerario"
+                                <a asp-action="Editar" asp-route-id="@Model.IdItinerario"
                                    class="w-full flex items-center justify-center gap-2 px-4 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors font-medium">
                                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"></path>
@@ -447,14 +447,14 @@
 <div class="print-only">
     <div class="p-8">
         <div class="text-center mb-8">
-            <h1 class="text-3xl font-bold text-gray-900">@Model.Nombre_itinerario</h1>
+            <h1 class="text-3xl font-bold text-gray-900">@Model.NombreItinerario</h1>
             <p class="text-gray-600">Detalles del itinerario - @DateTime.Now.ToString("dd/MM/yyyy HH:mm")</p>
         </div>
 
         <div class="grid grid-cols-2 gap-6 mb-6">
             <div>
                 <p class="text-sm text-gray-500">ID:</p>
-                <p class="font-semibold">ITN-@Model.ID_itinerario.ToString("D4")</p>
+                <p class="font-semibold">ITN-@Model.IdItinerario.ToString("D4")</p>
             </div>
             <div>
                 <p class="text-sm text-gray-500">Estado:</p>
@@ -462,19 +462,19 @@
             </div>
             <div>
                 <p class="text-sm text-gray-500">Tipo:</p>
-                <p class="font-semibold">@Model.Tipo_itinerario</p>
+                <p class="font-semibold">@Model.TipoItinerario</p>
             </div>
             <div>
                 <p class="text-sm text-gray-500">Duración:</p>
-                <p class="font-semibold">@Model.Duracion_dias días</p>
+                <p class="font-semibold">@Model.DuracionDias días</p>
             </div>
             <div>
                 <p class="text-sm text-gray-500">Paquete:</p>
-                <p class="font-semibold">@(Model.ID_paqueteNavigation?.Nombre_paquete ?? "No asignado")</p>
+                <p class="font-semibold">@(Model.IdPaqueteNavigation?.NombrePaquete ?? "No asignado")</p>
             </div>
             <div>
                 <p class="text-sm text-gray-500">Precio/persona:</p>
-                <p class="font-semibold">@(Model.Precio_por_persona?.ToString("C", new System.Globalization.CultureInfo("es-CO")) ?? "No definido")</p>
+                <p class="font-semibold">@(Model.PrecioPorPersona?.ToString("C", new System.Globalization.CultureInfo("es-CO")) ?? "No definido")</p>
             </div>
         </div>
 
@@ -505,7 +505,7 @@
             const copyIdButton = document.getElementById('copyIdButton');
             if (copyIdButton) {
                 copyIdButton.addEventListener('click', function() {
-                    const id = 'ITN-' + @Model.ID_itinerario.ToString("D4");
+                    const id = 'ITN-' + @Model.IdItinerario.ToString("D4");
                     navigator.clipboard.writeText(id).then(() => {
                         // Mostrar feedback
                         const originalText = copyIdButton.innerHTML;

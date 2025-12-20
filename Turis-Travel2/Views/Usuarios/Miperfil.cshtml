@@ -45,7 +45,7 @@
 
                 <div>
                     <h4 class="text-2xl font-bold text-gray-800">
-                        Hola, @Model.Usuario.FirstOrDefault()?.Nombre_usuario
+                        Hola, @Model.Usuario.FirstOrDefault()?.NombreUsuario
                     </h4>
                     <p class="text-gray-500 mb-2">Bienvenido de nuevo</p>
 
@@ -73,7 +73,7 @@
                             <label class="block text-sm font-semibold text-gray-600 mb-1">
                                 Nombre Completo
                             </label>
-                            <input asp-for="Usuario.FirstOrDefault().Nombre_usuario"
+                            <input asp-for="Usuario.FirstOrDefault().NombreUsuario"
                                    class="w-full rounded-xl border border-gray-300 px-4 py-2
                                           focus:ring-2 focus:ring-blue-500 focus:outline-none" />
                         </div>

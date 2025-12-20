@@ -1,4 +1,4 @@
-﻿@model Turis_Travel2.Models.Scaffolded.Usuario
+﻿@model Turis_Travel2.Models.Usuario
 @{
     ViewData["Title"] = "Editar Usuario";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
@@ -9,12 +9,12 @@
 
     <form asp-action="Edit" method="post" class="card p-4 shadow-sm">
         @Html.AntiForgeryToken()
-        <input type="hidden" asp-for="ID_usuario" />
+        <input type="hidden" asp-for="IdUsuario" />
 
         <div class="mb-3">
             <label class="form-label">Nombre</label>
-            <input asp-for="Nombre_usuario" class="form-control" />
-            <span asp-validation-for="Nombre_usuario" class="text-danger"></span>
+            <input asp-for="NombreUsuario" class="form-control" />
+            <span asp-validation-for="NombreUsuario" class="text-danger"></span>
         </div>
 
         <div class="mb-3">
@@ -25,8 +25,8 @@
 
         <div class="mb-3">
             <label class="form-label">Rol</label>
-            <select asp-for="ID_rol" class="form-select" asp-items="ViewBag.Roles"></select>
-            <span asp-validation-for="ID_rol" class="text-danger"></span>
+            <select asp-for="IdRol" class="form-select" asp-items="ViewBag.Roles"></select>
+            <span asp-validation-for="IdRol" class="text-danger"></span>
         </div>
 
         <button class="btn btn-primary">Guardar Cambios</button>

@@ -39,7 +39,7 @@
             {
                 foreach (var reserva in reservas)
                 {
-                    var paquete = reserva.ID_paqueteNavigation;
+                    var paquete = reserva.IdPaqueteNavigation;
 
                     string? estadoTexto = reserva.Estado switch
                     {
@@ -58,7 +58,7 @@
                     };
 
                     <div class="card-reserva bg-white rounded-xl shadow-md hover:shadow-lg transition-all duration-300 overflow-hidden border border-green-100"
-                         data-id="@reserva.ID_reserva">
+                         data-id="@reserva.IdReserva">
 
                         <!-- Imagen del paquete -->
                         <div class="relative h-48 overflow-hidden bg-gradient-to-r from-green-50 to-emerald-50">
@@ -79,11 +79,11 @@
                             <!-- Título y precio -->
                             <div class="flex justify-between items-start mb-3">
                                 <h2 class="text-xl font-semibold text-[#2E7D32]">
-                                    Reserva #@reserva.ID_reserva
+                                    Reserva #@reserva.IdReserva
                                 </h2>
                                 <div class="text-right">
                                     <p class="text-sm text-[#66BB6A] font-medium">Total pagado</p>
-                                    <p class="text-lg font-bold text-[#2E7D32]">$@reserva.Precio_total</p>
+                                    <p class="text-lg font-bold text-[#2E7D32]">$@reserva.PrecioTotal</p>
                                 </div>
                             </div>
 
@@ -93,8 +93,8 @@
                                 <div class="flex items-center gap-2 text-[#66BB6A] mb-4">
                                     <span class="material-symbols-outlined text-sm">calendar_today</span>
                                     <p class="text-sm font-medium">
-                                        @paquete.Fecha_inicio?.ToString("dd MMM yyyy") –
-                                        @paquete.Fecha_fin?.ToString("dd MMM yyyy")
+                                        @paquete.FechaInicio?.ToString("dd MMM yyyy") –
+                                        @paquete.FechaFin?.ToString("dd MMM yyyy")
                                     </p>
                                 </div>
 
@@ -112,14 +112,14 @@
                                             </div>
                                         <div class="flex items-center gap-1">
                                             <span class="material-symbols-outlined text-[#66BB6A] text-lg">group</span>
-                                            <span class="text-sm">@paquete.Capacidad_maxima personas</span>
+                                            <span class="text-sm">@paquete.CapacidadMaxima personas</span>
                                         </div>
                                     </div>
 
                                     <!-- Fecha de reserva -->
                                     <div class="text-right">
                                         <p class="text-xs text-gray-500">Reservado el</p>
-                                        <p class="text-sm font-semibold text-[#2E7D32]">@reserva.Fecha_solicitud?.ToString("dd/MM/yyyy")</p>
+                                        <p class="text-sm font-semibold text-[#2E7D32]">@reserva.FechaSolicitud?.ToString("dd/MM/yyyy")</p>
                                     </div>
                                 </div>
                             }

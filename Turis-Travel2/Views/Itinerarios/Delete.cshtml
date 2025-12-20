@@ -1,4 +1,4 @@
-﻿@model Turis_Travel2.Models.Scaffolded.Itinerario
+﻿@model Turis_Travel2.Models.Itinerario
 
 @{
     ViewData["Title"] = "Eliminar Itinerario";
@@ -20,18 +20,18 @@
 
                     <dl class="row mt-4">
                         <dt class="col-sm-4">Nombre:</dt>
-                        <dd class="col-sm-8">@Model.Nombre_itinerario</dd>
+                        <dd class="col-sm-8">@Model.NombreItinerario</dd>
 
                         <dt class="col-sm-4">Tipo:</dt>
-                        <dd class="col-sm-8">@Model.Tipo_itinerario</dd>
+                        <dd class="col-sm-8">@Model.TipoItinerario</dd>
 
                         <dt class="col-sm-4">Duración:</dt>
-                        <dd class="col-sm-8">@Model.Duracion_dias días</dd>
+                        <dd class="col-sm-8">@Model.DuracionDias días</dd>
 
-                        @if (Model.ID_paqueteNavigation != null)
+                        @if (Model.IdPaqueteNavigation != null)
                         {
                             <dt class="col-sm-4">Paquete:</dt>
-                            <dd class="col-sm-8">@Model.ID_paqueteNavigation.Nombre_paquete</dd>
+                            <dd class="col-sm-8">@Model.IdPaqueteNavigation.NombrePaquete</dd>
                         }
                     </dl>
 
@@ -47,7 +47,7 @@
                     </a>
 
                     <form asp-action="Eliminar" method="post">
-                        <input type="hidden" asp-for="ID_itinerario" />
+                        <input type="hidden" asp-for="IdItinerario" />
                         <button type="submit" class="btn btn-danger">
                             <span class="material-symbols-outlined">delete_forever</span>
                             Eliminar Permanentemente

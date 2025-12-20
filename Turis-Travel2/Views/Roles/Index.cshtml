@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Turis_Travel2.Models.Scaffolded.Role>
+﻿@model IEnumerable<Turis_Travel2.Models.Role>
 
 @{
     Layout = "_LayoutDashboard";
@@ -33,11 +33,11 @@
                 {
                     <tr class="border-b hover:bg-gray-50">
                         <td class="py-3 text-gray-700">
-                            @rol.Nombre_rol
+                            @rol.NombreRol
                         </td>
 
                         <td class="text-center">
-                            @if (rol.Estado_rol == 1)
+                            @if (rol.EstadoRol == 1)
                             {
                                 <span class="px-3 py-1 text-xs rounded-full bg-green-100 text-green-700">
                                     Activo
@@ -54,7 +54,7 @@
                         <td class="text-center">
                             <a asp-controller="Permisos"
                                asp-action="Index"
-                               asp-route-id="@rol.ID_rol"
+                               asp-route-id="@rol.IdRol"
                                class="text-blue-600 hover:underline text-sm">
                                 Configurar
                             </a>

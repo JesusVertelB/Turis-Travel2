@@ -1,4 +1,4 @@
-﻿@model Turis_Travel2.Models.Scaffolded.Reserva
+﻿@model Turis_Travel2.Models.Reserva
 
 @{
     ViewData["Title"] = "Crear Reserva";
@@ -23,25 +23,25 @@
                     <!-- Cliente -->
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Cliente</label>
-                        <select asp-for="ID_cliente" class="form-select" asp-items="ViewBag.ID_cliente"></select>
+                        <select asp-for="IdCliente" class="form-select" asp-items="ViewBag.ID_cliente"></select>
                     </div>
 
                     <!-- Paquete -->
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Paquete</label>
-                        <select asp-for="ID_paquete" class="form-select" asp-items="ViewBag.ID_paquete"></select>
+                        <select asp-for="IdPaquete" class="form-select" asp-items="ViewBag.ID_paquete"></select>
                     </div>
 
                     <!-- Itinerario -->
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Itinerario</label>
-                        <select asp-for="ID_itinerario" class="form-select" asp-items="ViewBag.ID_itinerario"></select>
+                        <select asp-for="IdItinerario" class="form-select" asp-items="ViewBag.ID_itinerario"></select>
                     </div>
 
                     <!-- Transporte -->
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Transporte</label>
-                        <select asp-for="ID_transporte" class="form-select" asp-items="ViewBag.ID_transporte"></select>
+                        <select asp-for="IdTransporte" class="form-select" asp-items="ViewBag.ID_transporte"></select>
                     </div>
 
                     <!-- Estado -->
@@ -57,7 +57,7 @@
                     <!-- Pasajeros -->
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Número de pasajeros</label>
-                        <input asp-for="Numero_pasajeros" class="form-control" />
+                        <input asp-for="NumeroPasajeros" class="form-control" />
                     </div>
  
                 </div>

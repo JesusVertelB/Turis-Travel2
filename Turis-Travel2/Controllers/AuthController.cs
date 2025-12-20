@@ -54,12 +54,12 @@ namespace Turis_Travel2.Controllers
 
             // Crear claims
             var claims = new List<Claim>
-    {
-        new Claim("IdUsuario", usuario.IdUsuario.ToString()),
-        new Claim(ClaimTypes.Name, usuario.NombreUsuario),
-        new Claim(ClaimTypes.Email, usuario.Correo),
-        new Claim(ClaimTypes.Role, usuario.IdRolNavigation?.NombreRol ?? "Cliente")
-    };
+            {
+                new Claim("IdUsuario", usuario.IdUsuario.ToString()),
+                new Claim(ClaimTypes.Name, usuario.NombreUsuario),
+                new Claim(ClaimTypes.Email, usuario.Correo),
+                new Claim(ClaimTypes.Role, usuario.IdRolNavigation?.NombreRol ?? "Cliente")
+            };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
@@ -98,8 +98,7 @@ namespace Turis_Travel2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(Usuario usuario)
         {
-            if (!ModelState.IsValid)
-                return View(usuario);
+            
 
             // 🔒 Validar correo duplicado
             bool existeCorreo = await _context.Usuarios
@@ -121,12 +120,12 @@ namespace Turis_Travel2.Controllers
 
             // 🔑 AUTO LOGIN
             var claims = new List<Claim>
-    {
-        new Claim("IdUsuario", usuario.IdUsuario.ToString()),
-        new Claim(ClaimTypes.Name, usuario.NombreUsuario),
-        new Claim(ClaimTypes.Email, usuario.Correo),
-        new Claim(ClaimTypes.Role, "Cliente")
-    };
+            {
+                new Claim("IdUsuario", usuario.IdUsuario.ToString()),
+                new Claim(ClaimTypes.Name, usuario.NombreUsuario),
+                new Claim(ClaimTypes.Email, usuario.Correo),
+                new Claim(ClaimTypes.Role, "Cliente")
+            };
 
             var identity = new ClaimsIdentity(
                 claims, CookieAuthenticationDefaults.AuthenticationScheme);

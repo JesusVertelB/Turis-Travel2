@@ -1,4 +1,4 @@
-﻿@model Turis_Travel2.Models.Scaffolded.Reserva
+﻿@model Turis_Travel2.Models.Reserva
 
 @{
     ViewData["Title"] = "Eliminar Reserva";
@@ -23,19 +23,19 @@
 
             <ul class="list-group mb-4">
                 <li class="list-group-item">
-                    <strong>Cliente:</strong> @Model.ID_clienteNavigation?.Nombre
+                    <strong>Cliente:</strong> @Model.IdClienteNavigation?.Nombre
                 </li>
                 <li class="list-group-item">
-                    <strong>Paquete:</strong> @Model.ID_paqueteNavigation?.Nombre_paquete
+                    <strong>Paquete:</strong> @Model.IdPaqueteNavigation?.NombrePaquete
                 </li>
                 <li class="list-group-item">
-                    <strong>Fecha:</strong> @Model.Fecha_solicitud?.ToString("yyyy-MM-dd")
+                    <strong>Fecha:</strong> @Model.FechaSolicitud?.ToString("yyyy-MM-dd")
                 </li>
             </ul>
 
             <form asp-action="Delete">
 
-                <input type="hidden" asp-for="ID_reserva" />
+                <input type="hidden" asp-for="IdReserva" />
 
                 <div class="d-flex justify-content-end">
 

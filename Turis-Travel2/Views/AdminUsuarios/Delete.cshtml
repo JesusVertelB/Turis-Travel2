@@ -1,4 +1,4 @@
-﻿@model Turis_Travel2.Models.Scaffolded.Usuario
+﻿@model Turis_Travel2.Models.Usuario
 @{
     ViewData["Title"] = "Eliminar Usuario";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
@@ -12,13 +12,13 @@
         <div class="card-body">
             <p>¿Estás seguro de que deseas eliminar al siguiente usuario?</p>
             <ul class="list-group mb-3">
-                <li class="list-group-item"><strong>Nombre:</strong> @Model.Nombre_usuario</li>
+                <li class="list-group-item"><strong>Nombre:</strong> @Model.NombreUsuario</li>
                 <li class="list-group-item"><strong>Correo:</strong> @Model.Correo</li>
-                <li class="list-group-item"><strong>Rol:</strong> @Model.ID_rolNavigation?.Nombre_rol</li>
+                <li class="list-group-item"><strong>Rol:</strong> @Model.IdRolNavigation?.NombreRol</li>
             </ul>
 
             <form asp-action="Delete" method="post">
-                <input type="hidden" asp-for="ID_usuario" />
+                <input type="hidden" asp-for="IdUsuario" />
                 <button type="submit" class="btn btn-danger me-2">
                     <i class="bi bi-trash-fill"></i> Eliminar
                 </button>

@@ -1,4 +1,4 @@
-﻿@model Turis_Travel2.Models.Scaffolded.Usuario
+﻿@model Turis_Travel2.Models.Usuario
 @{
     ViewData["Title"] = "Crear Usuario";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
@@ -24,8 +24,8 @@
 
             <div class="mb-3">
                 <label class="form-label">Nombre de Usuario</label>
-                <input asp-for="Nombre_usuario" class="form-control" required />
-                <span asp-validation-for="Nombre_usuario" class="text-danger"></span>
+                <input asp-for="NombreUsuario" class="form-control" required />
+                <span asp-validation-for="NombreUsuario" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
@@ -42,8 +42,8 @@
 
             <div class="mb-3">
                 <label class="form-label">Rol</label>
-                <select asp-for="ID_rol" asp-items="ViewBag.Roles" class="form-select" required></select>
-                <span asp-validation-for="ID_rol" class="text-danger"></span>
+                <select asp-for="IdRol" asp-items="ViewBag.Roles" class="form-select" required></select>
+                <span asp-validation-for="IdRol" class="text-danger"></span>
             </div>
 
             <div class="d-flex justify-content-between mt-4">
