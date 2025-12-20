@@ -7,7 +7,6 @@ using System.Security.Cryptography;
 using System.Text;
 using Turis_Travel2.Data;
 using Turis_Travel2.Models;
-using Turis_Travel2.Models.Scaffolded;
 
 namespace Turis_Travel2.Controllers
 {
@@ -35,7 +34,7 @@ namespace Turis_Travel2.Controllers
 
             // Buscar usuario por correo
             var usuario = await _context.Usuarios
-                .Include(u => u.ID_rolNavigation)
+                .Include(u => u.IdRolNavigation)
                 .FirstOrDefaultAsync(u => u.Correo == correo && u.Estado == 1);
 
             if (usuario == null)
@@ -56,10 +55,10 @@ namespace Turis_Travel2.Controllers
             // Crear claims
             var claims = new List<Claim>
     {
-        new Claim("IdUsuario", usuario.ID_usuario.ToString()),
-        new Claim(ClaimTypes.Name, usuario.Nombre_usuario),
+        new Claim("IdUsuario", usuario.IdUsuario.ToString()),
+        new Claim(ClaimTypes.Name, usuario.NombreUsuario),
         new Claim(ClaimTypes.Email, usuario.Correo),
-        new Claim(ClaimTypes.Role, usuario.ID_rolNavigation?.Nombre_rol ?? "Cliente")
+        new Claim(ClaimTypes.Role, usuario.IdRolNavigation?.NombreRol ?? "Cliente")
     };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -75,7 +74,7 @@ namespace Turis_Travel2.Controllers
             );
 
             // Redirecciones según rol
-            return usuario.ID_rolNavigation?.Nombre_rol == "Admin"
+            return usuario.IdRolNavigation?.NombreRol == "Admin"
                 ? RedirectToAction("Index", "Dashboard")
                 : RedirectToAction("Index", "Home");
         }
@@ -112,10 +111,10 @@ namespace Turis_Travel2.Controllers
                 return View(usuario);
             }
 
-            usuario.ID_rol = 2; // Cliente
+            usuario.IdRol = 2; // Cliente
             usuario.Contrasena = BCrypt.Net.BCrypt.HashPassword(usuario.Contrasena);
             usuario.Estado = 1;
-            usuario.Fecha_creacion = DateTime.Now;
+            usuario.FechaCreacion = DateTime.Now;
 
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
@@ -123,8 +122,8 @@ namespace Turis_Travel2.Controllers
             // 🔑 AUTO LOGIN
             var claims = new List<Claim>
     {
-        new Claim("IdUsuario", usuario.ID_usuario.ToString()),
-        new Claim(ClaimTypes.Name, usuario.Nombre_usuario),
+        new Claim("IdUsuario", usuario.IdUsuario.ToString()),
+        new Claim(ClaimTypes.Name, usuario.NombreUsuario),
         new Claim(ClaimTypes.Email, usuario.Correo),
         new Claim(ClaimTypes.Role, "Cliente")
     };

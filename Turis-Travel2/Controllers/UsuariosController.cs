@@ -5,8 +5,8 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Turis_Travel2.Data;
-using Turis_Travel2.Models.Scaffolded;
 using Turis_Travel2.Models;
+
 
 namespace Turis_Travel2.Controllers
 {
@@ -34,33 +34,33 @@ namespace Turis_Travel2.Controllers
                 if (ClaimId != null) Id = int.Parse(ClaimId);
             }
 
-            var RoleList = await _context.Roles.OrderBy(r => r.Nombre_rol).ToListAsync();
+            var RoleList = await _context.Roles.OrderBy(r => r.NombreRol).ToListAsync();
             ViewData["Roles"] = new SelectList(_context.Roles, "IdRol", "NombreRol");
             ViewData["SelectedRole"] = roleId;
 
-            var query = _context.Usuarios.Include(u => u.ID_rolNavigation).AsQueryable();
+            var query = _context.Usuarios.Include(u => u.IdRolNavigation).AsQueryable();
 
             if (!string.IsNullOrEmpty(q))
             {
-                query = query.Where(u => u.Nombre_usuario.Contains(q) || u.Correo.Contains(q));
+                query = query.Where(u => u.NombreUsuario.Contains(q) || u.Correo.Contains(q));
             }
 
             if (roleId.HasValue)
             {
-                query = query.Where(u => u.ID_rol == roleId.Value);
+                query = query.Where(u => u.IdRol == roleId.Value);
             }
 
             if (Id.HasValue)
             {
                 var usuario = await _context.Usuarios
-                    .Include(u => u.ID_rolNavigation)
-                    .FirstOrDefaultAsync(u => u.ID_usuario == Id.Value);
+                    .Include(u => u.IdRolNavigation)
+                    .FirstOrDefaultAsync(u => u.IdUsuario == Id.Value);
 
                 if (usuario == null) return NotFound();
 
                 var reservas = await _context.Reservas
-                    .Include(r => r.ID_paqueteNavigation)
-                    .Where(r => r.ID_cliente == Id.Value)
+                    .Include(r => r.IdPaqueteNavigation)
+                    .Where(r => r.IdCliente == Id.Value)
                     .ToListAsync();
 
                 var vmDetalle = new UsuariosViewModel
@@ -92,33 +92,33 @@ namespace Turis_Travel2.Controllers
                 if (ClaimId != null) Id = int.Parse(ClaimId);
             }
 
-            var rolelist = await _context.Roles.OrderBy(r => r.Nombre_rol).ToListAsync();
+            var rolelist = await _context.Roles.OrderBy(r => r.NombreRol).ToListAsync();
             ViewData["Roles"] = new SelectList(_context.Roles, "IdRol", "NombreRol");
             ViewData["SelectedRole"] = roleId;
 
-            var query = _context.Usuarios.Include(u => u.ID_rolNavigation).AsQueryable();
+            var query = _context.Usuarios.Include(u => u.IdRolNavigation).AsQueryable();
 
             if (!string.IsNullOrEmpty(q))
             {
-                query = query.Where(u => u.Nombre_usuario.Contains(q) || u.Correo.Contains(q));
+                query = query.Where(u => u.NombreUsuario.Contains(q) || u.Correo.Contains(q));
             }
 
             if (roleId.HasValue)
             {
-                query = query.Where(u => u.ID_rol == roleId.Value);
+                query = query.Where(u => u.IdRol == roleId.Value);
             }
 
             if (Id.HasValue)
             {
                 var usuario = await _context.Usuarios
-                    .Include(u => u.ID_rolNavigation)
-                    .FirstOrDefaultAsync(u => u.ID_usuario == Id.Value);
+                    .Include(u => u.IdRolNavigation)
+                    .FirstOrDefaultAsync(u => u.IdUsuario == Id.Value);
 
                 if (usuario == null) return NotFound();
 
                 var reservas = await _context.Reservas
-                    .Include(r => r.ID_paqueteNavigation)
-                    .Where(r => r.ID_cliente == Id.Value)
+                    .Include(r => r.IdPaqueteNavigation)
+                    .Where(r => r.IdCliente == Id.Value)
                     .ToListAsync();
 
                 var vmDetalle = new UsuariosViewModel
@@ -153,15 +153,15 @@ namespace Turis_Travel2.Controllers
             int idUsuario = int.Parse(idClaim);
 
             var usuario = await _context.Usuarios
-                .Include(u => u.ID_rolNavigation)
-                .FirstOrDefaultAsync(u => u.ID_usuario == idUsuario);
+                .Include(u => u.IdRolNavigation)
+                .FirstOrDefaultAsync(u => u.IdUsuario == idUsuario);
 
             if (usuario == null)
                 return NotFound();
 
             var reservas = await _context.Reservas
-                .Include(r => r.ID_paqueteNavigation)
-                .Where(r => r.ID_cliente == idUsuario)
+                .Include(r => r.IdPaqueteNavigation)
+                .Where(r => r.IdCliente == idUsuario)
                 .ToListAsync();
 
             var vm = new UsuariosViewModel

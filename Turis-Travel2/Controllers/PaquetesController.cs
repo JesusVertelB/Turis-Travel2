@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering; // Añade este using
 using Microsoft.EntityFrameworkCore;
 using Turis_Travel2.Data;
-using Turis_Travel2.Models.Scaffolded;
+using Turis_Travel2.Models;
 
 namespace Turis_Travel2.Controllers
 {
@@ -19,8 +19,8 @@ namespace Turis_Travel2.Controllers
         // GET: PaquetesController
         public async Task<IActionResult> Index()
         {
-            var paquetes = await _context.Paquetes_Turisticos
-                .Include(p => p.ID_servicios)
+            var paquetes = await _context.PaquetesTuristicos
+                .Include(p => p.IdServicios)
                 .AsNoTracking()
                 .ToListAsync();
 
@@ -30,8 +30,8 @@ namespace Turis_Travel2.Controllers
         // GET: PaquetesController/Details/5
         public async Task<IActionResult> Details(int id)
         {
-            var paquete = await _context.Paquetes_Turisticos
-                .FirstOrDefaultAsync(p => p.ID_paquete == id);
+            var paquete = await _context.PaquetesTuristicos
+                .FirstOrDefaultAsync(p => p.IdPaquete == id);
 
             if (paquete == null)
             {
@@ -58,7 +58,7 @@ namespace Turis_Travel2.Controllers
         // POST: PaquetesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(Paquetes_Turistico paquete)
+        public async Task<IActionResult> Create(PaquetesTuristico paquete)
         {
             if (ModelState.IsValid)
             {
@@ -84,7 +84,7 @@ namespace Turis_Travel2.Controllers
         // GET: PaquetesController/Edit/5
         public async Task<IActionResult> Edit(int id)
         {
-            var paquete = await _context.Paquetes_Turisticos.FindAsync(id);
+            var paquete = await _context.PaquetesTuristicos.FindAsync(id);
 
             if (paquete == null)
             {
@@ -98,9 +98,9 @@ namespace Turis_Travel2.Controllers
         // POST: PaquetesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, Paquetes_Turistico paquete)
+        public async Task<IActionResult> Edit(int id, PaquetesTuristico paquete)
         {
-            if (id != paquete.ID_paquete)
+            if (id != paquete.IdPaquete)
             {
                 return NotFound();
             }
@@ -114,7 +114,7 @@ namespace Turis_Travel2.Controllers
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!PaqueteExists(paquete.ID_paquete))
+                    if (!PaqueteExists(paquete.IdPaquete))
                     {
                         return NotFound();
                     }
@@ -135,10 +135,10 @@ namespace Turis_Travel2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
-            var paquete = await _context.Paquetes_Turisticos.FindAsync(id);
+            var paquete = await _context.PaquetesTuristicos.FindAsync(id);
             if (paquete != null)
             {
-                _context.Paquetes_Turisticos.Remove(paquete);
+                _context.PaquetesTuristicos.Remove(paquete);
                 await _context.SaveChangesAsync();
             }
 
@@ -147,7 +147,7 @@ namespace Turis_Travel2.Controllers
 
         private bool PaqueteExists(int id)
         {
-            return _context.Paquetes_Turisticos.Any(e => e.ID_paquete == id);
+            return _context.PaquetesTuristicos.Any(e => e.IdPaquete == id);
         }
 
         // Método privado para cargar los estados (reutilizable)

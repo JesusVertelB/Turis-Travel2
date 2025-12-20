@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Turis_Travel2.Data;
-using Turis_Travel2.Models.Scaffolded;
+using Turis_Travel2.Models;
 
 namespace Turis_Travel2.Controllers.Admin
 {
@@ -22,7 +22,7 @@ namespace Turis_Travel2.Controllers.Admin
         public async Task<IActionResult> Index()
         {
             var itinerarios = await _context.Itinerarios
-                .Include(i => i.ID_paqueteNavigation) // Incluye el paquete relacionado
+                .Include(i => i.IdPaqueteNavigation) // Incluye el paquete relacionado
                 .ToListAsync();
 
             return View(itinerarios);
@@ -33,8 +33,8 @@ namespace Turis_Travel2.Controllers.Admin
         public async Task<IActionResult> Detalle(int id)
         {
             var itinerario = await _context.Itinerarios
-                .Include(i => i.ID_paqueteNavigation)
-                .FirstOrDefaultAsync(i => i.ID_itinerario == id);
+                .Include(i => i.IdPaqueteNavigation)
+                .FirstOrDefaultAsync(i => i.IdItinerario == id);
 
             if (itinerario == null) return NotFound();
             return View(itinerario);
@@ -77,8 +77,8 @@ namespace Turis_Travel2.Controllers.Admin
         public async Task<IActionResult> Edit(int id)
         {
             var itinerario = await _context.Itinerarios
-                .Include(i => i.ID_paqueteNavigation)
-                .FirstOrDefaultAsync(i => i.ID_itinerario == id);
+                .Include(i => i.IdPaqueteNavigation)
+                .FirstOrDefaultAsync(i => i.IdItinerario == id);
 
             if (itinerario == null)
             {
@@ -87,12 +87,12 @@ namespace Turis_Travel2.Controllers.Admin
             }
 
             // Cargar lista de paquetes para el dropdown
-            ViewBag.Paquetes = await _context.Paquetes_Turisticos
+            ViewBag.Paquetes = await _context.PaquetesTuristicos
                 .Where(p => p.Estado == "activo" || p.Estado == "borrador")
                 .Select(p => new SelectListItem
                 {
-                    Value = p.ID_paquete.ToString(),
-                    Text = p.Nombre_paquete
+                    Value = p.IdPaquete.ToString(),
+                    Text = p.NombrePaquete
                 })
                 .ToListAsync();
 

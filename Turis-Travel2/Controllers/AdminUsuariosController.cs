@@ -5,7 +5,6 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using Turis_Travel2.Data;
 using Turis_Travel2.Models;
-using Turis_Travel2.Models.Scaffolded;
 using BCrypt.Net;
 
 
@@ -25,17 +24,17 @@ namespace Turis_Travel2.Controllers
 public async Task<IActionResult> Index(string search, int? rol, int? estado, int page = 1)
 {
     int pageSize = 10;
-    var query = _context.Usuarios.Include(u => u.ID_rolNavigation).AsQueryable();
+    var query = _context.Usuarios.Include(u => u.IdRolNavigation).AsQueryable();
 
     // FILTRO búsqueda
     if (!string.IsNullOrEmpty(search))
         query = query.Where(u =>
-            u.Nombre_usuario.Contains(search) ||
+            u.NombreUsuario.Contains(search) ||
             u.Correo.Contains(search));
 
     // FILTRO rol
     if (rol.HasValue)
-        query = query.Where(u => u.ID_rol == rol.Value);
+        query = query.Where(u => u.IdRol == rol.Value);
 
     // FILTRO estado
     if (estado.HasValue)
@@ -44,13 +43,13 @@ public async Task<IActionResult> Index(string search, int? rol, int? estado, int
     // PAGINACIÓN
     int totalUsuarios = await query.CountAsync();
             var usuarios = await query
-             .OrderByDescending(u => u.ID_usuario)
+             .OrderByDescending(u => u.IdUsuario)
              .Skip((page - 1) * pageSize)
              .Take(pageSize)
              .ToListAsync();
 
 
-            ViewBag.Roles = _context.Roles.ToList();
+    ViewBag.Roles = _context.Roles.ToList();
     ViewBag.EstadoActual = estado;
     ViewBag.RolActual = rol;
     ViewBag.Search = search;
@@ -65,8 +64,8 @@ public async Task<IActionResult> Index(string search, int? rol, int? estado, int
         public async Task<IActionResult> Details(int id)
         {
             var usuario = await _context.Usuarios
-                .Include(u => u.ID_rolNavigation)
-                .FirstOrDefaultAsync(u => u.ID_usuario == id);
+                .Include(u => u.IdRolNavigation)
+                .FirstOrDefaultAsync(u => u.IdUsuario == id);
 
             if (usuario == null)
                 return NotFound();
@@ -83,7 +82,7 @@ public async Task<IActionResult> Index(string search, int? rol, int? estado, int
                 return NotFound();
 
             // Llenar dropdown de roles
-            ViewBag.Roles = new SelectList(_context.Roles, "ID_rol", "Nombre_rol", usuario.ID_rol);
+            ViewBag.Roles = new SelectList(_context.Roles, "ID_rol", "Nombre_rol", usuario.IdRol);
 
             return View(usuario);
         }
@@ -92,12 +91,12 @@ public async Task<IActionResult> Index(string search, int? rol, int? estado, int
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, Usuario usuario)
         {
-            if (id != usuario.ID_usuario)
+            if (id != usuario.IdUsuario)
                 return NotFound();
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Roles = new SelectList(_context.Roles, "ID_rol", "Nombre_rol", usuario.ID_rol);
+                ViewBag.Roles = new SelectList(_context.Roles, "ID_rol", "Nombre_rol", usuario.IdRol);
                 return View(usuario);
             }
 
@@ -107,9 +106,9 @@ public async Task<IActionResult> Index(string search, int? rol, int? estado, int
                 return NotFound();
 
             // Actualizamos solo los campos que queremos permitir
-            usuarioEnDb.Nombre_usuario = usuario.Nombre_usuario;
+            usuarioEnDb.NombreUsuario = usuario.NombreUsuario;
             usuarioEnDb.Correo = usuario.Correo;
-            usuarioEnDb.ID_rol = usuario.ID_rol;
+            usuarioEnDb.IdRol = usuario.IdRol;
 
             // Guardamos cambios
             await _context.SaveChangesAsync();
@@ -130,8 +129,8 @@ public async Task<IActionResult> Index(string search, int? rol, int? estado, int
         public async Task<IActionResult> Delete(int id)
         {
             var usuario = await _context.Usuarios
-                .Include(u => u.ID_rolNavigation)
-                .FirstOrDefaultAsync(u => u.ID_usuario == id);
+                .Include(u => u.IdRolNavigation)
+                .FirstOrDefaultAsync(u => u.IdUsuario == id);
 
             if (usuario == null)
                 return NotFound();
@@ -161,14 +160,14 @@ public async Task<IActionResult> Index(string search, int? rol, int? estado, int
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Roles = new SelectList(_context.Roles, "ID_rol", "Nombre_rol", usuario.ID_rol);
+                ViewBag.Roles = new SelectList(_context.Roles, "ID_rol", "Nombre_rol", usuario.IdRol);
                 return View(usuario);
             }
 
             // Generar hash de contraseña
             usuario.Contrasena = BCrypt.Net.BCrypt.HashPassword(usuario.Contrasena);
 
-            usuario.Fecha_creacion = DateTime.Now;
+            usuario.FechaCreacion = DateTime.Now;
             usuario.Estado = usuario.Estado ?? 1; // 1 = Activo por defecto
 
             _context.Usuarios.Add(usuario);

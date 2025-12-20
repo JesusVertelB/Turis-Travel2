@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Turis_Travel2.Data;
-using Turis_Travel2.Models.Scaffolded;
+using Turis_Travel2.Models;
 
 namespace Turis_Travel2.Controllers
 {
@@ -20,9 +20,9 @@ namespace Turis_Travel2.Controllers
         public IActionResult Index()
         {
             var permisos = _context.Permisos
-                .Include(p => p.ID_rolNavigation)
-                .Include(p => p.ID_moduloNavigation)
-                .Where(p => p.Estado_permiso == 1)  // Solo activos
+                .Include(p => p.IdRolNavigation)
+                .Include(p => p.IdModuloNavigation)
+                .Where(p => p.EstadoPermiso == 1)  // Solo activos
                 .ToList();
 
             return View(permisos);
@@ -44,7 +44,7 @@ namespace Turis_Travel2.Controllers
             if (!ModelState.IsValid)
                 return View(permiso);
 
-            permiso.Estado_permiso = 1;  // Activo por defecto
+            permiso.EstadoPermiso = 1;  // Activo por defecto
 
             _context.Permisos.Add(permiso);
             _context.SaveChanges();
@@ -56,9 +56,9 @@ namespace Turis_Travel2.Controllers
         public IActionResult Edit(int id)
         {
             var permiso = _context.Permisos
-                .Include(p => p.ID_rolNavigation)
-                .Include(p => p.ID_moduloNavigation)
-                .FirstOrDefault(p => p.ID_permiso == id);
+                .Include(p => p.IdRolNavigation)
+                .Include(p => p.IdModuloNavigation)
+                .FirstOrDefault(p => p.IdPermiso == id);
 
             if (permiso == null)
                 return NotFound();
@@ -74,7 +74,7 @@ namespace Turis_Travel2.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Permiso permiso)
         {
-            if (id != permiso.ID_permiso)
+            if (id != permiso.IdPermiso)
                 return BadRequest();
 
             if (!ModelState.IsValid)
@@ -105,7 +105,7 @@ namespace Turis_Travel2.Controllers
             if (permiso == null)
                 return NotFound();
 
-            permiso.Estado_permiso = 0;  // Desactivar el permiso
+            permiso.EstadoPermiso = 0;  // Desactivar el permiso
             _context.Update(permiso);
             _context.SaveChanges();
 
@@ -121,13 +121,13 @@ namespace Turis_Travel2.Controllers
             foreach (var permiso in permisos)
             {
                 if (permisosSeleccionados != null &&
-                    permisosSeleccionados.Contains(permiso.ID_permiso))
+                    permisosSeleccionados.Contains(permiso.IdPermiso))
                 {
-                    permiso.Estado_permiso = 1;
+                    permiso.EstadoPermiso = 1;
                 }
                 else
                 {
-                    permiso.Estado_permiso = 0;
+                    permiso.EstadoPermiso = 0;
                 }
             }
 

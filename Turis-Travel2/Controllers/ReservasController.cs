@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Turis_Travel2.Data;
-using Turis_Travel2.Models.Scaffolded;
+using Turis_Travel2.Models;
 
 namespace Turis_Travel2.Controllers
 {
@@ -20,9 +20,9 @@ namespace Turis_Travel2.Controllers
         public IActionResult Index()
         {
             var reservas = _context.Reservas
-                .Include(r => r.ID_clienteNavigation)
-                .Include(r => r.ID_paqueteNavigation)
-                .OrderByDescending(r => r.Fecha_solicitud)
+                .Include(r => r.IdClienteNavigation)
+                .Include(r => r.IdPaqueteNavigation)
+                .OrderByDescending(r => r.FechaSolicitud)
                 .ToList();
 
             return View(reservas);
@@ -57,8 +57,8 @@ namespace Turis_Travel2.Controllers
         // CREATE (GET)
         public IActionResult Create()
         {
-            ViewBag.Clientes = _context.Usuarios.Where(u => u.ID_rol == 2).ToList();
-            ViewBag.Paquetes = _context.Paquetes_Turisticos.ToList();
+            ViewBag.Clientes = _context.Usuarios.Where(u => u.IdRol == 2).ToList();
+            ViewBag.Paquetes = _context.PaquetesTuristicos.ToList();
             return View();
         }
 
@@ -69,13 +69,13 @@ namespace Turis_Travel2.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.Clientes = _context.Usuarios.Where(u => u.ID_rol == 2).ToList();
-                ViewBag.Paquetes = _context.Paquetes_Turisticos.ToList();
+                ViewBag.Clientes = _context.Usuarios.Where(u => u.IdRol == 2).ToList();
+                ViewBag.Paquetes = _context.PaquetesTuristicos.ToList();
                 return View(reserva);
             }
 
             reserva.Estado = "pendiente";
-            reserva.Fecha_solicitud = DateTime.Now;
+            reserva.FechaSolicitud = DateTime.Now;
 
             _context.Reservas.Add(reserva);
             _context.SaveChanges();
@@ -89,8 +89,8 @@ namespace Turis_Travel2.Controllers
             var reserva = _context.Reservas.Find(id);
             if (reserva == null) return NotFound();
 
-            ViewBag.Clientes = _context.Usuarios.Where(u => u.ID_rol == 2).ToList();
-            ViewBag.Paquetes = _context.Paquetes_Turisticos.ToList();
+            ViewBag.Clientes = _context.Usuarios.Where(u => u.IdRol == 2).ToList();
+            ViewBag.Paquetes = _context.PaquetesTuristicos.ToList();
 
             return View(reserva);
         }
@@ -100,12 +100,12 @@ namespace Turis_Travel2.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Reserva reserva)
         {
-            if (id != reserva.ID_reserva) return BadRequest();
+            if (id != reserva.IdReserva) return BadRequest();
 
             if (!ModelState.IsValid)
             {
-                ViewBag.Clientes = _context.Usuarios.Where(u => u.ID_rol == 2).ToList();
-                ViewBag.Paquetes = _context.Paquetes_Turisticos.ToList();
+                ViewBag.Clientes = _context.Usuarios.Where(u => u.IdRol == 2).ToList();
+                ViewBag.Paquetes = _context.PaquetesTuristicos.ToList();
                 return View(reserva);
             }
 
@@ -119,9 +119,9 @@ namespace Turis_Travel2.Controllers
         public IActionResult Delete(int id)
         {
             var reserva = _context.Reservas
-                .Include(r => r.ID_clienteNavigation)
-                .Include(r => r.ID_paqueteNavigation)
-                .FirstOrDefault(r => r.ID_reserva == id);
+                .Include(r => r.IdClienteNavigation)
+                .Include(r => r.IdPaqueteNavigation)
+                .FirstOrDefault(r => r.IdReserva == id);
 
             if (reserva == null) return NotFound();
 

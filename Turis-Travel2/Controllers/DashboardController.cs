@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
+using Turis_Travel2.Models;
 using Turis_Travel2.Data;
 
 namespace Turis_Travel2.Controllers
@@ -20,8 +21,8 @@ namespace Turis_Travel2.Controllers
         public IActionResult DatosDashboard()
         {
             var destinos = _context.Reservas
-                .Where(r => r.ID_paquete != null)
-                .GroupBy(r => r.ID_paqueteNavigation.Nombre_paquete)
+                .Where(r => r.IdPaquete != null)
+                .GroupBy(r => r.IdPaqueteNavigation.NombrePaquete)
                 .Select(g => new
                 {
                     destino = g.Key,
@@ -40,7 +41,7 @@ namespace Turis_Travel2.Controllers
                 var fin = hoy.AddDays(-(7 * i));
 
                 clientesPorSemana[3 - i] = _context.Clientes
-                    .Count(c => c.Fecha_registro >= inicio && c.Fecha_registro < fin);
+                    .Count(c => c.FechaRegistro >= inicio && c.FechaRegistro < fin);
             }
 
             return Json(new
@@ -48,7 +49,7 @@ namespace Turis_Travel2.Controllers
                 totalClientes = _context.Clientes.Count(),
                 reservasActivas = _context.Reservas.Count(r =>
                     r.Estado == "activa" || r.Estado == "pendiente" || r.Estado == "confirmada"),
-                totalPaquetes = _context.Paquetes_Turisticos.Count(),
+                totalPaquetes = _context.PaquetesTuristicos.Count(),
 
                 destinosLabels = destinos.Select(d => d.destino),
                 destinosData = destinos.Select(d => d.cantidad),
@@ -66,12 +67,12 @@ namespace Turis_Travel2.Controllers
             ViewBag.TotalClientes = _context.Clientes.Count();
             ViewBag.ReservasActivas = _context.Reservas.Count(r =>
                 r.Estado == "activa" || r.Estado == "pendiente" || r.Estado == "confirmada");
-            ViewBag.TotalPaquetes = _context.Paquetes_Turisticos.Count();
+            ViewBag.TotalPaquetes = _context.PaquetesTuristicos.Count();
 
             // ===== DESTINOS POPULARES =====
             var destinos = _context.Reservas
-                .Where(r => r.ID_paquete != null)
-                .GroupBy(r => r.ID_paqueteNavigation.Nombre_paquete)
+                .Where(r => r.IdPaquete != null)
+                .GroupBy(r => r.IdPaqueteNavigation.NombrePaquete)
                 .Select(g => new
                 {
                     Destino = g.Key,
@@ -94,7 +95,7 @@ namespace Turis_Travel2.Controllers
                 var fin = hoy.AddDays(-(7 * i));
 
                 clientesPorSemana[3 - i] = _context.Clientes
-                    .Count(c => c.Fecha_registro >= inicio && c.Fecha_registro < fin);
+                    .Count(c => c.FechaRegistro >= inicio && c.FechaRegistro < fin);
             }
 
             ViewBag.NuevosClientesLabels = new[] { "Semana 1", "Semana 2", "Semana 3", "Semana 4" };
@@ -102,10 +103,10 @@ namespace Turis_Travel2.Controllers
 
             // ===== RESERVAS PENDIENTES (TABLA) =====
             var reservasPendientes = _context.Reservas
-                .Include(r => r.ID_clienteNavigation)
-                .Include(r => r.ID_paqueteNavigation)
+                .Include(r => r.IdClienteNavigation)
+                .Include(r => r.IdPaqueteNavigation)
                 .Where(r => r.Estado == "pendiente")
-                .OrderByDescending(r => r.Fecha_solicitud)
+                .OrderByDescending(r => r.FechaSolicitud)
                 .Take(5)
                 .ToList();
 
@@ -114,11 +115,11 @@ namespace Turis_Travel2.Controllers
             // ===== CRECIMIENTO DE CLIENTES =====
 
             var clientesUltimoMes = _context.Clientes
-                .Count(c => c.Fecha_registro >= hoy.AddDays(-30));
+                .Count(c => c.FechaRegistro >= hoy.AddDays(-30));
 
             var clientesMesAnterior = _context.Clientes
-                .Count(c => c.Fecha_registro >= hoy.AddDays(-60) &&
-                            c.Fecha_registro < hoy.AddDays(-30));
+                .Count(c => c.FechaRegistro >= hoy.AddDays(-60) &&
+                            c.FechaRegistro < hoy.AddDays(-30));
 
             double crecimientoClientes = 0;
 
@@ -133,11 +134,11 @@ namespace Turis_Travel2.Controllers
             // ===== CRECIMIENTO DE RESERVAS =====
 
             var reservasUltimoMes = _context.Reservas
-                .Count(r => r.Fecha_solicitud >= hoy.AddDays(-30));
+                .Count(r => r.FechaSolicitud >= hoy.AddDays(-30));
 
             var reservasMesAnterior = _context.Reservas
-                .Count(r => r.Fecha_solicitud >= hoy.AddDays(-60) &&
-                            r.Fecha_solicitud < hoy.AddDays(-30));
+                .Count(r => r.FechaSolicitud >= hoy.AddDays(-60) &&
+                            r.FechaSolicitud < hoy.AddDays(-30));
 
             double crecimientoReservas = 0;
 

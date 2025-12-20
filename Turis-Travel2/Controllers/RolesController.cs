@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Turis_Travel2.Data;
-using Turis_Travel2.Models.Scaffolded;
+using Turis_Travel2.Models;
 
 namespace Turis_Travel2.Controllers
 {
@@ -19,7 +19,7 @@ namespace Turis_Travel2.Controllers
         public IActionResult Index()
         {
             var roles = _context.Roles
-                .Where(r => r.Estado_rol == 1)
+                .Where(r => r.EstadoRol == 1)
                 .ToList();
 
             return View(roles);
@@ -39,7 +39,7 @@ namespace Turis_Travel2.Controllers
             if (!ModelState.IsValid)
                 return View(role);
 
-            role.Estado_rol = 1;
+            role.EstadoRol = 1;
 
             _context.Roles.Add(role);
             _context.SaveChanges();
@@ -61,7 +61,7 @@ namespace Turis_Travel2.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(int id, Role role)
         {
-            if (id != role.ID_rol)
+            if (id != role.IdRol)
                 return BadRequest();
 
             if (!ModelState.IsValid)
@@ -89,7 +89,7 @@ namespace Turis_Travel2.Controllers
             var role = _context.Roles.Find(id);
             if (role == null) return NotFound();
 
-            role.Estado_rol = 0;
+            role.EstadoRol = 0;
             _context.Update(role);
             _context.SaveChanges();
 
