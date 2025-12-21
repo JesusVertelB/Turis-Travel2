@@ -32,4 +32,8 @@ public partial class PaquetesTuristico
     public virtual ICollection<Transporte> Transportes { get; set; } = new List<Transporte>();
 
     public virtual ICollection<Servicio> IdServicios { get; set; } = new List<Servicio>();
+
+    public string? ImagenUrl { get; set; }
+
+
 }
