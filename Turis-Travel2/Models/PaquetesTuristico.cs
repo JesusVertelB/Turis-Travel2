@@ -25,6 +25,8 @@ public partial class PaquetesTuristico
 
     public DateTime? FechaActualizacion { get; set; }
 
+    public string? ImagenUrl { get; set; }
+
     public virtual ICollection<Itinerario> Itinerarios { get; set; } = new List<Itinerario>();
 
     public virtual ICollection<Reserva> Reservas { get; set; } = new List<Reserva>();
@@ -33,7 +35,6 @@ public partial class PaquetesTuristico
 
     public virtual ICollection<Servicio> IdServicios { get; set; } = new List<Servicio>();
 
-    public string? ImagenUrl { get; set; }
 
 
 }
