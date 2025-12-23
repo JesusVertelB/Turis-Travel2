@@ -1,9 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Turis_Travel2.Models;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Turis_Travel2.Data;
-using Microsoft.EntityFrameworkCore;
+using Turis_Travel2.Models;
 
 namespace Turis_Travel2.Controllers
 {
@@ -16,45 +16,79 @@ namespace Turis_Travel2.Controllers
         {
             _context = context;
         }
-        public IActionResult Index()
+
+        public async Task<IActionResult> Index()
         {
             var nombre = User.FindFirstValue(ClaimTypes.Name) ?? "Usuario";
+            var email = User.FindFirstValue(ClaimTypes.Email);
 
             var model = new HomeUsuarioViewModel
             {
                 Nombre = nombre,
                 Membresia = "Platinum",
                 Puntos = 2450,
-                DestinosGuardados = 12,
-                AlertasPrecio = 3,
-                DestinoActual = "Cancún, México",
-                FechasViaje = "15 Oct - 22 Oct, 2025",
-                Viajeros = "2 Adultos",
-                EstadoViaje = "Confirmado"
+                DestinosGuardados = 0,
+                AlertasPrecio = 0
             };
+
+            var cliente = await _context.Clientes
+                .FirstOrDefaultAsync(c => c.Email == email);
+
+            if (cliente != null)
+            {
+                model.DestinosGuardados = await _context.Reservas
+                    .Where(r => r.IdCliente == cliente.IdCliente)
+                    .Select(r => r.IdPaquete)
+                    .Distinct()
+                    .CountAsync();
+
+                model.AlertasPrecio = await _context.Notificaciones
+                    .Where(n => n.Destinatario == email)
+                    .CountAsync();
+
+                var reservaActiva = await _context.Reservas
+                    .Include(r => r.IdPaqueteNavigation)
+                    .Include(r => r.IdItinerarioNavigation)
+                    .Where(r => r.IdCliente == cliente.IdCliente && r.Estado == "confirmado")
+                    .OrderByDescending(r => r.FechaSolicitud)
+                    .FirstOrDefaultAsync();
+
+                if (reservaActiva != null)
+                {
+                    model.DestinoActual =
+                        reservaActiva.IdPaqueteNavigation?.NombrePaquete ?? "Destino";
+
+                    model.FechasViaje =
+                        $"{reservaActiva.IdItinerarioNavigation?.FechaInicio:dd MMM} - " +
+                        $"{reservaActiva.IdItinerarioNavigation?.FechaFin:dd MMM yyyy}";
+
+                    model.Viajeros =
+                        $"{reservaActiva.NumeroPasajeros} pasajeros";
+
+                    model.EstadoViaje =
+                        reservaActiva.Estado;
+                }
+            }
+
+            // 👇 ESTA PARTE ES LA QUE FALTABA
+            model.OfertasDestacadas = await _context.Destinos
+                .Where(d => d.Estado == 1)
+                .Take(6)
+                .ToListAsync();
 
             return View(model);
         }
 
-        public async Task<IActionResult> Destinos(int page = 1, int pageSize= 10)
+        public async Task<IActionResult> Destinos()
         {
-
-            var total = _context.Destinos.Count();
-
             var destinos = await _context.Destinos
-                .OrderByDescending(d => d.Id)
-                .Skip((page - 1)* pageSize )
-                .Take(pageSize)
+                .Where(d => d.Estado == 1)
                 .AsNoTracking()
                 .ToListAsync();
 
-            ViewBag.Page = page;
-            ViewBag.TotalPages = (int)Math.Ceiling(total / (double)pageSize);
-
             return View(destinos);
         }
+
+
     }
 }
-
-
-

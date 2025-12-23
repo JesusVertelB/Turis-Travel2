@@ -1,0 +1,111 @@
+﻿@model IEnumerable<Turis_Travel2.Models.PaquetesTuristico>
+
+@{
+    Layout = "_LayoutUsuarios";
+    ViewData["Title"] = "Paquetes Destacados";
+}
+
+<div class="max-w-7xl mx-auto px-4 py-10">
+
+    <!-- TÍTULO -->
+    <h1 class="text-3xl font-extrabold text-gray-900">
+        Paquetes Destacados
+    </h1>
+    <p class="text-gray-500 mt-1">
+        Seleccionados por nuestros expertos para ti.
+    </p>
+
+    <!-- FILTROS -->
+    <div class="flex flex-wrap gap-3 mt-6">
+        <button class="px-5 py-2 rounded-full bg-blue-600 text-white text-sm font-semibold">
+            Todos
+        </button>
+        <button class="px-5 py-2 rounded-full border text-sm hover:border-blue-600">
+            Playa
+        </button>
+        <button class="px-5 py-2 rounded-full border text-sm hover:border-blue-600">
+            Internacional
+        </button>
+        <button class="px-5 py-2 rounded-full border text-sm hover:border-blue-600">
+            Aventura
+        </button>
+        <button class="px-5 py-2 rounded-full border text-sm hover:border-blue-600">
+            Familia
+        </button>
+        <button class="px-5 py-2 rounded-full border text-sm hover:border-blue-600">
+            Romántico
+        </button>
+    </div>
+
+    <!-- GRID DE PAQUETES -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 mt-10">
+
+        @if (!Model.Any())
+        {
+            <p class="text-gray-500 col-span-3 text-center">
+                No hay paquetes disponibles en este momento.
+            </p>
+        }
+
+        @foreach (var paquete in Model)
+        {
+            <article class="bg-white rounded-2xl shadow hover:shadow-lg transition overflow-hidden flex flex-col">
+
+                <!-- IMAGEN -->
+                <div class="relative h-56">
+                    <img src="@paquete.ImagenUrl"
+                         alt="@paquete.NombrePaquete"
+                         class="w-full h-full object-cover" />
+
+                    <span class="absolute top-3 left-3 bg-blue-600 text-white text-xs px-3 py-1 rounded-full">
+                        Destacado
+                    </span>
+                </div>
+
+                <!-- CONTENIDO -->
+                <div class="p-5 flex flex-col flex-1">
+
+                    <!-- ESTRELLAS (VISUAL) -->
+                    <div class="flex items-center text-yellow-400 text-sm">
+                        ★ ★ ★ ★ ★
+                        <span class="text-gray-400 ml-2">(0 reseñas)</span>
+                    </div>
+
+                    <!-- NOMBRE -->
+                    <h3 class="mt-2 text-lg font-bold text-gray-900">
+                        @paquete.NombrePaquete
+                    </h3>
+
+                    <!-- DESCRIPCIÓN -->
+                    <p class="text-gray-600 text-sm mt-1 line-clamp-2">
+                        @paquete.Descripcion
+                    </p>
+
+                    <!-- PRECIO -->
+                    <p class="mt-4 text-xl font-extrabold text-blue-600">
+                        $@paquete.PrecioBase
+                    </p>
+
+                    <!-- FECHAS -->
+                    @if (paquete.FechaInicio != null && paquete.FechaFin != null)
+                    {
+                        <p class="text-sm text-gray-500 mt-1">
+                            @paquete.FechaInicio.Value.ToString("dd/MM/yyyy")
+                            -
+                            @paquete.FechaFin.Value.ToString("dd/MM/yyyy")
+                        </p>
+                    }
+
+                    <!-- BOTÓN -->
+                    <a asp-controller="PaquetesUsuario"
+                       asp-action="Detalles"
+                       asp-route-id="@paquete.IdPaquete"
+                       class="mt-5 text-center bg-blue-600 text-white py-2 rounded-lg text-sm font-semibold hover:bg-blue-700">
+                        Ver Detalles
+                    </a>
+                </div>
+            </article>
+        }
+
+    </div>
+</div>

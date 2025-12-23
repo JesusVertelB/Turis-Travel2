@@ -13,6 +13,8 @@
         public string FechasViaje { get; set; } = string.Empty;
         public string Viajeros { get; set; } = string.Empty;
         public string EstadoViaje { get; set; } = string.Empty;
+
+        public List<Destino> OfertasDestacadas { get; set; } = new();
     }
 }
 
