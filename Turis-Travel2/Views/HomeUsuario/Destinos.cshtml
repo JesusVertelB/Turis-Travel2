@@ -1,208 +1,163 @@
 ﻿@model IEnumerable<Turis_Travel2.Models.Destino>
+
 @{
     Layout = "_LayoutUsuarios";
-    ViewData["UseTailwind"] = "true";   
 }
 
-<main class="container mx-auto px-4 sm:px-6 lg:px-8 py-8">
+<main class="container mx-auto px-6 py-6">
     <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-        <!-- SideNavBar / Filters -->
+
+        <!-- SIDEBAR -->
         <aside class="lg:col-span-1">
-            <div class="sticky top-24">
-                <div class="flex h-full flex-col justify-between bg-white dark:bg-gray-900/50 rounded-xl border border-gray-200 dark:border-gray-800 p-6">
-                    <div class="flex flex-col gap-6">
-                        <div class="flex flex-col">
-                            <h1 class="text-[#111418] dark:text-white text-lg font-bold leading-normal">Filtrar Destinos</h1>
-                            <p class="text-[#617289] dark:text-gray-400 text-sm font-normal leading-normal">
-                                Encuentra tu viaje
-                                perfecto
-                            </p>
-                        </div>
-                        <!-- Accordions for Filters -->
-                        <div class="flex flex-col">
-                            <details class="flex flex-col border-t border-t-[#dbe0e6] dark:border-t-gray-700 py-2 group">
-                                <summary class="flex cursor-pointer items-center justify-between gap-6 py-2 list-none">
-                                    <p class="text-[#111418] dark:text-gray-200 text-sm font-medium leading-normal">Region</p>
-                                    <span class="material-symbols-outlined text-[#111418] dark:text-gray-200 group-open:rotate-180 transition-transform duration-200">expand_more</span>
-                                </summary>
-                                <!-- Checklists -->
-                                <div class="pl-2">
-                                    <label class="flex gap-x-3 py-2 flex-row items-center">
-                                        <input class="h-5 w-5 rounded border-[#dbe0e6] dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0"
-                                               type="checkbox" />
-                                        <p class="text-[#111418] dark:text-gray-300 text-sm font-normal">Europa</p>
-                                    </label>
-                                    <label class="flex gap-x-3 py-2 flex-row items-center">
-                                        <input checked=""
-                                               class="h-5 w-5 rounded border-[#dbe0e6] dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0"
-                                               type="checkbox" />
-                                        <p class="text-[#111418] dark:text-gray-300 text-sm font-normal">Asia</p>
-                                    </label>
-                                    <label class="flex gap-x-3 py-2 flex-row items-center">
-                                        <input class="h-5 w-5 rounded border-[#dbe0e6] dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0"
-                                               type="checkbox" />
-                                        <p class="text-[#111418] dark:text-gray-300 text-sm font-normal">Sudamerica</p>
-                                    </label>
-                                </div>
-                            </details>
-                            <details class="flex flex-col border-t border-t-[#dbe0e6] dark:border-t-gray-700 py-2 group" open="">
-                                <summary class="flex cursor-pointer items-center justify-between gap-6 py-2 list-none">
-                                    <p class="text-[#111418] dark:text-gray-200 text-sm font-medium leading-normal">
-                                        Estilo de viaje
-                                    </p>
-                                    <span class="material-symbols-outlined text-[#111418] dark:text-gray-200 group-open:rotate-180 transition-transform duration-200">expand_more</span>
-                                </summary>
-                                <div class="pl-2">
-                                    <label class="flex gap-x-3 py-2 flex-row items-center">
-                                        <input checked=""
-                                               class="h-5 w-5 rounded border-[#dbe0e6] dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0"
-                                               type="checkbox" />
-                                        <p class="text-[#111418] dark:text-gray-300 text-sm font-normal">Aventura</p>
-                                    </label>
-                                    <label class="flex gap-x-3 py-2 flex-row items-center">
-                                        <input class="h-5 w-5 rounded border-[#dbe0e6] dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0"
-                                               type="checkbox" />
-                                        <p class="text-[#111418] dark:text-gray-300 text-sm font-normal">Relajación</p>
-                                    </label>
-                                    <label class="flex gap-x-3 py-2 flex-row items-center">
-                                        <input class="h-5 w-5 rounded border-[#dbe0e6] dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0"
-                                               type="checkbox" />
-                                        <p class="text-[#111418] dark:text-gray-300 text-sm font-normal">Cultural</p>
-                                    </label>
-                                    <label class="flex gap-x-3 py-2 flex-row items-center">
-                                        <input class="h-5 w-5 rounded border-[#dbe0e6] dark:border-gray-600 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0"
-                                               type="checkbox" />
-                                        <p class="text-[#111418] dark:text-gray-300 text-sm font-normal">Familiar</p>
-                                    </label>
-                                </div>
-                            </details>
-                            <details class="flex flex-col border-t border-t-[#dbe0e6] dark:border-t-gray-700 py-2 group">
-                                <summary class="flex cursor-pointer items-center justify-between gap-6 py-2 list-none">
-                                    <p class="text-[#111418] dark:text-gray-200 text-sm font-medium leading-normal">
-                                        Gama de precios
-                                    </p>
-                                    <span class="material-symbols-outlined text-[#111418] dark:text-gray-200 group-open:rotate-180 transition-transform duration-200">expand_more</span>
-                                </summary>
-                                <!-- Slider -->
-                                <div class="pt-6 pb-4 px-2">
-                                    <div class="relative h-1 w-full rounded-sm bg-[#dbe0e6] dark:bg-gray-700">
-                                        <div class="absolute h-1 rounded-sm bg-primary dark:bg-primary" style="left: 15%; right: 40%;">
-                                        </div>
-                                        <div class="absolute -top-1.5" style="left: 15%;">
-                                            <div class="size-4 rounded-full bg-primary cursor-pointer"></div>
-                                            <p class="text-[#617289] dark:text-gray-400 text-xs font-normal absolute -left-1/2 top-5 text-center w-12">
-                                                $500
-                                            </p>
-                                        </div>
-                                        <div class="absolute -top-1.5" style="right: 40%;">
-                                            <div class="size-4 rounded-full bg-primary cursor-pointer"></div>
-                                            <p class="text-[#617289] dark:text-gray-400 text-xs font-normal absolute -left-1/2 top-5 text-center w-12">
-                                                $3000
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </details>
-                            <details class="flex flex-col border-t border-b border-b-[#dbe0e6] dark:border-b-gray-700 border-t-[#dbe0e6] dark:border-t-gray-700 py-2 group">
-                                <summary class="flex cursor-pointer items-center justify-between gap-6 py-2 list-none">
-                                    <p class="text-[#111418] dark:text-gray-200 text-sm font-medium leading-normal">Duración</p>
-                                    <span class="material-symbols-outlined text-[#111418] dark:text-gray-200 group-open:rotate-180 transition-transform duration-200">expand_more</span>
-                                </summary>
-                                <p class="text-[#617289] dark:text-gray-400 text-sm font-normal pb-2 px-2">Selecciona la duración de tu viaje.</p>
-                            </details>
-                        </div>
-                    </div>
-                    <div class="mt-8 flex flex-col gap-2">
-                        <button class="flex min-w-[84px] w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold leading-normal tracking-[0.015em] hover:bg-primary/90 transition-colors">
-                            <span class="truncate">Aplicar filtros</span>
-                        </button>
-                        <button class="flex min-w-[84px] w-full cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-transparent text-gray-600 dark:text-gray-300 text-sm font-medium leading-normal hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                            <span class="truncate">Borrar todo</span>
-                        </button>
-                    </div>
+            <div class="bg-white rounded-xl border border-gray-300 p-6 shadow-sm sticky top-24">
+
+                <h2 class="text-xl font-bold text-gray-800 mb-1">Filtrar Destinos</h2>
+                <p class="text-sm text-gray-500 mb-6">Encuentra tu viaje perfecto</p>
+
+                <!-- Región -->
+                <div class="border-t pt-4">
+                    <h3 class="font-semibold text-gray-700 mb-3">Región</h3>
+                    <label class="flex items-center gap-2 mb-2">
+                        <input type="checkbox" class="accent-blue-600">
+                        <span class="text-gray-600">Europa</span>
+                    </label>
+                    <label class="flex items-center gap-2 mb-2">
+                        <input type="checkbox" class="accent-blue-600">
+                        <span class="text-gray-600">Asia</span>
+                    </label>
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" class="accent-blue-600">
+                        <span class="text-gray-600">Sudamérica</span>
+                    </label>
+                </div>
+
+                <!-- Estilo -->
+                <div class="border-t pt-4 mt-4">
+                    <h3 class="font-semibold text-gray-700 mb-3">Estilo de viaje</h3>
+                    <label class="flex items-center gap-2 mb-2">
+                        <input type="checkbox" checked class="accent-blue-600">
+                        <span class="text-gray-600">Aventura</span>
+                    </label>
+                    <label class="flex items-center gap-2 mb-2">
+                        <input type="checkbox" class="accent-blue-600">
+                        <span class="text-gray-600">Relajación</span>
+                    </label>
+                    <label class="flex items-center gap-2 mb-2">
+                        <input type="checkbox" class="accent-blue-600">
+                        <span class="text-gray-600">Cultural</span>
+                    </label>
+                    <label class="flex items-center gap-2">
+                        <input type="checkbox" class="accent-blue-600">
+                        <span class="text-gray-600">Familiar</span>
+                    </label>
+                </div>
+
+                <!-- Botones -->
+                <div class="mt-6 space-y-2">
+                    <button class="w-full bg-blue-600 text-white py-2 rounded-lg font-semibold hover:bg-blue-700 transition">
+                        Aplicar filtros
+                    </button>
+                    <button class="w-full border border-gray-300 text-gray-600 py-2 rounded-lg hover:bg-gray-100 transition">
+                        Borrar todo
+                    </button>
                 </div>
             </div>
         </aside>
-        <!-- Destination Grid -->
-        <div class="lg:col-span-3">
-            <!-- Header and Controls -->
-            <div class="flex flex-col sm:flex-row items-center justify-between mb-6 gap-4">
-                <h1 class="text-2xl font-bold text-[#111418] dark:text-white">Explora nuestros destinos</h1>
-                <div class="flex items-center gap-4">
-                    <div class="relative">
-                        <span class="material-symbols-outlined absolute left-3 top-1/2 -translate-y-1/2 text-gray-400">sort</span>
-                        <select class="appearance-none bg-white dark:bg-gray-900/50 border border-gray-300 dark:border-gray-700 rounded-lg py-2 pl-10 pr-4 text-sm font-medium text-gray-700 dark:text-gray-300 focus:outline-none focus:ring-2 focus:ring-primary/50">
-                            <option>Popularidad</option>
-                            <option>Precio (De menor a mayor)</option>
-                            <option></option>
-                        </select>
-                    </div>
-                    <div class="flex items-center bg-white dark:bg-gray-900/50 p-1 rounded-lg border border-gray-300 dark:border-gray-700">
-                        <button class="p-1.5 rounded-md bg-primary text-white">
-                            <span class="material-symbols-outlined text-lg">grid_view</span>
+
+        <!-- CONTENIDO -->
+        <section class="lg:col-span-3">
+
+            <!-- HEADER -->
+            <div class="flex flex-col sm:flex-row items-center justify-between mb-8 gap-4">
+                <h1 class="text-3xl font-bold text-gray-800">
+                    Explora nuestros destinos
+                </h1>
+
+                <div class="flex items-center gap-3">
+                    <select class="border border-gray-300 rounded-lg px-4 py-2 text-gray-600">
+                        <option>Popularidad</option>
+                        <option>Precio (menor a mayor)</option>
+                    </select>
+
+                    <div class="flex border border-gray-300 rounded-lg overflow-hidden">
+                        <button class="px-3 py-2 bg-blue-600 text-white">
+                            <span class="material-symbols-outlined">grid_view</span>
                         </button>
-                        <button class="p-1.5 rounded-md text-gray-500 dark:text-gray-400 hover:bg-gray-100 dark:hover:bg-gray-800">
-                            <span class="material-symbols-outlined text-lg">view_list</span>
+                        <button class="px-3 py-2 text-gray-600 hover:bg-gray-100">
+                            <span class="material-symbols-outlined">view_list</span>
                         </button>
                     </div>
                 </div>
             </div>
-            <!-- Grid -->
+
+            <!-- GRID DESTINOS -->
             <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
-                <!-- Card 1 -->
-                @foreach(var destino in Model)
-                {  
-                    <div class="group relative flex flex-col overflow-hidden rounded-xl bg-white  border border-gray-200 dark:border-gray-800 shadow-sm hover:shadow-lg transition-shadow duration-300">
-                    <img class="h-56 w-full object-cover"
-                         data-alt="@destino.Descripcion"
-                         src="@destino.ImagenUrl" />
-                    <div class="p-5 flex flex-col gap-3">
-                        <div class="flex items-center justify-between">
-                            <h3 class="text-lg font-bold text-[#111418]">@destino.Nombre</h3>
-                            <div class="inline-flex items-center gap-1 rounded-full bg-primary/10 px-2.5 py-1 text-xs font-semibold text-primary">
-                                <span class="material-symbols-outlined text-sm">beach_access</span>
-                                <span>@destino.Categoria</span>
+                @foreach (var destino in Model)
+                {
+                    <div class="bg-white rounded-xl border border-gray-300 shadow-sm hover:shadow-md transition overflow-hidden">
+                        <img src="@destino.ImagenUrl"
+                             alt="@destino.Descripcion"
+                             class="h-56 w-full object-cover">
+
+                        <div class="p-5">
+                            <div class="flex justify-between items-center mb-2">
+                                <h3 class="text-lg font-bold text-gray-800">
+                                    @destino.Nombre
+                                </h3>
+                                <span class="text-xs font-semibold bg-blue-100 text-blue-600 px-2 py-1 rounded-full">
+                                    @destino.Categoria
+                                </span>
+                            </div>
+
+                            <p class="text-sm text-gray-500 mb-4">
+                                Atardeceres icónicos, impresionantes vistas y experiencias únicas.
+                            </p>
+
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-gray-800">
+                                    $@destino.Precio
+                                </span>
+                                <a href="#" class="text-blue-600 font-semibold hover:underline">
+                                    Ver detalles
+                                </a>
                             </div>
                         </div>
-                        <p class="text-sm text-[#617289] dark:text-gray-400">Atardeceres icónicos, impresionantes vistas de la caldera y románticos pueblos blancos.</p>
-                        <div class="mt-2 flex items-center justify-between">
-                            <p class="text-lg font-bold text-[#111418] dark:text-white">
-                                <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Precio:</span> $@destino.Precio
-                            </p>
-                            <button class="text-sm font-bold text-primary hover:underline">Ver detalles</button>
-                        </div>
                     </div>
-                </div>
                 }
-                
             </div>
-            <!-- Pagination -->
+
+            <!-- PAGINACIÓN -->
             <div class="mt-10 flex justify-center">
-<nav aria-label="Page navigation">
-    <ul class="pagination justify-content-center mt-3 mb-4">
-                <!-- Flecha anterior -->
-                <li class="page-item @(ViewBag.Page == 1 ? "disabled" : "")">
-                    <a class="page-link" href="@Url.Action("Destinos", new {  
-                        page = ViewBag.Page - 1 })">«</a>
-                </li>
+                <nav>
+                    <ul class="flex gap-2">
+                        <li>
+                            <a class="px-3 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100"
+                               href="@Url.Action("Destinos", new { page = ViewBag.Page - 1 })">
+                                «
+                            </a>
+                        </li>
 
-                <!-- Números de página -->
-                @for (int i = 1; i <= ViewBag.TotalPages; i++)
-                {
-                    <li class="page-item @(ViewBag.Page == i ? "active" : "")">
-                        <a class="page-link" href="@Url.Action("Destinos", new { 
-                            page = i })">@i</a>
-                    </li>
-                }
+                        @for (int i = 1; i <= ViewBag.TotalPages; i++)
+                        {
+                            <li>
+                                <a class="px-3 py-2 rounded-lg border
+                                       @(ViewBag.Page == i ? "bg-blue-600 text-white border-blue-600" : "border-gray-300 text-gray-600 hover:bg-gray-100")"
+                                   href="@Url.Action("Destinos", new { page = i })">
+                                    @i
+                                </a>
+                            </li>
+                        }
 
-                <!-- Flecha siguiente -->
-                <li class="page-item @(ViewBag.Page == ViewBag.TotalPages ? "disabled" : "")">
-                    <a class="page-link" href="@Url.Action("Destinos", new { 
-                        page = ViewBag.Page + 1 })">»</a>
-                </li>
-            </ul>
-        </nav>
+                        <li>
+                            <a class="px-3 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100"
+                               href="@Url.Action("Destinos", new { page = ViewBag.Page + 1 })">
+                                »
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
             </div>
-        </div>
+
+        </section>
     </div>
 </main>
