@@ -58,7 +58,7 @@ namespace Turis_Travel2.Controllers
         // POST: PaquetesController/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(PaquetesTuristicos paquete)
+        public async Task<IActionResult> Create(PaquetesTuristico paquete)
         {
             if (ModelState.IsValid)
             {
@@ -98,7 +98,7 @@ namespace Turis_Travel2.Controllers
         // POST: PaquetesController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, PaquetesTuristicos paquete)
+        public async Task<IActionResult> Edit(int id, PaquetesTuristico paquete)
         {
             if (id != paquete.IdPaquete)
             {

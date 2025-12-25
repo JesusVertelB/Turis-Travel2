@@ -27,7 +27,7 @@ public partial class Reserva
 
     public virtual Itinerario? IdItinerarioNavigation { get; set; }
 
-    public virtual PaquetesTuristicos? IdPaqueteNavigation { get; set; }
+    public virtual PaquetesTuristico? IdPaqueteNavigation { get; set; }
 
     public virtual Transporte? IdTransporteNavigation { get; set; }
 

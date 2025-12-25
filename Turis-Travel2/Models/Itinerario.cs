@@ -27,7 +27,7 @@ public partial class Itinerario
 
     public string? Estado { get; set; }
 
-    public virtual PaquetesTuristicos? IdPaqueteNavigation { get; set; }
+    public virtual PaquetesTuristico? IdPaqueteNavigation { get; set; }
 
     public virtual ICollection<Reserva> Reservas { get; set; } = new List<Reserva>();
 }

@@ -8,13 +8,7 @@ namespace Turis_Travel2.Controllers
 {
     [Authorize]
     public class ReservasUsuarioController : Controller
-
     {
-        public IActionResult ConfigurarViaje(int IdDestino)
-        {
-            return View();
-        }
-
         public IActionResult Index()
         {
             var nombre = User.Identity?.Name ?? "Usuario";
@@ -53,8 +47,6 @@ namespace Turis_Travel2.Controllers
 
             return View(model);
         }
-
-
     }
 }
 

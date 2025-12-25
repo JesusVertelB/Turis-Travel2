@@ -13,5 +13,5 @@ public partial class Servicio
 
     public string? Estado { get; set; }
 
-    public virtual ICollection<PaquetesTuristicos> IdPaquetes { get; set; } = new List<PaquetesTuristicos>();
+    public virtual ICollection<PaquetesTuristico> IdPaquetes { get; set; } = new List<PaquetesTuristico>();
 }

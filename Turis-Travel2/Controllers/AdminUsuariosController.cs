@@ -20,7 +20,7 @@ namespace Turis_Travel2.Controllers
             _context = context;
         }
 
-// LISTA (INDEX)
+        // LISTA (INDEX)
 public async Task<IActionResult> Index(string search, int? rol, int? estado, int page = 1)
 {
     int pageSize = 10;
@@ -59,7 +59,7 @@ public async Task<IActionResult> Index(string search, int? rol, int? estado, int
     return View(usuarios);
 }
 
-        //DETALLES
+        //      DETALLES
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
@@ -121,15 +121,9 @@ public async Task<IActionResult> Index(string search, int? rol, int? estado, int
         [HttpGet]
         public IActionResult Create()
         {
-            ViewBag.Roles = new SelectList(
-                _context.Roles,
-                "IdRol",
-                "NombreRol"
-            );
-
+            ViewBag.Roles = new SelectList(_context.Roles, "ID_rol", "Nombre_rol");
             return View();
         }
-
 
 
         public async Task<IActionResult> Delete(int id)

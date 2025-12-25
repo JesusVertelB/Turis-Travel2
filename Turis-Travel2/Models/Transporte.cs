@@ -19,7 +19,7 @@ public partial class Transporte
 
     public virtual ICollection<AsignacionConductore> AsignacionConductores { get; set; } = new List<AsignacionConductore>();
 
-    public virtual PaquetesTuristicos? IdPaqueteNavigation { get; set; }
+    public virtual PaquetesTuristico? IdPaqueteNavigation { get; set; }
 
     public virtual ICollection<Reserva> Reservas { get; set; } = new List<Reserva>();
 }

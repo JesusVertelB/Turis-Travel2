@@ -35,7 +35,7 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Notificacione> Notificaciones { get; set; }
 
-    public virtual DbSet<PaquetesTuristicos> PaquetesTuristicos { get; set; }
+    public virtual DbSet<PaquetesTuristico> PaquetesTuristicos { get; set; }
 
     public virtual DbSet<Permiso> Permisos { get; set; }
 
@@ -233,7 +233,7 @@ public partial class ApplicationDbContext : DbContext
                 .HasConstraintName("Notificaciones_ibfk_1");
         });
 
-        modelBuilder.Entity<PaquetesTuristicos>(entity =>
+        modelBuilder.Entity<PaquetesTuristico>(entity =>
         {
             entity.HasKey(e => e.IdPaquete).HasName("PRIMARY");
 
@@ -270,7 +270,7 @@ public partial class ApplicationDbContext : DbContext
                     r => r.HasOne<Servicio>().WithMany()
                         .HasForeignKey("IdServicio")
                         .HasConstraintName("Paquete_Servicio_ibfk_2"),
-                    l => l.HasOne<PaquetesTuristicos>().WithMany()
+                    l => l.HasOne<PaquetesTuristico>().WithMany()
                         .HasForeignKey("IdPaquete")
                         .HasConstraintName("Paquete_Servicio_ibfk_1"),
                     j =>

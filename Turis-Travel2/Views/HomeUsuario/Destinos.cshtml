@@ -1,7 +1,6 @@
 ﻿@model IEnumerable<Turis_Travel2.Models.Destino>
 
 @{
-    ViewData["Title"] = "Destinos";
     Layout = "_LayoutUsuarios";
 }
 
@@ -118,7 +117,7 @@
                                 <span class="font-bold text-gray-800">
                                     $@destino.Precio
                                 </span>
-                                <a asp-action="DetalleDestino" asp-route-id="@destino.Id" class="text-blue-600 font-semibold hover:underline">
+                                <a href="#" class="text-blue-600 font-semibold hover:underline">
                                     Ver detalles
                                 </a>
                             </div>
