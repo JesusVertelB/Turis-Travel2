@@ -3,8 +3,6 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
-using System.Security.Cryptography;
-using System.Text;
 using Turis_Travel2.Data;
 using Turis_Travel2.Models;
 
@@ -22,7 +20,6 @@ namespace Turis_Travel2.Controllers
         [HttpGet]
         public IActionResult Login() => View();
 
-
         [HttpPost]
         public async Task<IActionResult> Login(string correo, string contrasena)
         {
@@ -32,9 +29,8 @@ namespace Turis_Travel2.Controllers
                 return View();
             }
 
-            // Buscar usuario por correo
+            // Buscar usuario por correo y estado activo
             var usuario = await _context.Usuarios
-                .Include(u => u.IdRolNavigation)
                 .FirstOrDefaultAsync(u => u.Correo == correo && u.Estado == 1);
 
             if (usuario == null)
@@ -43,7 +39,7 @@ namespace Turis_Travel2.Controllers
                 return View();
             }
 
-            // ✔ VERIFICAR CONTRASEÑA CON BCRYPT
+            // Verificar contraseña
             bool passwordValida = BCrypt.Net.BCrypt.Verify(contrasena, usuario.Contrasena);
 
             if (!passwordValida)
@@ -52,13 +48,16 @@ namespace Turis_Travel2.Controllers
                 return View();
             }
 
+            // Determinar rol según IdRol
+            string rolNombre = usuario.IdRol == 1 ? "Admin" : "Cliente";
+
             // Crear claims
             var claims = new List<Claim>
             {
                 new Claim("IdUsuario", usuario.IdUsuario.ToString()),
                 new Claim(ClaimTypes.Name, usuario.NombreUsuario),
                 new Claim(ClaimTypes.Email, usuario.Correo),
-                new Claim(ClaimTypes.Role, usuario.IdRolNavigation?.NombreRol ?? "Cliente")
+                new Claim(ClaimTypes.Role, rolNombre)
             };
 
             var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
@@ -73,12 +72,11 @@ namespace Turis_Travel2.Controllers
                 }
             );
 
-            // Redirecciones según rol
-            return usuario.IdRolNavigation?.NombreRol == "Admin"
+            // Redirección según rol
+            return rolNombre == "Admin"
                 ? RedirectToAction("Index", "Dashboard")
                 : RedirectToAction("Index", "Home");
         }
-
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -98,9 +96,7 @@ namespace Turis_Travel2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(Usuario usuario)
         {
-            
-
-            // 🔒 Validar correo duplicado
+            // Validar correo duplicado
             bool existeCorreo = await _context.Usuarios
                 .AnyAsync(u => u.Correo == usuario.Correo);
 
@@ -118,7 +114,7 @@ namespace Turis_Travel2.Controllers
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
 
-            // 🔑 AUTO LOGIN
+            // Auto login
             var claims = new List<Claim>
             {
                 new Claim("IdUsuario", usuario.IdUsuario.ToString()),
@@ -127,8 +123,7 @@ namespace Turis_Travel2.Controllers
                 new Claim(ClaimTypes.Role, "Cliente")
             };
 
-            var identity = new ClaimsIdentity(
-                claims, CookieAuthenticationDefaults.AuthenticationScheme);
+            var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
 
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
@@ -141,7 +136,5 @@ namespace Turis_Travel2.Controllers
 
             return RedirectToAction("Index", "Home");
         }
-
     }
 }
-

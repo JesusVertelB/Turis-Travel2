@@ -20,4 +20,6 @@ public partial class Destino
     public string? ImagenUrl { get; set; }
 
     public sbyte? Estado { get; set; }
+
+    public virtual ICollection<PaquetesTuristicos> IdPaquete { get; set; } = new List<PaquetesTuristicos>();
 }

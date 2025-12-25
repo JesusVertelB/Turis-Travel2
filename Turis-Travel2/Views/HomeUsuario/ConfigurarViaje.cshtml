@@ -1,0 +1,585 @@
+﻿@model Turis_Travel2.Models.ViewModels.ConfigurarViajeViewModel
+
+@{
+    ViewData["Title"] = $"Configurar Viaje a {Model.NombreDestino}";
+    Layout = "~/Views/Shared/_LayoutUsuarios.cshtml";
+}
+
+<!-- Breadcrumbs -->
+<div class="flex flex-wrap gap-2 pb-6 text-sm text-gray-600">
+    <a asp-controller="HomeUsuario" asp-action="Index" class="font-semibold hover:text-primary transition">
+        Inicio
+    </a>
+    <span class="text-gray-400">/</span>
+    <a asp-controller="HomeUsuario" asp-action="Destinos" class="font-semibold hover:text-primary transition">
+        Destinos
+    </a>
+    <span class="text-gray-400">/</span>
+    <a asp-controller="HomeUsuario" asp-action="DetalleDestino" asp-route-id="@Model.IdDestino" class="font-semibold hover:text-primary transition">
+        @Model.NombreDestino
+    </a>
+    <span class="text-gray-400">/</span>
+    <span class="font-semibold text-gray-900">
+        Configuración de reserva
+    </span>
+</div>
+
+
+
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+    <!-- Left Column: Main Form -->
+    <div class="lg:col-span-8 flex flex-col gap-8">
+        <!-- Page Heading -->
+        <div class="flex flex-col gap-3">
+            <p class="text-neutral-900 dark:text-white text-4xl md:text-5xl font-extrabold leading-tight tracking-tight">
+                Configure su viaje a @Model.NombreDestino
+            </p>
+            <p class="text-[#617289] dark:text-gray-400 text-base font-normal leading-normal">
+                Personalice sus fechas, alojamiento y extras para crear su perfecto itinerario.
+            </p>
+        </div>
+
+        <!-- Sección 1: Fechas & Viajeros -->
+        <section class="bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-6">
+            <div class="flex items-center gap-3 pb-6 border-b border-gray-100 dark:border-gray-700 mb-6">
+                <div class="flex items-center justify-center size-10 rounded-full bg-primary/10 text-primary">
+                    <span class="material-symbols-outlined">calendar_month</span>
+                </div>
+                <h2 class="text-xl font-bold text-[#111418] dark:text-white">1. Fechas & Viajeros</h2>
+            </div>
+            <div class="flex flex-col gap-8">
+                <!-- Calendario -->
+                <div class="flex flex-wrap items-start justify-center gap-8">
+                    <!-- Mes 1 -->
+                    <div class="flex min-w-[280px] flex-1 flex-col gap-2">
+                        <div class="flex items-center justify-between p-1">
+                            <button type="button" class="p-1 hover:bg-gray-100 dark:hover:bg-gray-700 rounded-full transition-colors"
+                                    onclick="cambiarMes(-1)">
+                                <span class="material-symbols-outlined text-gray-800 dark:text-gray-200">chevron_left</span>
+                            </button>
+                            <p class="text-[#111418] dark:text-white text-base font-bold" id="mesActual">Octubre 2026</p>
+                            <div class="w-8"></div>
+                        </div>
+                        <div class="grid grid-cols-7 gap-y-1" id="calendario">
+                            <!-- Los días se generarán dinámicamente con JavaScript -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contador de Viajeros -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-4 pt-6 border-t border-gray-100 dark:border-gray-800">
+                    <div class="flex items-center justify-between p-4 bg-background-light dark:bg-background-dark/50 rounded-lg border border-gray-200 dark:border-gray-700">
+                        <div>
+                            <p class="text-base font-bold text-[#111418] dark:text-white">Adultos</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Edad 13+</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button type="button" class="size-8 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors"
+                                    onclick="cambiarAdultos(-1)">
+                                <span class="material-symbols-outlined !text-lg">remove</span>
+                            </button>
+                            <span id="adultosCount" class="w-4 text-center font-bold dark:text-white">2</span>
+                            <button type="button" class="size-8 flex items-center justify-center rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors"
+                                    onclick="cambiarAdultos(1)">
+                                <span class="material-symbols-outlined !text-lg">add</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="flex items-center justify-between p-4 bg-background-light dark:bg-background-dark/50 rounded-lg border border-gray-200 dark:border-gray-700">
+                        <div>
+                            <p class="text-base font-bold text-[#111418] dark:text-white">Niños</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400">Edad 2-12</p>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <button type="button" class="size-8 flex items-center justify-center rounded-full border border-gray-300 dark:border-gray-600 hover:bg-gray-100 dark:hover:bg-gray-700 transition-colors text-gray-400"
+                                    onclick="cambiarNinos(-1)">
+                                <span class="material-symbols-outlined !text-lg">remove</span>
+                            </button>
+                            <span id="ninosCount" class="w-4 text-center font-bold dark:text-white">0</span>
+                            <button type="button" class="size-8 flex items-center justify-center rounded-full border border-primary text-primary hover:bg-primary/10 transition-colors"
+                                    onclick="cambiarNinos(1)">
+                                <span class="material-symbols-outlined !text-lg">add</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 2: Alojamiento -->
+        <section class="bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-6">
+            <div class="flex items-center gap-3 pb-6 border-b border-gray-100 dark:border-gray-700 mb-6">
+                <div class="flex items-center justify-center size-10 rounded-full bg-primary/10 text-primary">
+                    <span class="material-symbols-outlined">hotel</span>
+                </div>
+                <h2 class="text-xl font-bold text-[#111418] dark:text-white">2. Habitación</h2>
+            </div>
+            <div class="grid grid-cols-1 gap-4">
+                <!-- Opción 1: Standard -->
+                <div class="relative">
+                    <input class="peer sr-only" id="hotelStandard" name="hotel" type="radio" value="standard" onchange="actualizarResumen()" />
+                    <label for="hotelStandard" class="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all border-gray-200 dark:border-gray-700 hover:border-primary/50 group">
+                        <div class="w-full sm:w-32 h-32 sm:h-auto rounded-lg bg-gray-200 bg-cover bg-center shrink-0"
+                             data-alt="Small cozy japanese traditional room with tatami mats"
+                             style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuABK809vK73DZGqbY5D8v3MppaEYVoXayvOP0AXNSQnHfJMm4pCx3vUiN7PI1tuYnePLJMKOIf5xoaC-tCiHAPAm9LeK7R15gBlHGj77WYCCIf39n37kJf3hxUfSBRwXFb9wGWggGbDR5uETtb_Mvc4G354wP9Rkzu5Y5Z8zsRzZ2K1Tfzy_OeoV8EoWNie08OTrEffC81o10YjRD4UMiTbk0l59NvW09sj1X0VYAD9tLWYjQUGSzBFpcUhNe2zFeKLcdmvgFkscIU");'>
+                        </div>
+                        <div class="flex-1 flex flex-col justify-center">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-lg font-bold text-[#111418] dark:text-white">Habitación estándar</h3>
+                                <span class="text-sm font-semibold text-gray-500 line-through mr-2">$180</span>
+                            </div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Habitación tradicional con baño compartido. Incluye desayuno simple.</p>
+                            <div class="flex items-center gap-2">
+                                <span class="inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-700 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-300">Free WiFi</span>
+                                <span class="inline-flex items-center rounded-md bg-gray-100 dark:bg-gray-700 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-300">City View</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-row sm:flex-col justify-between items-center sm:items-end">
+                            <span class="text-xl font-bold text-primary">$150<span class="text-xs text-gray-500 font-normal">/noche</span></span>
+                            <div class="size-6 rounded-full border-2 border-gray-300 peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center">
+                                <div class="size-2.5 rounded-full bg-white hidden peer-checked:block"></div>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 rounded-xl ring-2 ring-primary opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity"></div>
+                    </label>
+                </div>
+
+                <!-- Opción 2: Premium (Recomendado) -->
+                <div class="relative">
+                    <input class="peer sr-only" id="hotelPremium" name="hotel" type="radio" value="premium" checked onchange="actualizarResumen()" />
+                    <label for="hotelPremium" class="flex flex-col sm:flex-row gap-4 p-4 rounded-xl border-2 cursor-pointer transition-all border-primary/30 bg-primary/5 dark:bg-primary/5 group">
+                        <div class="w-full sm:w-32 h-32 sm:h-auto rounded-lg bg-gray-200 bg-cover bg-center shrink-0"
+                             data-alt="Modern hotel room with a large bed and view of a garden"
+                             style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuBLaKmaMbGpvUUrD4zkZQ4Gj-356UhZglMofPhRQc2-dai0ZfPMP1vRinPeXEt_NWCQkAc0x5lgB8rrJn_yErzzTnAoprStldrkH63FUmirSZamjCK_4TkVpEjSpVpg57d636i0IL-LD6YBy7FcGJlc8g5zcoFfZLUsV8e9DdWoZ568D2_Zi1WUHxgv_rEmXQkjKoEnShvbDGUuLKhKFmJuuLRFZKM6kOagG1bymwqJ_vYjS-vK0BDYfxczZN4swvbkWZO-mmDPfVg");'>
+                        </div>
+                        <div class="flex-1 flex flex-col justify-center">
+                            <div class="flex justify-between items-start mb-1">
+                                <h3 class="text-lg font-bold text-[#111418] dark:text-white">Habitación premium</h3>
+                                <span class="inline-flex items-center rounded-full bg-primary text-white px-2 py-0.5 text-xs font-bold">Recomendado</span>
+                            </div>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 mb-3">Habitación espaciosa con baño privado. Incluye desayuno buffet.</p>
+                            <div class="flex items-center gap-2">
+                                <span class="inline-flex items-center rounded-md bg-white dark:bg-gray-700 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-600">Spa Access</span>
+                                <span class="inline-flex items-center rounded-md bg-white dark:bg-gray-700 px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-300 border border-gray-100 dark:border-gray-600">Garden View</span>
+                            </div>
+                        </div>
+                        <div class="flex flex-row sm:flex-col justify-between items-center sm:items-end">
+                            <span class="text-xl font-bold text-primary">$280<span class="text-xs text-gray-500 font-normal">/noche</span></span>
+                            <div class="size-6 rounded-full border-2 border-gray-300 peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center">
+                                <div class="size-2.5 rounded-full bg-white hidden peer-checked:block"></div>
+                            </div>
+                        </div>
+                        <div class="absolute inset-0 rounded-xl ring-2 ring-primary opacity-0 peer-checked:opacity-100 pointer-events-none transition-opacity"></div>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 3: Transporte -->
+        <section class="bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-6">
+            <div class="flex items-center gap-3 pb-6 border-b border-gray-100 dark:border-gray-700 mb-6">
+                <div class="flex items-center justify-center size-10 rounded-full bg-primary/10 text-primary">
+                    <span class="material-symbols-outlined">directions_bus</span>
+                </div>
+                <h2 class="text-xl font-bold text-[#111418] dark:text-white">3. Transporte local</h2>
+            </div>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <!-- Opción 1: JR Pass -->
+                <div class="cursor-pointer relative">
+                    <input class="peer sr-only" id="transportJR" name="transport" type="radio" value="jrpass" onchange="actualizarResumen()" />
+                    <label for="transportJR" class="block h-full">
+                        <div class="h-full p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-primary/50 peer-checked:border-primary peer-checked:bg-primary/5 transition-all flex flex-col items-center text-center gap-3">
+                            <span class="material-symbols-outlined text-4xl text-gray-400 peer-checked:text-primary">train</span>
+                            <div>
+                                <h4 class="font-bold text-[#111418] dark:text-white">JR Pass (7 Days)</h4>
+                                <p class="text-xs text-gray-500 mt-1">Viaje ilimitado en tren</p>
+                            </div>
+                            <span class="text-lg font-bold text-primary mt-auto">+$210</span>
+                        </div>
+                        <div class="absolute top-3 right-3 size-5 rounded-full border-2 border-gray-300 peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center">
+                            <div class="size-2 rounded-full bg-white hidden peer-checked:block"></div>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Opción 2: Transferencia -->
+                <div class="cursor-pointer relative">
+                    <input class="peer sr-only" id="transportTransfer" name="transport" type="radio" value="transfer" checked onchange="actualizarResumen()" />
+                    <label for="transportTransfer" class="block h-full">
+                        <div class="h-full p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-primary/50 peer-checked:border-primary peer-checked:bg-primary/5 transition-all flex flex-col items-center text-center gap-3">
+                            <span class="material-symbols-outlined text-4xl text-gray-400 peer-checked:text-primary">directions_car</span>
+                            <div>
+                                <h4 class="font-bold text-[#111418] dark:text-white">Transferencia privada</h4>
+                                <p class="text-xs text-gray-500 mt-1">Recogida y entrega en el aeropuerto</p>
+                            </div>
+                            <span class="text-lg font-bold text-primary mt-auto">+$120</span>
+                        </div>
+                        <div class="absolute top-3 right-3 size-5 rounded-full border-2 border-gray-300 peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center">
+                            <div class="size-2 rounded-full bg-white hidden peer-checked:block"></div>
+                        </div>
+                    </label>
+                </div>
+
+                <!-- Opción 3: Ninguno -->
+                <div class="cursor-pointer relative">
+                    <input class="peer sr-only" id="transportNone" name="transport" type="radio" value="none" onchange="actualizarResumen()" />
+                    <label for="transportNone" class="block h-full">
+                        <div class="h-full p-4 rounded-xl border-2 border-gray-200 dark:border-gray-700 hover:border-primary/50 peer-checked:border-primary peer-checked:bg-primary/5 transition-all flex flex-col items-center text-center gap-3">
+                            <span class="material-symbols-outlined text-4xl text-gray-400 peer-checked:text-primary">not_listed_location</span>
+                            <div>
+                                <h4 class="font-bold text-[#111418] dark:text-white">Ninguno</h4>
+                                <p class="text-xs text-gray-500 mt-1">Yo me arreglaré</p>
+                            </div>
+                            <span class="text-lg font-bold text-gray-400 mt-auto">$0</span>
+                        </div>
+                        <div class="absolute top-3 right-3 size-5 rounded-full border-2 border-gray-300 peer-checked:border-primary peer-checked:bg-primary flex items-center justify-center">
+                            <div class="size-2 rounded-full bg-white hidden peer-checked:block"></div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+        </section>
+
+        <!-- Sección 4: Extras -->
+        <section class="bg-surface-light dark:bg-surface-dark rounded-xl shadow-sm border border-gray-200 dark:border-gray-800 p-6">
+            <div class="flex items-center gap-3 pb-6 border-b border-gray-100 dark:border-gray-700 mb-6">
+                <div class="flex items-center justify-center size-10 rounded-full bg-primary/10 text-primary">
+                    <span class="material-symbols-outlined">local_activity</span>
+                </div>
+                <h2 class="text-xl font-bold text-[#111418] dark:text-white">4. Extras & Actividades</h2>
+            </div>
+            <div class="space-y-4">
+                <!-- Extra 1: Ceremonia de té -->
+                <div class="flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors">
+                    <div class="flex items-center gap-4">
+                        <div class="relative flex items-center">
+                            <input class="size-5 rounded border-gray-300 text-primary focus:ring-primary dark:bg-gray-700 dark:border-gray-600"
+                                   type="checkbox" id="extraTe" value="45" checked onchange="actualizarResumen()" />
+                        </div>
+                        <div>
+                            <label for="extraTe" class="font-bold text-[#111418] dark:text-white cursor-pointer">Ceremonia de té de Kyoto</label>
+                            <p class="text-sm text-gray-500">Experiencia tradicional de 60 minutos</p>
+                        </div>
+                    </div>
+                    <span class="font-bold text-primary">+$45</span>
+                </div>
+
+                <!-- Extra 2: Tour Geisha -->
+                <div class="flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors">
+                    <div class="flex items-center gap-4">
+                        <div class="relative flex items-center">
+                            <input class="size-5 rounded border-gray-300 text-primary focus:ring-primary dark:bg-gray-700 dark:border-gray-600"
+                                   type="checkbox" id="extraGeisha" value="80" onchange="actualizarResumen()" />
+                        </div>
+                        <div>
+                            <label for="extraGeisha" class="font-bold text-[#111418] dark:text-white cursor-pointer">Tour por el distrito de Geisha</label>
+                            <p class="text-sm text-gray-500">Recorrido guiado por el distrito de Geisha</p>
+                        </div>
+                    </div>
+                    <span class="font-bold text-primary">+$80</span>
+                </div>
+
+                <!-- Extra 3: Seguro -->
+                <div class="flex items-center justify-between p-4 rounded-lg border border-gray-200 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-800 cursor-pointer transition-colors">
+                    <div class="flex items-center gap-4">
+                        <div class="relative flex items-center">
+                            <input class="size-5 rounded border-gray-300 text-primary focus:ring-primary dark:bg-gray-700 dark:border-gray-600"
+                                   type="checkbox" id="extraSeguro" value="120" onchange="actualizarResumen()" />
+                        </div>
+                        <div>
+                            <label for="extraSeguro" class="font-bold text-[#111418] dark:text-white cursor-pointer">Seguro de viaje</label>
+                            <p class="text-sm text-gray-500">Cobertura completa para cancelación de viaje</p>
+                        </div>
+                    </div>
+                    <span class="font-bold text-primary">+$120</span>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Right Column: Sticky Summary -->
+    <div class="lg:col-span-4">
+        <div class="sticky top-24 flex flex-col gap-6">
+            <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow-xl border border-gray-200 dark:border-gray-700 overflow-hidden">
+                <div class="bg-gray-50 dark:bg-gray-800/50 p-4 border-b border-gray-200 dark:border-gray-700">
+                    <h3 class="text-lg font-bold text-[#111418] dark:text-white">Resumen de la reserva</h3>
+                </div>
+                <div class="p-6 flex flex-col gap-6">
+                    <!-- Trip Info -->
+                    <div class="flex flex-col gap-4">
+                        <div class="flex gap-3 items-start">
+                            <span class="material-symbols-outlined text-gray-400 mt-0.5 text-[20px]">calendar_month</span>
+                            <div>
+                                <p class="text-sm font-bold text-[#111418] dark:text-white" id="fechasResumen">Oct 5 - Oct 8, 2026</p>
+                                <p class="text-xs text-gray-500" id="nochesResumen">3 Noches</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-3 items-start">
+                            <span class="material-symbols-outlined text-gray-400 mt-0.5 text-[20px]">group</span>
+                            <div>
+                                <p class="text-sm font-bold text-[#111418] dark:text-white" id="viajerosResumen">2 Adultos</p>
+                            </div>
+                        </div>
+                    </div>
+                    <hr class="border-gray-100 dark:border-gray-700" />
+
+                    <!-- Cost Breakdown -->
+                    <div class="flex flex-col gap-3">
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600 dark:text-gray-400" id="habitacionLabel">Habitación premium (3 noches)</span>
+                            <span class="font-medium text-[#111418] dark:text-white" id="habitacionPrecio">$840</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600 dark:text-gray-400" id="transporteLabel">Transporte (Transferencia)</span>
+                            <span class="font-medium text-[#111418] dark:text-white" id="transportePrecio">$120</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600 dark:text-gray-400" id="extrasLabel">Extras (Tea Ceremony)</span>
+                            <span class="font-medium text-[#111418] dark:text-white" id="extrasPrecio">$45</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span class="text-gray-600 dark:text-gray-400">Impuestos y tarifas (10%)</span>
+                            <span class="font-medium text-[#111418] dark:text-white" id="impuestosPrecio">$100.5</span>
+                        </div>
+                    </div>
+                    <hr class="border-gray-100 dark:border-gray-700" />
+
+                    <!-- Total -->
+                    <div class="flex justify-between items-end">
+                        <span class="text-base font-bold text-gray-600 dark:text-gray-400">Precio total</span>
+                        <span class="text-3xl font-black text-primary" id="totalPrecio">$1,105.5</span>
+                    </div>
+
+                    <!-- CTA -->
+                    <form method="post" asp-page-handler="ConfirmarReserva">
+                        <input type="hidden" name="fechas" id="fechasInput" value="2026-10-05 - 2026-10-08" />
+                        <input type="hidden" name="adultos" id="adultosInput" value="2" />
+                        <input type="hidden" name="ninos" id="ninosInput" value="0" />
+                        <input type="hidden" name="habitacion" id="habitacionInput" value="premium" />
+                        <input type="hidden" name="transporte" id="transporteInput" value="transfer" />
+                        <input type="hidden" name="extras" id="extrasInput" value="45" />
+                        <input type="hidden" name="total" id="totalInput" value="1105.5" />
+
+                        <button type="submit"
+                                class="w-full bg-primary hover:bg-primary/90 text-white font-bold py-3.5 px-6 rounded-xl transition-all duration-300 shadow-lg hover:shadow-2xl active:scale-[0.97] flex items-center justify-center gap-2">
+                            <span>Confirmar Reserva</span>
+                            <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                        </button>
+                    </form>
+
+                    <p class="text-xs text-center text-gray-400">
+                        Cancelación gratuita hasta 48h antes del viaje.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Help Card -->
+            <div class="bg-primary/5 rounded-xl border border-primary/20 p-4 flex gap-4 items-center">
+                <div class="size-10 rounded-full bg-white flex items-center justify-center text-primary shrink-0 shadow-sm">
+                    <span class="material-symbols-outlined">support_agent</span>
+                </div>
+                <div>
+                    <p class="text-sm font-bold text-[#111418] dark:text-white">¿Necesitas ayuda?</p>
+                    <p class="text-xs text-gray-600 dark:text-gray-400">
+                        Llama a nuestros expertos en viajes 24/7 en
+                        <a class="underline decoration-primary" href="tel:1-800-TRAVEL">1-800-TRAVEL</a>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+         // Variables globales
+        let fechaActual = new Date(2026, 9, 1); // Octubre 2026 (mes 0-indexed)
+        let fechaInicio = new Date(2026, 9, 5); // 5 de Octubre 2026
+        let fechaFin = new Date(2026, 9, 8); // 8 de Octubre 2026
+        let noches = 3;
+
+        // Inicializar calendario
+        document.addEventListener('DOMContentLoaded', function() {
+            generarCalendario();
+            actualizarResumen();
+        });
+
+        // Funciones del calendario
+        function cambiarMes(direccion) {
+            fechaActual.setMonth(fechaActual.getMonth() + direccion);
+            generarCalendario();
+        }
+
+        function generarCalendario() {
+            const calendario = document.getElementById('calendario');
+            const mesElemento = document.getElementById('mesActual');
+
+            if (!calendario || !mesElemento) return;
+
+            // Nombre del mes
+            const opciones = { month: 'long', year: 'numeric' };
+            mesElemento.textContent = fechaActual.toLocaleDateString('es-ES', opciones);
+
+            // Días de la semana
+            const diasSemana = ['D', 'L', 'M', 'X', 'J', 'V', 'S'];
+
+            // Limpiar calendario
+            calendario.innerHTML = '';
+
+            // Agregar días de la semana
+            diasSemana.forEach(dia => {
+                const diaElemento = document.createElement('div');
+                diaElemento.className = 'text-xs font-bold text-center text-gray-500 py-2';
+                diaElemento.textContent = dia;
+                calendario.appendChild(diaElemento);
+            });
+
+            // Primer día del mes
+            const primerDia = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), 1);
+            const ultimoDia = new Date(fechaActual.getFullYear(), fechaActual.getMonth() + 1, 0);
+
+            // Días vacíos al inicio
+            const diaInicio = primerDia.getDay(); // 0 = Domingo, 1 = Lunes, etc.
+            for (let i = 0; i < diaInicio; i++) {
+                const vacio = document.createElement('div');
+                calendario.appendChild(vacio);
+            }
+
+            // Días del mes
+            for (let dia = 1; dia <= ultimoDia.getDate(); dia++) {
+                const fecha = new Date(fechaActual.getFullYear(), fechaActual.getMonth(), dia);
+                const boton = document.createElement('button');
+                boton.type = 'button';
+                boton.className = 'size-10 flex items-center justify-center rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 text-sm dark:text-gray-200';
+                boton.textContent = dia;
+
+                // Verificar si está en el rango seleccionado
+                if (fecha >= fechaInicio && fecha <= fechaFin) {
+                    if (fecha.getTime() === fechaInicio.getTime()) {
+                        boton.className = 'size-10 flex items-center justify-center rounded-l-full bg-primary text-white text-sm font-semibold';
+                    } else if (fecha.getTime() === fechaFin.getTime()) {
+                        boton.className = 'size-10 flex items-center justify-center rounded-r-full bg-primary/20 text-[#111418] dark:text-white text-sm';
+                    } else {
+                        boton.className = 'size-10 flex items-center justify-center bg-primary/20 text-[#111418] dark:text-white text-sm';
+                    }
+
+                    boton.addEventListener('click', () => seleccionarFecha(fecha));
+                } else {
+                    boton.addEventListener('click', () => {
+                        // Si se hace clic fuera del rango, establecer como nueva fecha de inicio
+                        fechaInicio = fecha;
+                        fechaFin = new Date(fecha);
+                        fechaFin.setDate(fechaFin.getDate() + noches);
+                        generarCalendario();
+                        actualizarResumen();
+                    });
+                }
+
+                calendario.appendChild(boton);
+            }
+        }
+
+        function seleccionarFecha(fecha) {
+            // Lógica para seleccionar fechas
+            console.log('Fecha seleccionada:', fecha.toLocaleDateString('es-ES'));
+        }
+
+        // Funciones para contadores de viajeros
+        function cambiarAdultos(cambio) {
+            const contador = document.getElementById('adultosCount');
+            let valor = parseInt(contador.textContent) + cambio;
+            if (valor < 1) valor = 1;
+            if (valor > 10) valor = 10;
+            contador.textContent = valor;
+            document.getElementById('adultosInput').value = valor;
+            actualizarResumen();
+        }
+
+        function cambiarNinos(cambio) {
+            const contador = document.getElementById('ninosCount');
+            let valor = parseInt(contador.textContent) + cambio;
+            if (valor < 0) valor = 0;
+            if (valor > 10) valor = 10;
+            contador.textContent = valor;
+            document.getElementById('ninosInput').value = valor;
+            actualizarResumen();
+        }
+
+        // Actualizar resumen
+        function actualizarResumen() {
+            // Obtener valores
+            const adultos = parseInt(document.getElementById('adultosCount').textContent);
+            const ninos = parseInt(document.getElementById('ninosCount').textContent);
+
+            // Actualizar resumen de viajeros
+            document.getElementById('viajerosResumen').textContent = adultos + ' Adulto' + (adultos !== 1 ? 's' : '') +
+                (ninos > 0 ? ', ' + ninos + ' Niño' + (ninos !== 1 ? 's' : '') : '');
+
+            // Calcular precio de habitación
+            const habitacionSeleccionada = document.querySelector('input[name="hotel"]:checked');
+            let precioHabitacionPorNoche = 280; // Premium por defecto
+            let nombreHabitacion = "Habitación premium";
+
+            if (habitacionSeleccionada && habitacionSeleccionada.value === 'standard') {
+                precioHabitacionPorNoche = 150;
+                nombreHabitacion = "Habitación estándar";
+            }
+
+            const totalHabitacion = precioHabitacionPorNoche * noches;
+            document.getElementById('habitacionLabel').textContent = nombreHabitacion + ' (' + noches + ' noches)';
+            document.getElementById('habitacionPrecio').textContent = '$' + totalHabitacion;
+            document.getElementById('habitacionInput').value = habitacionSeleccionada?.value || 'premium';
+
+            // Calcular transporte
+            const transporteSeleccionado = document.querySelector('input[name="transport"]:checked');
+            let precioTransporte = 120;
+            let nombreTransporte = "Transferencia";
+
+            if (transporteSeleccionado) {
+                if (transporteSeleccionado.value === 'jrpass') {
+                    precioTransporte = 210;
+                    nombreTransporte = "JR Pass";
+                } else if (transporteSeleccionado.value === 'none') {
+                    precioTransporte = 0;
+                    nombreTransporte = "Ninguno";
+                }
+            }
+
+            document.getElementById('transporteLabel').textContent = 'Transporte (' + nombreTransporte + ')';
+            document.getElementById('transportePrecio').textContent = '$' + precioTransporte;
+            document.getElementById('transporteInput').value = transporteSeleccionado?.value || 'transfer';
+
+            // Calcular extras
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            let totalExtras = 0;
+            let extrasSeleccionados = [];
+            let nombresExtras = [];
+
+            checkboxes.forEach(checkbox => {
+                if (checkbox.checked) {
+                    const valor = parseFloat(checkbox.value);
+                    totalExtras += valor;
+                    extrasSeleccionados.push(checkbox.value);
+
+                    // Determinar nombre del extra basado en el valor
+                    if (valor === 45) nombresExtras.push("Tea Ceremony");
+                    else if (valor === 80) nombresExtras.push("Geisha Tour");
+                    else if (valor === 120) nombresExtras.push("Travel Insurance");
+                }
+            });
+
+            document.getElementById('extrasLabel').textContent = 'Extras (' + (nombresExtras.length > 0 ? nombresExtras.join(', ') : 'Ninguno') + ')';
+            document.getElementById('extrasPrecio').textContent = '$' + totalExtras;
+            document.getElementById('extrasInput').value = extrasSeleccionados.join(',');
+
+            // Calcular totales
+            const subtotal = totalHabitacion + precioTransporte + totalExtras;
+            const impuestos = subtotal * 0.10;
+            const total = subtotal + impuestos;
+
+            document.getElementById('impuestosPrecio').textContent = '$' + impuestos.toFixed(2);
+            document.getElementById('totalPrecio').textContent = '$' + total.toFixed(2);
+            document.getElementById('totalInput').value = total.toFixed(2);
+        }
+    </script>
+}
