@@ -1,0 +1,555 @@
+﻿@model Turis_Travel2.Models.PaquetesTuristico
+@{
+    ViewData["Title"] = "Detalles del Paquete";
+    Layout = "_LayoutUsuarios";
+}
+<!DOCTYPE html>
+
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>ViajesIncreíbles - Detalles de Destino</title>
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect" />
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect" />
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:ital,wght@0,200..800;1,200..800&amp;display=swap" rel="stylesheet" />
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Theme Config -->
+    <script>
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "primary": "#137fec",
+                "background-light": "#f6f7f8",
+                "background-dark": "#101922",
+              },
+              fontFamily: {
+                "display": ["Plus Jakarta Sans", "sans-serif"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+    <style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar for better aesthetics */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #c1c1c1;
+            border-radius: 4px;
+        }
+
+            ::-webkit-scrollbar-thumb:hover {
+                background: #a8a8a8;
+            }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-slate-900 dark:text-slate-100 font-display transition-colors duration-200">
+    <!-- Top Navigation -->
+   
+    <!-- Main Content Container -->
+    <main class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Hero Gallery Grid -->
+        <section class="grid grid-cols-1 md:grid-cols-4 gap-4 h-[500px] mb-8 rounded-xl overflow-hidden">
+            <!-- Main Large Image -->
+            <div class="md:col-span-2 md:row-span-2 relative group cursor-pointer">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                     style="background-image: url('@Model.ImagenUrl');">
+                </div>
+
+                <div class="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent opacity-60"></div>
+                <button class="absolute bottom-4 left-4 bg-white/90 dark:bg-slate-800/90 backdrop-blur px-4 py-2 rounded-lg text-sm font-bold shadow-lg flex items-center gap-2">
+                    <span class="material-symbols-outlined text-[18px]">grid_view</span> Ver Galería
+                </button>
+            </div>
+            <!-- Side Images -->
+            <div class="hidden md:block relative group overflow-hidden">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                     style="background-image: url('@Model.ImagenUrl');">
+                </div>
+            </div>
+
+            <div class="hidden md:block relative group overflow-hidden">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                     style="background-image: url('@Model.ImagenUrl');">
+                </div>
+            </div>
+
+            <div class="hidden md:block relative group overflow-hidden">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                     style="background-image: url('@Model.ImagenUrl');">
+                </div>
+            </div>
+
+            <div class="hidden md:block relative group overflow-hidden">
+                <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
+                     style="background-image: url('@Model.ImagenUrl');">
+                </div>
+            </div>
+
+        </section>
+        <!-- Two Column Layout: Content + Sticky Sidebar -->
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-10">
+            <!-- Left Column: Details -->
+            <div class="lg:col-span-2 flex flex-col gap-10">
+                <!-- Title & Highlights Header -->
+                <header class="flex flex-col gap-6">
+
+                    <!-- TÍTULO + ACCIONES -->
+                    <div class="flex flex-col md:flex-row md:items-start md:justify-between gap-4">
+
+                        <div>
+                            <!-- ESTADO -->
+                            @if (!string.IsNullOrEmpty(Model.Estado))
+                            {
+                                <span class="inline-block mb-2 bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded uppercase">
+                                    @Model.Estado
+                                </span>
+                            }
+
+                            <!-- NOMBRE -->
+                            <h1 class="text-3xl sm:text-4xl md:text-5xl font-black text-slate-900 leading-tight">
+                                @Model.NombrePaquete
+                            </h1>
+
+                            <!-- DESCRIPCIÓN -->
+                            @if (!string.IsNullOrEmpty(Model.Descripcion))
+                            {
+                                <p class="mt-3 text-slate-500 max-w-3xl">
+                                    @Model.Descripcion
+                                </p>
+                            }
+                        </div>
+
+                        <!-- BOTONES -->
+                        <div class="flex gap-2">
+                            <button class="p-2 rounded-full border border-slate-200 hover:bg-slate-100 text-slate-600">
+                                <span class="material-symbols-outlined">share</span>
+                            </button>
+                            <button class="p-2 rounded-full border border-slate-200 hover:bg-slate-100 text-slate-600">
+                                <span class="material-symbols-outlined">favorite</span>
+                            </button>
+                        </div>
+
+                    </div>
+
+                    <!-- BARRA DE INFO -->
+                    <div class="flex flex-wrap gap-6 py-6 border-y border-slate-200">
+
+                        <!-- PRECIO -->
+                        <div class="flex items-center gap-3">
+                            <div class="p-2 bg-green-50 rounded-lg text-green-600">
+                                <span class="material-symbols-outlined">payments</span>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase font-medium">Precio</p>
+                                <p class="text-sm font-bold text-slate-900">
+                                    $@Model.PrecioBase.ToString("N0")
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- DURACIÓN -->
+                        <div class="flex items-center gap-3">
+                            <div class="p-2 bg-blue-50 rounded-lg text-blue-600">
+                                <span class="material-symbols-outlined">schedule</span>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase font-medium">Duración</p>
+                                <p class="text-sm font-bold text-slate-900">
+                                    @{
+                                        if (Model.FechaInicio.HasValue && Model.FechaFin.HasValue)
+                                        {
+                                            var dias = (
+                                            Model.FechaFin.Value.ToDateTime(TimeOnly.MinValue)
+                                            - Model.FechaInicio.Value.ToDateTime(TimeOnly.MinValue)
+                                            ).Days;
+
+                                            @($"{dias} días")
+                                        }
+                                        else
+                                        {
+                                            @("No definida")
+                                        }
+                                    }
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- FECHA INICIO -->
+                        <div class="flex items-center gap-3">
+                            <div class="p-2 bg-purple-50 rounded-lg text-purple-600">
+                                <span class="material-symbols-outlined">event</span>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase font-medium">Inicio</p>
+                                <p class="text-sm font-bold text-slate-900">
+                                    @(Model.FechaInicio?.ToString("dd/MM/yyyy") ?? "No definida")
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- CAPACIDAD -->
+                        <div class="flex items-center gap-3">
+                            <div class="p-2 bg-orange-50 rounded-lg text-orange-600">
+                                <span class="material-symbols-outlined">group</span>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-500 uppercase font-medium">Capacidad</p>
+                                <p class="text-sm font-bold text-slate-900">
+                                    @(Model.CapacidadMaxima.HasValue
+                                                                        ? $"Máx. {Model.CapacidadMaxima}"
+                                                                        : "No definida")
+                                </p>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </header>
+
+                <!-- Overview Section -->
+                <section class="mt-10">
+
+                    <h2 class="text-xl font-bold text-slate-900 mb-4">
+                        Descripción General
+                    </h2>
+
+                    <div class="prose prose-slate max-w-none text-slate-600 leading-relaxed">
+
+                        @if (!string.IsNullOrWhiteSpace(Model.Descripcion))
+                        {
+                            <p>@Model.Descripcion</p>
+                        }
+                        else
+                        {
+                            <p class="italic text-slate-400">
+                                Este paquete turístico no tiene descripción.
+                            </p>
+                        }
+
+                    </div>
+
+                </section>
+
+                <!-- Services Grid -->
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Servicios Incluidos</h2>
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-4">
+                        <div class="flex items-center gap-3 p-3 rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-800 shadow-sm">
+                            <span class="material-symbols-outlined text-primary">wifi</span>
+                            <span class="text-sm font-medium dark:text-slate-200">Wifi en Hoteles</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-800 shadow-sm">
+                            <span class="material-symbols-outlined text-primary">restaurant</span>
+                            <span class="text-sm font-medium dark:text-slate-200">Desayuno y Cena</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-800 shadow-sm">
+                            <span class="material-symbols-outlined text-primary">directions_bus</span>
+                            <span class="text-sm font-medium dark:text-slate-200">Traslados</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-800 shadow-sm">
+                            <span class="material-symbols-outlined text-primary">person</span>
+                            <span class="text-sm font-medium dark:text-slate-200">Guía Certificado</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-800 shadow-sm">
+                            <span class="material-symbols-outlined text-primary">local_hospital</span>
+                            <span class="text-sm font-medium dark:text-slate-200">Seguro Médico</span>
+                        </div>
+                        <div class="flex items-center gap-3 p-3 rounded-lg border border-slate-100 dark:border-slate-800 bg-white dark:bg-slate-800 shadow-sm">
+                            <span class="material-symbols-outlined text-primary">confirmation_number</span>
+                            <span class="text-sm font-medium dark:text-slate-200">Entradas Parque</span>
+                        </div>
+                    </div>
+                </section>
+                <!-- Itinerary Timeline -->
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6">Itinerario</h2>
+                    <div class="relative border-l-2 border-slate-200 dark:border-slate-700 ml-3 space-y-8 pb-4">
+                        <!-- Day 1 -->
+                        <div class="relative pl-8">
+                            <div class="absolute -left-[9px] top-0 size-4 bg-white dark:bg-slate-900 border-2 border-primary rounded-full"></div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Día 1: Llegada a Puerto Natales</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Traslado al hotel y cena de bienvenida.</p>
+                        </div>
+                        <!-- Day 2 -->
+                        <div class="relative pl-8">
+                            <div class="absolute -left-[9px] top-0 size-4 bg-white dark:bg-slate-900 border-2 border-primary rounded-full"></div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Día 2: Trekking Base Torres</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Caminata de 8 horas ida y vuelta para ver las famosas torres de granito.</p>
+                            <div class="mt-3 bg-slate-100 dark:bg-slate-800 rounded-lg p-3 inline-block">
+                                <span class="text-xs font-semibold text-slate-600 dark:text-slate-300 uppercase tracking-wide">Destacado</span>
+                                <p class="text-sm text-slate-800 dark:text-slate-200">Vista panorámica al amanecer</p>
+                            </div>
+                        </div>
+                        <!-- Day 3 -->
+                        <div class="relative pl-8">
+                            <div class="absolute -left-[9px] top-0 size-4 bg-white dark:bg-slate-900 border-2 border-primary rounded-full"></div>
+                            <h3 class="text-lg font-bold text-slate-900 dark:text-white">Día 3: Navegación Glaciar Grey</h3>
+                            <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">Excursión en barco acercándose a las paredes de hielo azul.</p>
+                        </div>
+                        <!-- More days toggle -->
+                        <div class="relative pl-8 pt-2">
+                            <button class="text-primary text-sm font-bold hover:underline flex items-center gap-1">
+                                Ver itinerario completo <span class="material-symbols-outlined text-sm">expand_more</span>
+                            </button>
+                        </div>
+                    </div>
+                </section>
+                <!-- Interactive Map -->
+                <section>
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-4">Ubicación en el Mapa</h2>
+                    <div class="relative w-full h-64 rounded-xl overflow-hidden group cursor-pointer border border-slate-200 dark:border-slate-700">
+                        <!-- Simulated Map Image -->
+                        <div class="absolute inset-0 bg-cover bg-center" data-location="Torres del Paine National Park Map" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCnSoc8bc09QyhXN2TrMqPJPARoeImJbeR5n8_PppwNHUQ8vhTQUVzwjo07_fyVCwS5AmW_wjCKHTJho-YTFiN5iW-VsL41R20_AOAC15QmzlcaBCGVF3vsSWZOZ9-B_P3RtDPLX9bQ1JUUzXL0KKhKOo8Ou1xX9mGDU1e9tKWF58kV2W2MAwYOd7Gtt4EDYfwonUlQX6uBnRmIvvJzQ1NOeYb6IM5KFMYiag1NjwolSbw7hSR-7P_UooEIV7079sFIVxGD_70MTfI');"></div>
+                        <div class="absolute inset-0 bg-black/10 group-hover:bg-black/20 transition-colors"></div>
+                        <!-- Map Pin -->
+                        <div class="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex flex-col items-center">
+                            <span class="material-symbols-outlined text-4xl text-red-500 drop-shadow-md animate-bounce">location_on</span>
+                        </div>
+                        <button class="absolute bottom-4 right-4 bg-white text-slate-900 px-4 py-2 rounded-lg text-sm font-bold shadow-lg hover:bg-slate-50 flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[18px]">map</span> Explorar Mapa Interactivo
+                        </button>
+                    </div>
+                </section>
+                <!-- Reviews -->
+                <section class="pb-8">
+                    <h2 class="text-xl font-bold text-slate-900 dark:text-white mb-6 flex items-center justify-between">
+                        Opiniones de Clientes
+                        <a class="text-primary text-sm font-medium hover:underline" href="#">Ver todas</a>
+                    </h2>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <!-- Review Card 1 -->
+                        <div class="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="size-10 rounded-full bg-slate-200 overflow-hidden">
+                                    <img alt="User avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDOIgHkknt_3ynsAh5kFScmmEKuuWmGWD7S8JF1GEGAy5B6V_AdB908HshpnTL86i2JSATFGtyy7IGQWjc6st-CHqGmbTLknRvJUynIo9tuuOeeZX6HWFHthZpbUVqBsJQ9LxmViBIKKWEcSCqwrJgS6aH4rzEW4guirN8EsLrWd9E5Q2K8y0DvhIKZp9QYqPDsWcsfX1JFC8TMNaRV8q4qobcq2nXoAc-cBCzl7v_mnQHiMeqRAKJPHIDxCedgxhjHmsLbxH-vZLI" />
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold text-slate-900 dark:text-white">Maria G.</p>
+                                    <div class="flex text-yellow-500 text-[14px]">
+                                        <span class="material-symbols-outlined text-[16px] fill-1">star</span>
+                                        <span class="material-symbols-outlined text-[16px] fill-1">star</span>
+                                        <span class="material-symbols-outlined text-[16px] fill-1">star</span>
+                                        <span class="material-symbols-outlined text-[16px] fill-1">star</span>
+                                        <span class="material-symbols-outlined text-[16px] fill-1">star</span>
+                                    </div>
+                                </div>
+                                <span class="ml-auto text-xs text-slate-400">Hace 2 sem</span>
+                            </div>
+                            <p class="text-sm text-slate-600 dark:text-slate-300">"Increíble experiencia. Los guías fueron super atentos y el paisaje es de otro planeta. Vale cada centavo."</p>
+                        </div>
+                        <!-- Review Card 2 -->
+                        <div class="p-5 rounded-xl bg-white dark:bg-slate-800 border border-slate-100 dark:border-slate-700 shadow-sm">
+                            <div class="flex items-center gap-3 mb-3">
+                                <div class="size-10 rounded-full bg-slate-200 overflow-hidden">
+                                    <img alt="User avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAhns1xrllTdCMAR6-IDTrx9AyFmseIL-RdnWMdCGaxx03QmUQz4QkKbkzZCKNLY1QgnyJ5bR4kqt7zsTO8Ik8C2bJI9Vj-KfkPHIkBW45_SsaPKTpYJzrxRqSW-NcWjOUQ4qJSa93VSzeVGTDXel4qzXTp4IpBtzddpjQDF7-K_aOIPbbqRC-c0GkdnMHPEh4G46Ownf8MdouHpgiDE_5j7R7L3YZjY59QgeN9ks9JrnslmdiVQfE4ldQFOerhlh9XCxfIr5cXpl4" />
+                                </div>
+                                <div>
+                                    <p class="text-sm font-bold text-slate-900 dark:text-white">Carlos R.</p>
+                                    <div class="flex text-yellow-500 text-[14px]">
+                                        <span class="material-symbols-outlined text-[16px] fill-1">star</span>
+                                        <span class="material-symbols-outlined text-[16px] fill-1">star</span>
+                                        <span class="material-symbols-outlined text-[16px] fill-1">star</span>
+                                        <span class="material-symbols-outlined text-[16px] fill-1">star</span>
+                                        <span class="material-symbols-outlined text-[16px]">star</span>
+                                    </div>
+                                </div>
+                                <span class="ml-auto text-xs text-slate-400">Hace 1 mes</span>
+                            </div>
+                            <p class="text-sm text-slate-600 dark:text-slate-300">"Muy buena organización. La comida en los campamentos sorprendentemente buena. Solo el clima fue un reto."</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+            <!-- Right Column: Sticky Sidebar -->
+            
+
+<aside class="relative">
+    <div class="sticky top-24 flex flex-col gap-6">
+
+        <!-- Booking Card -->
+        <div class="bg-white dark:bg-slate-800 rounded-xl shadow-lg border border-slate-200 dark:border-slate-700 p-6 overflow-hidden">
+
+            <!-- Precio -->
+            <div class="flex flex-col gap-1 mb-6 border-b border-slate-100 dark:border-slate-700 pb-4">
+                <p class="text-sm text-slate-500 dark:text-slate-400">Precio desde</p>
+
+                <div class="flex items-baseline gap-1">
+                    <span class="text-3xl font-black text-slate-900 dark:text-white tracking-tight">
+                        $@Model.PrecioBase.ToString("N0")
+                    </span>
+                    <span class="text-slate-500 dark:text-slate-400 font-medium">/ persona</span>
+                </div>
+
+                @if (Model.Estado == "Activo")
+                {
+                    <div class="mt-2 inline-flex items-center gap-1 text-green-600 dark:text-green-400
+                                bg-green-50 dark:bg-green-900/30 px-2 py-1 rounded text-xs font-bold w-fit">
+                        <span class="material-symbols-outlined text-[14px]">check_circle</span>
+                        Disponible
+                    </div>
+                }
+            </div>
+
+                        <form asp-controller="ReservasUsuario"
+                              asp-action="Crear"
+                              method="post"
+                              class="flex flex-col gap-4">
+
+                            <!-- ID del paquete -->
+                            <input type="hidden" name="PaqueteId" value="@Model.IdPaquete" />
+
+                            <!-- Fechas -->
+                            <div class="flex flex-col gap-1.5">
+                                <label class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wide">
+                                    Fechas
+                                </label>
+                                <input class="w-full pl-4 pr-4 py-2.5 bg-slate-50 dark:bg-slate-900
+                                   border border-slate-200 dark:border-slate-600 rounded-lg text-sm
+                                   text-slate-900 dark:text-white font-medium"
+                                       readonly
+                                       type="text"
+                                       value="@Model.FechaInicio?.ToString("dd MMM") - @Model.FechaFin?.ToString("dd MMM yyyy")" />
+                            </div>
+
+                            <!-- Viajeros -->
+                            <div class="flex flex-col gap-1.5">
+                                <label class="text-xs font-bold uppercase text-slate-500 dark:text-slate-400 tracking-wide">
+                                    Viajeros
+                                </label>
+
+                                <select name="NumeroPersonas"
+                                        class="w-full pl-4 pr-4 py-2.5 bg-slate-50 dark:bg-slate-900
+border border-slate-200 dark:border-slate-600 rounded-lg text-sm
+text-slate-900 dark:text-white font-medium">
+                                    @for (int i = 1; i <= Model.CapacidadMaxima; i++)
+                                    {
+                                        <option value="@i">@i persona@(i > 1 ? "s" : "")</option>
+                                    }
+                                </select>
+                            </div>
+
+                            <!-- Total -->
+                            <div class="flex justify-between items-center py-2 mt-2 text-sm">
+                                <span class="text-slate-600 dark:text-slate-300">Precio por persona</span>
+                                <span class="font-bold text-slate-900 dark:text-white">
+                                    $@Model.PrecioBase.ToString("N0")
+                                </span>
+                            </div>
+
+                            <!-- BOTÓN (NO SE TOCA) -->
+                            <button type="submit"
+                                    class="w-full bg-primary hover:bg-blue-600 text-white font-bold py-3 px-4
+rounded-lg shadow-md shadow-blue-500/20 transition-all
+active:scale-[0.98] mt-2 flex justify-center items-center gap-2">
+                                Reservar Ahora
+                                <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                            </button>
+
+                        </form>
+
+
+
+            <div class="mt-4 text-center">
+                <p class="text-xs text-slate-400">No se te cobrará nada todavía.</p>
+            </div>
+        </div>
+
+        <!-- Help Card -->
+        <div class="bg-blue-50 dark:bg-slate-800/50 rounded-xl p-4 flex items-start gap-3
+                    border border-blue-100 dark:border-slate-700">
+            <div class="p-1.5 bg-white dark:bg-slate-700 rounded-full text-primary shadow-sm">
+                <span class="material-symbols-outlined text-[20px]">support_agent</span>
+            </div>
+            <div>
+                <p class="text-sm font-bold text-slate-900 dark:text-white">¿Necesitas ayuda?</p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                    Contacta a un experto en viajes para personalizar tu paquete.
+                </p>
+                <a class="text-xs font-bold text-primary mt-2 inline-block hover:underline" href="#">
+                    Chatear ahora
+                </a>
+            </div>
+        </div>
+
+    </div>
+</aside>
+
+        </div>
+    </main>
+    <!-- Footer -->
+    <footer class="bg-white dark:bg-[#1a2632] border-t border-slate-200 dark:border-slate-700 pt-12 pb-8 mt-12">
+        <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-8 mb-8">
+                <div class="col-span-2 md:col-span-1">
+                    <div class="flex items-center gap-2 mb-4">
+                        <div class="size-6 text-primary bg-primary/10 rounded flex items-center justify-center">
+                            <span class="material-symbols-outlined text-lg">public</span>
+                        </div>
+                        <span class="font-bold text-slate-900 dark:text-white">ViajesIncreíbles</span>
+                    </div>
+                    <p class="text-sm text-slate-500 dark:text-slate-400 mb-4">Descubre el mundo con nosotros. Experiencias únicas, recuerdos inolvidables.</p>
+                    <div class="flex gap-4">
+                        <a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">social_leaderboard</span></a>
+                        <a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">photo_camera</span></a>
+                        <a class="text-slate-400 hover:text-primary transition-colors" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-4">Empresa</h3>
+                    <ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a class="hover:text-primary transition-colors" href="#">Sobre Nosotros</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Carreras</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Prensa</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-4">Soporte</h3>
+                    <ul class="space-y-2 text-sm text-slate-500 dark:text-slate-400">
+                        <li><a class="hover:text-primary transition-colors" href="#">Centro de Ayuda</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Términos y Condiciones</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Política de Privacidad</a></li>
+                        <li><a class="hover:text-primary transition-colors" href="#">Política de Cancelación</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="font-bold text-slate-900 dark:text-white mb-4">Boletín</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mb-3">Recibe ofertas exclusivas en tu correo.</p>
+                    <div class="flex gap-2">
+                        <input class="w-full px-3 py-2 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 rounded text-sm outline-none focus:border-primary" placeholder="Tu email" type="email" />
+                        <button class="bg-primary text-white p-2 rounded hover:bg-blue-600 transition-colors">
+                            <span class="material-symbols-outlined text-[20px]">send</span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+            <div class="border-t border-slate-100 dark:border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-400">
+                <p>© 2023 ViajesIncreíbles Inc. Todos los derechos reservados.</p>
+                <div class="flex gap-6">
+                    <span>Español (ES)</span>
+                    <span>$ USD</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

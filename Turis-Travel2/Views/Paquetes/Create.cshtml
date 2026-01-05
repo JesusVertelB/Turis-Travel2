@@ -1,6 +1,6 @@
 ﻿@model Turis_Travel2.Models.PaquetesTuristico
 @{
-    ViewData["Title"] = "Crear Paquete";
+    ViewData["Title"] = "Editar Paquete";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 
@@ -11,18 +11,18 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/Dashboard">Inicio</a></li>
-            <li class="breadcrumb-item"><a href="/Paquetes">Gestión de Paquetes</a></li> <!-- Corregido -->
-            <li class="breadcrumb-item active">Crear Paquete</li> <!-- Corregido -->
+            <li class="breadcrumb-item"><a href="/Paquetes">Gestión de Paquetes</a></li>
+            <li class="breadcrumb-item active">Editar Paquete</li>
         </ol>
     </nav>
 
     <div class="card shadow-sm p-4">
-        <h3 class="fw-bold mb-3">Registrar Nuevo Paquete</h3> <!-- Corregido -->
-        <p class="text-muted">Completa los campos para añadir un nuevo paquete al sistema</p>
+        <h3 class="fw-bold mb-3">Editar Paquete</h3>
+        <p class="text-muted">Modifica los campos del paquete turístico</p>
 
-        <form asp-action="Create" method="post">
-
+        <form asp-action="Edit" method="post" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
+            <input type="hidden" asp-for="IdPaquete" />
 
             <div class="mb-3">
                 <label class="form-label">Nombre del paquete turístico</label>
@@ -31,44 +31,61 @@
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Precio base</label> <!-- Corregido -->
+                <label class="form-label">Precio base</label>
                 <input asp-for="PrecioBase" class="form-control" type="number" min="0" required />
                 <span asp-validation-for="PrecioBase" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Fecha de inicio</label> <!-- Corregido -->
-                <input asp-for="FechaInicio" class="form-control" type="datetime-local" required /> <!-- Cambiado a datetime-local -->
-                <span asp-validation-for="FechaInicio" class="text-danger"></span> <!-- Corregido -->
+                <label class="form-label">Descripción</label>
+                <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Fecha de fin</label> <!-- Añadido -->
-                <input asp-for="FechaFin" class="form-control" type="datetime-local" required />
-                <span asp-validation-for="FechaFin" class="text-danger"></span>
+                <label class="form-label">Fecha de inicio</label>
+                <input type="date" name="FechaInicioString"
+                       class="form-control"
+                       value="@ViewBag.FechaInicio" required />
             </div>
 
             <div class="mb-3">
-                <label class="form-label">Estado</label> <!-- Corregido -->
+                <label class="form-label">Fecha de fin</label>
+                <input type="date" name="FechaFinString"
+                       class="form-control"
+                       value="@ViewBag.FechaFin" required />
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Estado</label>
                 <select asp-for="Estado" asp-items="ViewBag.Estados" class="form-select" required>
                     <option value="">Seleccione un estado</option>
                 </select>
                 <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
 
+            <div class="mb-3">
+                <label class="form-label">URL imagen (opcional)</label>
+                <input asp-for="ImagenUrl" class="form-control" placeholder="https://misimagenes.com/foto.jpg" />
+                <span asp-validation-for="ImagenUrl" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Subir imagen (opcional)</label>
+                <input type="file" name="ImagenArchivo" class="form-control" accept="image/*" />
+                <p class="text-muted small mt-1">Si subes una imagen, se usará en lugar de la URL.</p>
+            </div>
+
             <div class="d-flex justify-content-between mt-4">
                 <a class="btn btn-outline-secondary" href="/Paquetes">
-                    <!-- Corregido -->
                     <i class="bi bi-arrow-left"></i> Volver
                 </a>
-
                 <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-check-lg"></i> Crear Paquete <!-- Corregido -->
+                    <i class="bi bi-check-lg"></i> Guardar Cambios
                 </button>
             </div>
         </form>
     </div>
-
 </div>
 
 @section Scripts {

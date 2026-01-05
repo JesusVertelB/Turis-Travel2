@@ -12,6 +12,7 @@
 
     public class ReservaItemViewModel
     {
+        public int IdReserva { get; set; }      // ✅ CLAVE (ESTO FALTABA)
         public string Destino { get; set; } = "";
         public string Fecha { get; set; } = "";
         public decimal Precio { get; set; }

@@ -3,97 +3,111 @@
     Layout = "_LayoutUsuarios";
 }
 
-<section class="max-w-[1200px] mx-auto px-6 py-10">
+<section class="max-w-6xl mx-auto px-6 py-10">
 
     <!-- HEADER -->
-    <div class="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10">
-        <div>
-            <h1 class="text-3xl font-black text-[#111418]">Mis Reservas</h1>
-            <p class="text-[#617289]">Gestiona tus próximas aventuras y revisa tu historial.</p>
-        </div>
-        <a href="#" class="inline-flex items-center gap-2 bg-primary text-white px-5 py-3 rounded-xl font-bold hover:bg-primary/90">
-            + Nueva Reserva
-        </a>
+    <div class="mb-10">
+        <h1 class="text-4xl font-black text-slate-900">
+            Mis Reservas
+        </h1>
+        <p class="text-slate-500 mt-1">
+            Bienvenido, <span class="font-semibold">@Model.Nombre</span>
+        </p>
     </div>
 
     <!-- RESUMEN -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
-        <div class="bg-white p-6 rounded-xl border">
-            <p class="text-sm text-gray-500">Viajes próximos</p>
-            <p class="text-3xl font-bold">3</p>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        <div class="bg-white rounded-2xl border p-6 shadow-sm">
+            <p class="text-sm text-slate-500">Viajes próximos</p>
+            <p class="text-4xl font-extrabold text-slate-900">@Model.ViajesProximos</p>
         </div>
-        <div class="bg-white p-6 rounded-xl border">
-            <p class="text-sm text-gray-500">Millas totales</p>
-            <p class="text-3xl font-bold">14,250</p>
+
+        <div class="bg-white rounded-2xl border p-6 shadow-sm">
+            <p class="text-sm text-slate-500">Millas totales</p>
+            <p class="text-4xl font-extrabold text-slate-900">@Model.MillasTotales</p>
         </div>
-        <div class="bg-white p-6 rounded-xl border">
-            <p class="text-sm text-gray-500">Completados</p>
-            <p class="text-3xl font-bold">8</p>
+
+        <div class="bg-white rounded-2xl border p-6 shadow-sm">
+            <p class="text-sm text-slate-500">Completados</p>
+            <p class="text-4xl font-extrabold text-slate-900">@Model.ViajesCompletados</p>
         </div>
     </div>
 
     <!-- LISTA DE RESERVAS -->
     <div class="space-y-6">
 
-        <!-- RESERVA -->
-        <div class="bg-white rounded-xl border p-6 flex flex-col md:flex-row gap-6">
-            <div class="w-full md:w-1/3 h-40 bg-gray-200 rounded-lg"></div>
-            <div class="flex-1">
-                <div class="flex items-center gap-3 mb-2">
-                    <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full">CONFIRMADO</span>
-                    <span class="text-xs text-gray-400">#R-45821</span>
-                </div>
-                <h3 class="text-xl font-bold">París, Francia</h3>
-                <p class="text-sm text-gray-500">12 Oct – 22 Oct, 2023 · 2 Adultos</p>
+        @if (!Model.Reservas.Any())
+        {
+            <div class="bg-yellow-50 border border-yellow-200 rounded-xl p-6 text-center">
+                <p class="text-yellow-700 font-medium">
+                    No tienes reservas registradas.
+                </p>
             </div>
-            <div class="flex flex-col justify-between items-end">
-                <p class="text-xl font-bold">$1,200.00</p>
-                <div class="flex gap-2">
-                    <button class="px-4 py-2 rounded-lg border">Gestionar</button>
-                    <button class="px-4 py-2 rounded-lg bg-primary text-white">Ver detalles</button>
-                </div>
-            </div>
-        </div>
+        }
+        else
+        {
+            @foreach (var reserva in Model.Reservas)
+            {
+                <div class="bg-white rounded-2xl border p-6 shadow-sm
+                                    flex flex-col md:flex-row md:items-center gap-6">
 
-        <!-- RESERVA -->
-        <div class="bg-white rounded-xl border p-6 flex flex-col md:flex-row gap-6">
-            <div class="w-full md:w-1/3 h-40 bg-gray-200 rounded-lg"></div>
-            <div class="flex-1">
-                <div class="flex items-center gap-3 mb-2">
-                    <span class="text-xs font-bold text-yellow-600 bg-yellow-100 px-2 py-1 rounded-full">PENDIENTE DE PAGO</span>
-                    <span class="text-xs text-gray-400">#R-45890</span>
-                </div>
-                <h3 class="text-xl font-bold">Tokio, Japón</h3>
-                <p class="text-sm text-gray-500">05 Nov – 15 Nov, 2023 · 1 Adulto</p>
-            </div>
-            <div class="flex flex-col justify-between items-end">
-                <p class="text-xl font-bold">$2,450.00</p>
-                <div class="flex gap-2">
-                    <button class="px-4 py-2 rounded-lg bg-yellow-500 text-white">Pagar ahora</button>
-                    <button class="px-4 py-2 rounded-lg border">Ver detalles</button>
-                </div>
-            </div>
-        </div>
+                    <!-- INFO -->
+                    <div class="flex-1">
+                        <span class="inline-block text-xs font-bold px-3 py-1 rounded-full
+                                    @(reserva.Estado == "Confirmado"
+                                                              ? "bg-green-100 text-green-700"
+                                                              : "bg-yellow-100 text-yellow-700")">
+                            @reserva.Estado
+                        </span>
 
-        <!-- RESERVA -->
-        <div class="bg-white rounded-xl border p-6 flex flex-col md:flex-row gap-6">
-            <div class="w-full md:w-1/3 h-40 bg-gray-200 rounded-lg"></div>
-            <div class="flex-1">
-                <div class="flex items-center gap-3 mb-2">
-                    <span class="text-xs font-bold text-green-600 bg-green-100 px-2 py-1 rounded-full">CONFIRMADO</span>
-                    <span class="text-xs text-gray-400">#R-45910</span>
+                        <h3 class="text-2xl font-bold text-slate-900 mt-3">
+                            @reserva.Destino
+                        </h3>
+
+                        <p class="text-sm text-slate-500 mt-1">
+                            @reserva.Fecha
+                        </p>
+                    </div>
+
+                    <!-- ACCIONES -->
+                    <div class="flex flex-col items-end gap-3 min-w-[180px]">
+
+                        <p class="text-2xl font-extrabold text-slate-900">
+                            $@reserva.Precio.ToString("N0")
+                        </p>
+
+                        @if (reserva.Estado == "Pendiente")
+                        {
+                            <a asp-controller="Pagos"
+                               asp-action="Crear"
+                               asp-route-idReserva="@reserva.IdReserva"
+                               class="w-full text-center px-5 py-2.5 rounded-xl
+                      bg-blue-600 text-white font-semibold
+                      hover:bg-blue-700 transition">
+                                💳 Pagar ahora
+                            </a>
+
+                        }
+                        else
+                        {
+                            <span class="text-green-600 font-semibold">
+                                ✔ Reserva pagada
+                            </span>
+                        }
+
+                        <a asp-controller="ReservasUsuario"
+                           asp-action="Detalles"
+                           asp-route-id="@reserva.IdReserva"
+                           class="w-full text-center px-5 py-2.5 rounded-xl
+                                          border border-slate-300 text-slate-700
+                                          hover:bg-slate-100 transition">
+                            Ver detalles
+                        </a>
+                    </div>
+
                 </div>
-                <h3 class="text-xl font-bold">Cancún, México</h3>
-                <p class="text-sm text-gray-500">20 Dic – 27 Dic, 2023 · 2 Adultos</p>
-            </div>
-            <div class="flex flex-col justify-between items-end">
-                <p class="text-xl font-bold">$900.00</p>
-                <div class="flex gap-2">
-                    <button class="px-4 py-2 rounded-lg border">Gestionar</button>
-                    <button class="px-4 py-2 rounded-lg bg-primary text-white">Ver detalles</button>
-                </div>
-            </div>
-        </div>
+            }
+        }
 
     </div>
 

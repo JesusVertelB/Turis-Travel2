@@ -35,6 +35,9 @@ public partial class ApplicationDbContext : DbContext
 
     public virtual DbSet<Notificacione> Notificaciones { get; set; }
 
+    public DbSet<Pago> Pagos { get; set; }
+
+
     public virtual DbSet<PaquetesTuristico> PaquetesTuristicos { get; set; }
 
     public virtual DbSet<Permiso> Permisos { get; set; }
@@ -512,6 +515,45 @@ public partial class ApplicationDbContext : DbContext
                 .OnDelete(DeleteBehavior.SetNull)
                 .HasConstraintName("Usuarios_ibfk_1");
         });
+
+        modelBuilder.Entity<Pago>(entity =>
+        {
+            entity.HasKey(e => e.IdPago).HasName("PRIMARY");
+
+            entity.ToTable("Pagos");
+
+            entity.HasIndex(e => e.IdReserva, "ID_reserva");
+
+            entity.Property(e => e.IdPago).HasColumnName("ID_pago");
+            entity.Property(e => e.IdReserva).HasColumnName("ID_reserva");
+            entity.Property(e => e.MetodoPago).HasMaxLength(50);
+            entity.Property(e => e.Monto)
+                .HasPrecision(10, 2);
+            entity.Property(e => e.Estado)
+                .HasMaxLength(20)
+                .HasDefaultValueSql("'pendiente'");
+            entity.Property(e => e.FechaPago)
+                .HasColumnType("datetime")
+                .HasColumnName("FechaPago");
+
+            entity.HasOne(d => d.Reserva)
+                .WithMany()
+                .HasForeignKey(d => d.IdReserva)
+                .OnDelete(DeleteBehavior.Cascade)
+                .HasConstraintName("fk_pagos_reserva");
+        });
+
+        modelBuilder.Entity<Pago>(entity =>
+        {
+            entity.HasKey(e => e.IdPago);
+
+            entity.HasOne(p => p.Reserva)
+                  .WithMany()
+                  .HasForeignKey(p => p.IdReserva)
+                  .HasConstraintName("fk_pagos_reserva");
+        });
+
+
 
         OnModelCreatingPartial(modelBuilder);
     }

@@ -70,22 +70,38 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var r in ViewBag.ReservasPendientes)
-                {
-                    <tr>
-                        <td>@r.ID_clienteNavigation.Nombre</td>
-                        <td>@r.ID_paqueteNavigation?.Nombre_paquete</td>
-                        <td>@r.Numero_pasajeros</td>
-                        <td>
-                            <span class="badge badge-warning">
-                                @r.Estado
-                            </span>
-                        </td>
-                        <td>@r.Fecha_solicitud?.ToString("dd/MM/yyyy")</td>
-                        <td>$@r.Precio_total</td>
-                    </tr>
-                }
-            </tbody>
+@foreach (var r in ViewBag.ReservasPendientes)
+{
+    <tr>
+        <td>
+            @r.IdClienteNavigation?.Nombre
+        </td>
+
+        <td>
+            @r.IdPaqueteNavigation?.NombrePaquete
+        </td>
+
+        <td>
+            @r.NumeroPasajeros
+        </td>
+
+        <td>
+            <span class="badge badge-warning">
+                @r.Estado
+            </span>
+        </td>
+
+        <td>
+            @r.FechaSolicitud?.ToString("dd/MM/yyyy")
+        </td>
+
+        <td>
+            $@r.PrecioTotal
+        </td>
+    </tr>
+}
+</tbody>
+
         </table>
     </div>
 </div>

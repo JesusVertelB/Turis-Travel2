@@ -1,0 +1,265 @@
+﻿@{
+    Layout = "_LayoutUsuarios";
+    ViewData["Title"] = "Pago";
+}
+
+<!DOCTYPE html>
+<html class="light" lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta content="width=device-width, initial-scale=1.0" name="viewport" />
+    <title>Melo Travel - Pago Seguro</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet" />
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#137fec",
+                        "nequi": "#DA0081",
+                        "background-light": "#f6f7f8",
+                        "background-dark": "#101922",
+                    },
+                    fontFamily: {
+                        "display": ["Inter", "sans-serif"]
+                    },
+                    borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                },
+            },
+        }
+    </script>
+</head>
+<body class="relative flex h-auto min-h-screen w-full flex-col bg-background-light dark:bg-background-dark font-display text-[#0d141b] dark:text-white overflow-x-hidden antialiased">
+    <main class="flex-1 px-4 py-8 md:px-10 lg:px-20 lg:py-12">
+        <div class="mx-auto max-w-7xl">
+            <div class="mb-10 w-full">
+                <div class="flex flex-col md:flex-row items-center justify-between gap-4 md:gap-0">
+                    <div class="flex items-center gap-3 opacity-60">
+                        <div class="flex size-8 items-center justify-center rounded-full bg-green-500 text-white">
+                            <span class="material-symbols-outlined text-lg">check</span>
+                        </div>
+                        <span class="text-sm font-semibold text-slate-900 dark:text-white">Detalles del Viaje</span>
+                    </div>
+                    <div class="hidden md:block h-[2px] w-20 bg-slate-200 dark:bg-slate-700"></div>
+                    <div class="flex items-center gap-3">
+                        <div class="flex size-8 items-center justify-center rounded-full bg-primary text-white shadow-lg shadow-primary/30">
+                            <span class="text-sm font-bold">2</span>
+                        </div>
+                        <span class="text-sm font-bold text-primary">Método de Pago</span>
+                    </div>
+                    <div class="hidden md:block h-[2px] w-20 bg-slate-200 dark:bg-slate-700"></div>
+                    <div class="flex items-center gap-3 opacity-40">
+                        <div class="flex size-8 items-center justify-center rounded-full border-2 border-slate-300 dark:border-slate-600 bg-transparent text-slate-400">
+                            <span class="text-sm font-bold">3</span>
+                        </div>
+                        <span class="text-sm font-semibold text-slate-900 dark:text-white">Confirmación</span>
+                    </div>
+                </div>
+                <div class="mt-6 h-1.5 w-full rounded-full bg-slate-200 dark:bg-slate-800 md:hidden">
+                    <div class="h-1.5 w-2/3 rounded-full bg-primary"></div>
+                </div>
+            </div>
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
+                <div class="lg:col-span-7 xl:col-span-8 flex flex-col gap-8">
+                    <div>
+                        <h1 class="text-3xl font-black tracking-tight text-[#0d141b] dark:text-white sm:text-4xl">Elige cómo quieres pagar</h1>
+                        <p class="mt-2 text-base text-slate-500 dark:text-slate-400">Todas las transacciones son seguras y están encriptadas con SSL de 256 bits.</p>
+                    </div>
+                    <div class="flex flex-col gap-4">
+                        <div class="rounded-xl border border-primary bg-white dark:bg-[#101922] shadow-sm overflow-hidden transition-all">
+                            <label class="flex cursor-pointer items-start gap-4 p-5">
+                                <input checked="" class="mt-1 size-5 border-slate-300 text-primary focus:ring-primary dark:bg-slate-800 dark:border-slate-600" name="payment_method" type="radio" />
+                                <div class="flex flex-1 flex-col">
+                                    <div class="flex items-center justify-between">
+                                        <span class="font-bold text-[#0d141b] dark:text-white">Tarjeta de Crédito / Débito</span>
+                                        <div class="flex gap-2 opacity-80">
+                                            <span aria-label="Visa" class="text-2xl">💳</span>
+                                            <span aria-label="Mastercard" class="text-2xl">💳</span>
+                                        </div>
+                                    </div>
+                                    <span class="text-sm text-slate-500 dark:text-slate-400 mt-1">Transacción segura e inmediata</span>
+                                </div>
+                            </label>
+                            <div class="border-t border-slate-100 dark:border-slate-800 bg-slate-50/50 dark:bg-slate-900/30 p-6 sm:p-8">
+                                <div class="grid grid-cols-1 gap-6 sm:grid-cols-2">
+                                    <div class="col-span-1 sm:col-span-2 space-y-2">
+                                        <label class="text-sm font-medium text-slate-700 dark:text-slate-300">Número de Tarjeta</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                                <span class="material-symbols-outlined">credit_card</span>
+                                            </div>
+                                            <input class="block w-full rounded-lg border-slate-300 pl-10 py-2.5 text-sm focus:border-primary focus:ring-primary dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 shadow-sm transition-colors" placeholder="0000 0000 0000 0000" type="text" />
+                                            <div class="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none text-slate-400">
+                                                <span class="material-symbols-outlined text-green-500 text-[20px]">check_circle</span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-span-1 sm:col-span-2 space-y-2">
+                                        <label class="text-sm font-medium text-slate-700 dark:text-slate-300">Nombre del Titular</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                                <span class="material-symbols-outlined">person</span>
+                                            </div>
+                                            <input class="block w-full rounded-lg border-slate-300 pl-10 py-2.5 text-sm focus:border-primary focus:ring-primary dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 shadow-sm transition-colors" placeholder="Como aparece en la tarjeta" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <label class="text-sm font-medium text-slate-700 dark:text-slate-300">Fecha de Vencimiento</label>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                                <span class="material-symbols-outlined">calendar_month</span>
+                                            </div>
+                                            <input class="block w-full rounded-lg border-slate-300 pl-10 py-2.5 text-sm focus:border-primary focus:ring-primary dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 shadow-sm transition-colors" placeholder="MM / AA" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="space-y-2">
+                                        <div class="flex justify-between items-center">
+                                            <label class="text-sm font-medium text-slate-700 dark:text-slate-300">CVV / CVC</label>
+                                            <span class="text-xs text-primary cursor-pointer hover:underline flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-[14px]">help</span> ¿Qué es esto?
+                                            </span>
+                                        </div>
+                                        <div class="relative">
+                                            <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+                                                <span class="material-symbols-outlined">lock</span>
+                                            </div>
+                                            <input class="block w-full rounded-lg border-slate-300 pl-10 py-2.5 text-sm focus:border-primary focus:ring-primary dark:bg-slate-800 dark:border-slate-700 dark:text-white dark:placeholder-slate-500 shadow-sm transition-colors" placeholder="123" type="text" />
+                                        </div>
+                                    </div>
+                                    <div class="col-span-1 sm:col-span-2 pt-2">
+                                        <label class="inline-flex items-center">
+                                            <input checked="" class="rounded border-slate-300 text-primary shadow-sm focus:border-primary focus:ring focus:ring-primary/50 dark:border-slate-700 dark:bg-slate-800 dark:checked:bg-primary" type="checkbox" />
+                                            <span class="ml-2 text-sm text-slate-600 dark:text-slate-400">Guardar esta tarjeta para futuras reservas</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <label class="flex cursor-pointer items-center gap-4 rounded-xl border border-slate-200 bg-white p-5 hover:border-slate-300 dark:border-slate-800 dark:bg-[#101922] dark:hover:border-slate-700 transition-colors group">
+                            <input class="size-5 border-slate-300 text-nequi focus:ring-nequi dark:bg-slate-800 dark:border-slate-600" name="payment_method" type="radio" />
+                            <div class="flex flex-1 flex-col">
+                                <div class="flex items-center gap-2">
+                                    <span class="font-bold text-[#0d141b] dark:text-white">Nequi</span>
+                                    <span class="inline-flex items-center rounded-md bg-pink-100 px-2 py-0.5 text-xs font-medium text-pink-700 dark:bg-pink-900/30 dark:text-pink-300">Popular</span>
+                                </div>
+                                <span class="text-sm text-slate-500 dark:text-slate-400">Paga al instante con tu número de celular.</span>
+                            </div>
+                            <div class="flex size-10 shrink-0 items-center justify-center rounded-lg bg-[#200020] text-white font-bold text-xs tracking-tighter">
+                                Nequi
+                            </div>
+                        </label>
+                        <label class="flex cursor-pointer items-center gap-4 rounded-xl border border-slate-200 bg-white p-5 hover:border-slate-300 dark:border-slate-800 dark:bg-[#101922] dark:hover:border-slate-700 transition-colors">
+                            <input class="size-5 border-slate-300 text-primary focus:ring-primary dark:bg-slate-800 dark:border-slate-600" name="payment_method" type="radio" />
+                            <div class="flex flex-1 flex-col">
+                                <span class="font-bold text-[#0d141b] dark:text-white">PayPal</span>
+                                <span class="text-sm text-slate-500 dark:text-slate-400">Serás redirigido a PayPal para completar tu compra.</span>
+                            </div>
+                            <span class="material-symbols-outlined text-slate-400 text-3xl">account_balance_wallet</span>
+                        </label>
+                        <label class="flex cursor-pointer items-center gap-4 rounded-xl border border-slate-200 bg-white p-5 hover:border-slate-300 dark:border-slate-800 dark:bg-[#101922] dark:hover:border-slate-700 transition-colors">
+                            <input class="size-5 border-slate-300 text-primary focus:ring-primary dark:bg-slate-800 dark:border-slate-600" name="payment_method" type="radio" />
+                            <div class="flex flex-1 flex-col">
+                                <span class="font-bold text-[#0d141b] dark:text-white">Transferencia Bancaria</span>
+                                <span class="text-sm text-slate-500 dark:text-slate-400">Procesamiento en 1-2 días hábiles.</span>
+                            </div>
+                            <span class="material-symbols-outlined text-slate-400 text-3xl">account_balance</span>
+                        </label>
+                    </div>
+                    <div class="mt-4 flex flex-col sm:flex-row items-center justify-between gap-6 border-t border-slate-200 dark:border-slate-800 pt-8">
+                        <button class="text-sm font-semibold text-slate-500 hover:text-[#0d141b] dark:text-slate-400 dark:hover:text-white transition-colors flex items-center gap-2">
+                            <span class="material-symbols-outlined text-lg">arrow_back</span>
+                            Volver a detalles
+                        </button>
+                        <div class="flex flex-col items-end gap-2 w-full sm:w-auto">
+                            <button class="group relative flex w-full sm:w-auto items-center justify-center gap-3 rounded-xl bg-primary px-8 py-3.5 text-base font-bold text-white shadow-lg shadow-primary/25 transition-all hover:bg-blue-600 hover:shadow-primary/40 focus:ring-4 focus:ring-primary/20 active:scale-[0.98]">
+                                <span class="material-symbols-outlined text-xl">lock</span>
+                                Confirmar Pago de $2,450.00
+                            </button>
+                            <div class="flex items-center gap-2 text-xs text-slate-400">
+                                <span class="material-symbols-outlined text-sm">verified_user</span>
+                                Pagos procesados de forma segura
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="lg:col-span-5 xl:col-span-4">
+                    <div class="sticky top-28 flex flex-col gap-6">
+                        <div class="overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-slate-200 dark:bg-[#101922] dark:ring-slate-800">
+                            <div class="relative h-48 w-full bg-slate-200">
+                                <div class="absolute inset-0 bg-cover bg-center" data-alt="Tropical beach view with palm trees and ocean at sunset" style='background-image: url("https://lh3.googleusercontent.com/aida-public/AB6AXuAH0BcQnjiwa7rAZo2M4kTlAjrltmxf8KF7i4m7mtZj070j_CWMODB_HmmdYb914U_7ixOd3GHUad2DPtAWBKqL2fLcI0KO1TTR4HFAGja2udz52fRBEdfV0jw5HpHsSPTF75l_vfwMzKr1L46NYTPBLtHuLDYbQE5mPBHeKdjEGE9OWN3TjYwRZS1IDZMg5wI_bOOgcUHlz6BcdWa4QZkuDtm2cvfkDV_bBxVVIfJcNEeWsRdIz_OvhbJhp2CWFFjxH69yeCO0LPY");'></div>
+                                <div class="absolute bottom-3 left-3 rounded-lg bg-black/40 px-2 py-1 text-xs font-medium text-white backdrop-blur-md flex items-center gap-1">
+                                    <span class="material-symbols-outlined text-sm">star</span>
+                                    4.9 (120 Reseñas)
+                                </div>
+                            </div>
+                            <div class="p-6">
+                                <div class="mb-6">
+                                    <h3 class="text-lg font-bold text-[#0d141b] dark:text-white">Hotel Playa Paraíso</h3>
+                                    <div class="mt-1 flex items-center gap-1 text-sm text-slate-500 dark:text-slate-400">
+                                        <span class="material-symbols-outlined text-lg" data-location="Cancún, México">location_on</span>
+                                        Cancún, México
+                                    </div>
+                                </div>
+                                <div class="mb-6 space-y-4 rounded-xl bg-slate-50 p-4 dark:bg-slate-800/50">
+                                    <div class="flex items-start gap-3">
+                                        <div class="mt-0.5 rounded-full bg-white p-1.5 shadow-sm dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                                            <span class="material-symbols-outlined text-sm block">calendar_today</span>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Fechas</p>
+                                            <p class="text-sm font-semibold text-[#0d141b] dark:text-white">12 Mar - 17 Mar</p>
+                                            <p class="text-xs text-slate-500">5 Noches</p>
+                                        </div>
+                                    </div>
+                                    <div class="flex items-start gap-3">
+                                        <div class="mt-0.5 rounded-full bg-white p-1.5 shadow-sm dark:bg-slate-700 text-slate-600 dark:text-slate-300">
+                                            <span class="material-symbols-outlined text-sm block">group</span>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs font-medium uppercase tracking-wide text-slate-400">Huéspedes</p>
+                                            <p class="text-sm font-semibold text-[#0d141b] dark:text-white">2 Adultos, 1 Habitación</p>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="space-y-3 border-t border-slate-100 pt-4 dark:border-slate-800">
+                                    <div class="flex justify-between text-sm text-slate-600 dark:text-slate-400">
+                                        <span>Subtotal (5 noches)</span>
+                                        <span>$2,100.00</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm text-slate-600 dark:text-slate-400">
+                                        <span>Impuestos y tarifas</span>
+                                        <span>$350.00</span>
+                                    </div>
+                                    <div class="flex justify-between text-sm text-green-600 font-medium">
+                                        <span>Descuento Melo</span>
+                                        <span>-$0.00</span>
+                                    </div>
+                                </div>
+                                <div class="mt-6 flex items-end justify-between border-t border-dashed border-slate-200 pt-4 dark:border-slate-700">
+                                    <div class="flex flex-col">
+                                        <span class="text-sm font-medium text-slate-500 dark:text-slate-400">Total a pagar</span>
+                                        <span class="text-xs text-slate-400">Incluye impuestos</span>
+                                    </div>
+                                    <p class="text-2xl font-black tracking-tight text-[#0d141b] dark:text-white">$2,450.00</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex items-center gap-4 rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-[#101922]">
+                            <div class="flex size-10 shrink-0 items-center justify-center rounded-full bg-primary/10 text-primary">
+                                <span class="material-symbols-outlined">support_agent</span>
+                            </div>
+                            <div>
+                                <p class="text-sm font-bold text-[#0d141b] dark:text-white">¿Necesitas ayuda?</p>
+                                <p class="text-xs text-slate-500 dark:text-slate-400">Llama gratis al <span class="text-primary font-medium hover:underline cursor-pointer">800-MELO-HELP</span></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+</html>

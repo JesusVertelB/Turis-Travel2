@@ -1,0 +1,74 @@
+﻿@model IEnumerable<Turis_Travel2.Models.Destino>
+
+@{
+    ViewData["Title"] = "Gestión de Destinos";
+    Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
+}
+
+<div class="p-6">
+
+    <!-- HEADER -->
+    <div class="flex items-center justify-between mb-6">
+        <h1 class="text-2xl font-bold text-gray-800">Gestión de Destinos</h1>
+
+        <a asp-action="Create"
+           class="inline-flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg font-semibold hover:bg-green-700 transition">
+            <span class="material-symbols-outlined">add</span>
+            Crear Destino
+        </a>
+    </div>
+
+    <!-- TABLA -->
+    <div class="overflow-x-auto bg-white rounded-xl shadow border border-gray-200">
+        <table class="min-w-full text-sm text-left">
+            <thead class="bg-gray-100 text-gray-700 uppercase text-xs">
+                <tr>
+                    <th class="px-6 py-3">Nombre</th>
+                    <th class="px-6 py-3">País</th>
+                    <th class="px-6 py-3">Precio</th>
+                    <th class="px-6 py-3">Categoría</th>
+                    <th class="px-6 py-3 text-right">Acciones</th>
+                </tr>
+            </thead>
+
+            <tbody class="divide-y">
+                @foreach (var destino in Model)
+                {
+                    <tr class="hover:bg-gray-50 transition">
+                        <td class="px-6 py-4 font-semibold text-gray-800">
+                            @destino.Nombre
+                        </td>
+
+                        <td class="px-6 py-4 text-gray-600">
+                            @(destino.Pais ?? "No definido")
+                        </td>
+
+                        <td class="px-6 py-4 font-bold text-gray-800">
+                            $@destino.Precio.ToString("N0")
+                        </td>
+
+                        <td class="px-6 py-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-semibold bg-blue-100 text-blue-700">
+                                @(destino.Categoria ?? "Sin categoría")
+                            </span>
+                        </td>
+
+                        <td class="px-6 py-4 text-right space-x-2">
+                            <a asp-action="Edit"
+                               asp-route-id="@destino.Id"
+                               class="inline-flex items-center gap-1 bg-blue-600 text-white px-3 py-1.5 rounded-md hover:bg-blue-700 transition">
+                                ✏️ Editar
+                            </a>
+
+                            <a asp-action="Delete"
+                               asp-route-id="@destino.Id"
+                               class="inline-flex items-center gap-1 bg-red-600 text-white px-3 py-1.5 rounded-md hover:bg-red-700 transition">
+                                🗑 Eliminar
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
