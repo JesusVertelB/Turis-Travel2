@@ -4,6 +4,8 @@ using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 using Turis_Travel2.Data;
 using Turis_Travel2.Models;
+using Turis_Travel2.Models.ViewModels;
+
 
 namespace Turis_Travel2.Controllers
 {
@@ -79,16 +81,93 @@ namespace Turis_Travel2.Controllers
             return View(model);
         }
 
-        public async Task<IActionResult> Destinos()
+        public async Task<IActionResult> Destinos(
+    int page = 1,
+    string? categoria = null,
+    string? orden = null)
         {
-            var destinos = await _context.Destinos
+            int pageSize = 6;
+
+            // 🔹 Query base
+            var query = _context.Destinos
                 .Where(d => d.Estado == 1)
+                .AsQueryable();
+
+            // 🔹 Filtro por categoría
+            if (!string.IsNullOrEmpty(categoria))
+                query = query.Where(d => d.Categoria == categoria);
+
+            // 🔹 Ordenamiento
+            query = orden switch
+            {
+                "precio_asc" => query.OrderBy(d => d.Precio),
+                "precio_desc" => query.OrderByDescending(d => d.Precio),
+                _ => query.OrderBy(d => d.Id)
+            };
+
+            // 🔹 Total con filtros aplicados
+            var totalDestinos = await query.CountAsync();
+
+            // 🔹 Paginación
+            var destinos = await query
                 .AsNoTracking()
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
                 .ToListAsync();
+
+            // 🔹 ViewBag
+            ViewBag.Page = page;
+            ViewBag.TotalPages = (int)Math.Ceiling(totalDestinos / (double)pageSize);
+            ViewBag.Categoria = categoria;
+            ViewBag.Orden = orden;
 
             return View(destinos);
         }
 
+
+        [HttpGet]
+        public async Task<IActionResult> ConfigurarViaje(int id)
+        {
+            var destino = await _context.Destinos
+                .FirstOrDefaultAsync(d => d.Id == id);
+
+            if (destino == null)
+                return NotFound();
+
+            var vm = new ConfigurarViajeViewModel
+            {
+                IdDestino = destino.Id,
+                NombreDestino = destino.Nombre,
+                PrecioBase = destino.Precio,
+                FechaSalida = DateTime.Today,
+                CantidadAdultos = 1,
+                CantidadNinos = 0
+            };
+
+            return View(vm);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> DetalleDestino(int id)
+        {
+            var destino = await _context.Destinos
+                .FirstOrDefaultAsync(d => d.Id == id && d.Estado == 1);
+
+            if (destino == null)
+                return NotFound();
+
+            var paquetes = await _context.PaquetesTuristicos
+                .AsNoTracking()
+                .ToListAsync();
+
+            var vm = new DestinosPaquetesViewModel
+            {
+                Destino = destino,
+                Paquetes = paquetes
+            };
+
+            return View(vm);
+        }
 
     }
 }

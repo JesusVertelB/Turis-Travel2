@@ -1,0 +1,205 @@
+﻿@model Turis_Travel2.Models.ViewModels.DestinosPaquetesViewModel
+
+@{
+    Layout = "~/Views/Shared/_LayoutUsuarios.cshtml";
+    var destino = Model.Destino;
+    var paquetes = Model.Paquetes;
+}
+
+
+<div class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden">
+  <div class="layout-container flex h-full grow flex-col">
+    <main class="flex-1 px-4 py-8 sm:px-6 lg:px-8">
+      <div class="max-w-7xl mx-auto flex flex-col gap-8">
+        <div class="flex flex-wrap gap-2 text-sm"> <a asp-controller="HomeUsuario" asp-action="Index"
+            class="text-neutral-500 font-medium">Inicio</a> <span class="text-neutral-500 ">/</span> <a
+            class="text-neutral-500 font-medium" asp-action="Destinos">Destinos</a> <span
+            class="text-neutral-500 ">/</span> <span class="text-neutral-900 font-medium">@destino.Nombre</span> </div>
+        <div class="flex flex-col gap-4">
+          <p class="text-neutral-900 text-4xl lg:text-5xl font-black tracking-[-0.033em]"> Descubre las Maravillas de
+            @destino.Nombre, @destino.Pais </p>
+          <p class="text-neutral-500 text-lg"> @destino.Descripcion </p>
+        </div>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4 h-[500px]">
+          <div class="col-span-4 row-span-4 rounded-xl overflow-hidden">
+            <div class="w-full h-full bg-center bg-no-repeat bg-cover"
+              data-alt="Templo Kinkaku-ji (Pabellón Dorado) en Kioto rodeado de árboles de otoño"
+              style='background-image: url("@destino.ImagenUrl");'> </div>
+          </div>
+        </div>
+        <div
+          class="sticky top-[65px] z-40 flex items-center justify-between gap-4 p-4 -mx-4 bg-background-light/80 backdrop-blur-sm border-y border-neutral-100 ">
+          <div class="flex items-center gap-4">
+            <div class="flex items-center gap-1"> <span class="material-symbols-outlined text-yellow-500"
+                style="font-variation-settings: 'FILL' 1;">star</span> <span
+                class="font-bold text-neutral-900 ">4.9</span> <span class="text-sm text-neutral-500 ">(212
+                opiniones)</span> </div>
+          </div>
+          <div class="flex items-center gap-2"> <button class="p-2 rounded-lg hover:bg-neutral-100 text-neutral-500 ">
+              <span class="material-symbols-outlined">favorite_border</span> </button> <button
+              class="p-2 rounded-lg hover:bg-neutral-100 text-neutral-500 "> <span
+                class="material-symbols-outlined">share</span> </button> <a asp-controller="HomeUsuario"
+              asp-action="ConfigurarViaje" asp-route-id="@destino.Id"
+              class="flex items-center justify-center rounded-lg h-10 bg-primary px-4"> Configurar Viaje </a> <span
+              class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">calendar_month</span> </a>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+          <div class="lg:col-span-2 flex flex-col gap-8">
+            <div>
+              <h3 class="text-2xl font-bold text-neutral-900 mb-4">Descripción General</h3>
+              <p class="text-neutral-500 leading-relaxed"> @if (paquetes != null) { foreach(var paquete in paquetes) {
+                @paquete.Descripcion } 
+              } 
+                </p>
+            </div>
+            <div>
+              <h3 class="text-2xl font-bold text-neutral-900 mb-4">Puntos de Interés</h3>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                <div class="flex items-start gap-4"> <span
+                    class="material-symbols-outlined text-primary mt-1">account_balance</span>
+                  <div>
+                    <h4 class="font-bold text-neutral-900 ">Santuario Fushimi Inari</h4>
+                    <p class="text-sm text-neutral-500 "> Camina a través de miles de puertas torii rojas en uno de los
+                      santuarios más famosos de Japón. </p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4"> <span
+                    class="material-symbols-outlined text-primary mt-1">forest</span>
+                  <div>
+                    <h4 class="font-bold text-neutral-900 ">Bosque de Bambú de Arashiyama</h4>
+                    <p class="text-sm text-neutral-500 "> Piérdete en la serenidad de un imponente bosque de bambú. </p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4"> <span
+                    class="material-symbols-outlined text-primary mt-1">fort</span>
+                  <div>
+                    <h4 class="font-bold text-neutral-900 ">Templo Kinkaku-ji</h4>
+                    <p class="text-sm text-neutral-500 "> Maravíllate con el Pabellón Dorado, cubierto de pan de oro y
+                      reflejado en un estanque. </p>
+                  </div>
+                </div>
+                <div class="flex items-start gap-4"> <span
+                    class="material-symbols-outlined text-primary mt-1">theater_comedy</span>
+                  <div>
+                    <h4 class="font-bold text-neutral-900 ">Barrio de Gion</h4>
+                    <p class="text-sm text-neutral-500 "> Explora el famoso distrito de las geishas, con sus casas de té
+                      y su arquitectura tradicional. </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="lg:col-span-1">
+            <div class="p-6 bg-white rounded-xl shadow-lg border border-neutral-100 ">
+              <h3 class="text-xl font-bold text-neutral-900 mb-4">Información Clave</h3>
+              <div class="flex flex-col gap-4">
+                <div class="flex items-center gap-3"> <span
+                    class="material-symbols-outlined text-neutral-500 ">calendar_today</span>
+                  <div>
+                    <p class="text-sm text-neutral-500 ">Mejor época para visitar</p>
+                    <p class="font-semibold text-neutral-900 ">Marzo-Mayo, Oct-Nov</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3"> <span
+                    class="material-symbols-outlined text-neutral-500 ">translate</span>
+                  <div>
+                    <p class="text-sm text-neutral-500 ">Idioma</p>
+                    <p class="font-semibold text-neutral-900 ">Japonés</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3"> <span
+                    class="material-symbols-outlined text-neutral-500 ">payments</span>
+                  <div>
+                    <p class="text-sm text-neutral-500 ">Moneda</p>
+                    <p class="font-semibold text-neutral-900 ">Yen Japonés (JPY)</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-3"> <span
+                    class="material-symbols-outlined text-neutral-500 ">schedule</span>
+                  <div>
+                    <p class="text-sm text-neutral-500 ">Zona Horaria</p>
+                    <p class="font-semibold text-neutral-900 ">GMT+9</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="py-8">
+          <h3 class="text-3xl font-bold text-neutral-900 mb-6 text-center"> Paquetes de Viaje Sugeridos </h3>
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div class="bg-white rounded-xl shadow-lg border border-neutral-100 overflow-hidden flex flex-col">
+              <div class="p-6">
+                <h4 class="text-xl font-bold text-primary">Esencia de Kioto</h4>
+                <p class="text-sm text-neutral-500 mb-4">5 Días / 4 Noches</p>
+                <p class="text-3xl font-extrabold text-neutral-900 mb-4"> 1,250€ <span
+                    class="text-base font-normal text-neutral-500 ">/persona</span> </p>
+                <ul class="space-y-2 text-sm text-neutral-500 ">
+                  <li class="flex items-center gap-2"> <span
+                      class="material-symbols-outlined text-green-500 text-base">check_circle</span> Vuelos y
+                    alojamiento incluidos </li>
+                  <li class="flex items-center gap-2"> <span
+                      class="material-symbols-outlined text-green-500 text-base">check_circle</span> Tour guiado por
+                    Gion </li>
+                  <li class="flex items-center gap-2"> <span
+                      class="material-symbols-outlined text-green-500 text-base">check_circle</span> Clase de ceremonia
+                    del té </li>
+                </ul>
+              </div>
+              <div class="p-6 mt-auto bg-neutral-100/50 "> <button
+                  class="w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary/20 text-primary text-sm font-bold tracking-[0.015em]">
+                  <span class="truncate">Seleccionar Paquete</span> </button> </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-2xl border-2 border-primary overflow-hidden flex flex-col relative">
+              <div class="absolute top-0 right-4 -mt-3 bg-primary text-white text-xs font-bold px-3 py-1 rounded-full">
+                MÁS POPULAR </div>
+              <div class="p-6">
+                <h4 class="text-xl font-bold text-primary">Aventura Cultural</h4>
+                <p class="text-sm text-neutral-500 mb-4">8 Días / 7 Noches</p>
+                <p class="text-3xl font-extrabold text-neutral-900 mb-4"> 2,100€ <span
+                    class="text-base font-normal text-neutral-500 ">/persona</span> </p>
+                <ul class="space-y-2 text-sm text-neutral-500 ">
+                  <li class="flex items-center gap-2"> <span
+                      class="material-symbols-outlined text-green-500 text-base">check_circle</span> Todo en "Esencia de
+                    Kioto" </li>
+                  <li class="flex items-center gap-2"> <span
+                      class="material-symbols-outlined text-green-500 text-base">check_circle</span> Excursión de un día
+                    a Nara </li>
+                  <li class="flex items-center gap-2"> <span
+                      class="material-symbols-outlined text-green-500 text-base">check_circle</span> Pase de tren
+                    regional </li>
+                </ul>
+              </div>
+              <div class="p-6 mt-auto bg-neutral-100/50 "> <button
+                  class="w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary text-white text-sm font-bold tracking-[0.015em]">
+                  <span class="truncate">Seleccionar Paquete</span> </button> </div>
+            </div>
+            <div class="bg-white rounded-xl shadow-lg border border-neutral-100 overflow-hidden flex flex-col">
+              <div class="p-6">
+                <h4 class="text-xl font-bold text-primary">Kioto de Lujo</h4>
+                <p class="text-sm text-neutral-500 mb-4">6 Días / 5 Noches</p>
+                <p class="text-3xl font-extrabold text-neutral-900 mb-4"> 3,500€ <span
+                    class="text-base font-normal text-neutral-500 ">/persona</span> </p>
+                <ul class="space-y-2 text-sm text-neutral-500 ">
+                  <li class="flex items-center gap-2"> <span
+                      class="material-symbols-outlined text-green-500 text-base">check_circle</span> Alojamiento en
+                    Ryokan de lujo </li>
+                  <li class="flex items-center gap-2"> <span
+                      class="material-symbols-outlined text-green-500 text-base">check_circle</span> Guía privado y
+                    chófer </li>
+                  <li class="flex items-center gap-2"> <span
+                      class="material-symbols-outlined text-green-500 text-base">check_circle</span> Cena Kaiseki
+                    exclusiva </li>
+                </ul>
+              </div>
+              <div class="p-6 mt-auto bg-neutral-100/50 "> <button
+                  class="w-full flex cursor-pointer items-center justify-center overflow-hidden rounded-lg h-10 px-4 bg-primary/20 text-primary text-sm font-bold tracking-[0.015em]">
+                  <span class="truncate">Seleccionar Paquete</span> </button> </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>

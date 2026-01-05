@@ -95,9 +95,8 @@
                 @foreach (var destino in Model)
                 {
                     <div class="bg-white rounded-xl border border-gray-300 shadow-sm hover:shadow-md transition overflow-hidden">
-                        <img src="@destino.ImagenUrl"
-                             alt="@destino.Descripcion"
-                             class="h-56 w-full object-cover">
+                        <img src="@(destino.ImagenUrl ?? "/img/no-image.jpg")"
+                        alt="@destino.Nombre" class="h-56 w-full object-cover" />
 
                         <div class="p-5">
                             <div class="flex justify-between items-center mb-2">
@@ -110,16 +109,25 @@
                             </div>
 
                             <p class="text-sm text-gray-500 mb-4">
-                                Atardeceres icónicos, impresionantes vistas y experiencias únicas.
+                                @destino.Descripcion
                             </p>
 
                             <div class="flex justify-between items-center">
                                 <span class="font-bold text-gray-800">
                                     $@destino.Precio
                                 </span>
-                                <a href="#" class="text-blue-600 font-semibold hover:underline">
+                                <a asp-controller="HomeUsuario"
+                                   asp-action="DetalleDestino"
+                                   asp-route-id="@destino.Id"
+                                   class="text-blue-600 font-semibold flex items-center gap-1
+              hover:text-blue-800 transition-all duration-300
+              hover:gap-2">
                                     Ver detalles
+                                    <span class="material-symbols-outlined text-base transition-transform duration-300 group-hover:translate-x-1">
+                                        arrow_forward
+                                    </span>
                                 </a>
+
                             </div>
                         </div>
                     </div>
@@ -130,33 +138,53 @@
             <div class="mt-10 flex justify-center">
                 <nav>
                     <ul class="flex gap-2">
+
+                        <!-- Anterior -->
                         <li>
-                            <a class="px-3 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100"
-                               href="@Url.Action("Destinos", new { page = ViewBag.Page - 1 })">
+                            <a class="px-3 py-2 border rounded-lg transition
+                   @(ViewBag.Page == 1
+                                                    ? "border-gray-200 text-gray-400 cursor-not-allowed"
+                                                    : "border-gray-300 text-gray-600 hover:bg-gray-100")"
+                               href="@Url.Action("Destinos", new { page = ViewBag.Page > 1 ? ViewBag.Page - 1 : 1 })">
                                 «
                             </a>
                         </li>
 
+                        <!-- Números -->
                         @for (int i = 1; i <= ViewBag.TotalPages; i++)
                         {
                             <li>
-                                <a class="px-3 py-2 rounded-lg border
-                                       @(ViewBag.Page == i ? "bg-blue-600 text-white border-blue-600" : "border-gray-300 text-gray-600 hover:bg-gray-100")"
+                                <a class="px-3 py-2 rounded-lg border transition
+                           @(ViewBag.Page == i
+                                                            ? "bg-blue-600 text-white border-blue-600"
+                                                            : "border-gray-300 text-gray-600 hover:bg-gray-100")"
                                    href="@Url.Action("Destinos", new { page = i })">
                                     @i
                                 </a>
                             </li>
                         }
 
+                        <!-- Siguiente -->
                         <li>
+<<<<<<< HEAD
                             <a class="px-3 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100"
                                href="@Url.Action("Destinos", new { page = ViewBag.Page + 1 })">
                                 
+=======
+                            <a class="px-3 py-2 border rounded-lg transition
+                   @(ViewBag.Page == ViewBag.TotalPages
+                                                    ? "border-gray-200 text-gray-400 cursor-not-allowed"
+                                                    : "border-gray-300 text-gray-600 hover:bg-gray-100")"
+                               href="@Url.Action("Destinos", new { page = ViewBag.Page < ViewBag.TotalPages ? ViewBag.Page + 1 : ViewBag.TotalPages })">
+                                »
+>>>>>>> Filtros, paginacion y mejoras en destinos, falta estilizar el apartado de configurar el viaje
                             </a>
                         </li>
+
                     </ul>
                 </nav>
             </div>
+
 
         </section>
     </div>
