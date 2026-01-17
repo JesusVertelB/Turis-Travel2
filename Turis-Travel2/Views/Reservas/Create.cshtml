@@ -17,65 +17,85 @@
 
         <div class="card-body">
 
-            <form asp-action="Create">
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+
+                <!-- ESTADO CONTROLADO POR EL SERVIDOR -->
+                <input type="hidden" asp-for="Estado" />
+
                 <div class="row">
 
-                    <!-- Cliente -->
+                    <!-- CLIENTE (SIN OPTION VACÍO) -->
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Cliente</label>
-                        <select asp-for="IdCliente" class="form-select" asp-items="ViewBag.ID_cliente"></select>
-                    </div>
-
-                    <!-- Paquete -->
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Paquete</label>
-                        <select asp-for="IdPaquete" class="form-select" asp-items="ViewBag.ID_paquete"></select>
-                    </div>
-
-                    <!-- Itinerario -->
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Itinerario</label>
-                        <select asp-for="IdItinerario" class="form-select" asp-items="ViewBag.ID_itinerario"></select>
-                    </div>
-
-                    <!-- Transporte -->
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Transporte</label>
-                        <select asp-for="IdTransporte" class="form-select" asp-items="ViewBag.ID_transporte"></select>
-                    </div>
-
-                    <!-- Estado -->
-                    <div class="col-md-6 mb-3">
-                        <label class="form-label">Estado</label>
-                        <select asp-for="Estado" class="form-select">
-                            <option value="pendiente">Pendiente</option>
-                            <option value="confirmada">Confirmada</option>
-                            <option value="cancelada">Cancelada</option>
+                        <select asp-for="IdCliente"
+                                class="form-select"
+                                asp-items="ViewBag.IdCliente">
                         </select>
                     </div>
 
-                    <!-- Pasajeros -->
+                    <!-- PAQUETE -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Paquete</label>
+                        <select asp-for="IdPaquete"
+                                class="form-select"
+                                asp-items="ViewBag.IdPaquete">
+                        </select>
+                    </div>
+
+                    <!-- ITINERARIO -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Itinerario</label>
+                        <select asp-for="IdItinerario"
+                                class="form-select"
+                                asp-items="ViewBag.IdItinerario">
+                        </select>
+                    </div>
+
+                    <!-- TRANSPORTE -->
+                    <div class="col-md-6 mb-3">
+                        <label class="form-label">Transporte</label>
+                        <select asp-for="IdTransporte"
+                                class="form-select"
+                                asp-items="ViewBag.IdTransporte">
+                        </select>
+                    </div>
+
+                    <!-- PASAJEROS -->
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Número de pasajeros</label>
-                        <input asp-for="NumeroPasajeros" class="form-control" />
+                        <input asp-for="NumeroPasajeros"
+                               type="number"
+                               min="1"
+                               class="form-control" />
                     </div>
- 
+
                 </div>
 
                 <div class="mt-4 d-flex justify-content-end">
-
                     <a asp-action="Index" class="btn btn-secondary me-2 px-4">
                         Cancelar
                     </a>
 
                     <button type="submit" class="btn btn-primary px-4">
-                        <i class="bi bi-check-circle me-1"></i>
                         Guardar
                     </button>
-
                 </div>
 
             </form>
+
+            <!-- ERRORES -->
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger mt-3">
+                    <ul>
+                        @foreach (var error in ViewData.ModelState.Values.SelectMany(v => v.Errors))
+                        {
+                            <li>@error.ErrorMessage</li>
+                        }
+                    </ul>
+                </div>
+            }
 
         </div>
     </div>

@@ -8,6 +8,7 @@ using Turis_Travel2.Models;
 namespace Turis_Travel2.Controllers.Admin
 {
     [Authorize(Roles = "Admin")]
+    [Route("admin/itinerarios")]
     public class ItinerariosController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -17,78 +18,45 @@ namespace Turis_Travel2.Controllers.Admin
             _context = context;
         }
 
-        // GET: admin/itinerarios
-        [HttpGet]
+        // ================== LISTADO ==================
+        [HttpGet("")]
         public async Task<IActionResult> Index()
         {
             var itinerarios = await _context.Itinerarios
-                .Include(i => i.IdPaqueteNavigation) // Incluye el paquete relacionado
+                .Include(i => i.IdPaqueteNavigation)
                 .ToListAsync();
 
             return View(itinerarios);
         }
 
-        // GET: admin/itinerarios/detalle/5
-        [HttpGet("detalle/{id}")]
-        public async Task<IActionResult> Detalle(int id)
-        {
-            var itinerario = await _context.Itinerarios
-                .Include(i => i.IdPaqueteNavigation)
-                .FirstOrDefaultAsync(i => i.IdItinerario == id);
-
-            if (itinerario == null) return NotFound();
-            return View(itinerario);
-        }
-
-        // GET: admin/itinerarios/crear
+        // ================== CREAR ==================
         [HttpGet("crear")]
-        public IActionResult Crear()
+        public async Task<IActionResult> Crear()
         {
+            ViewBag.Paquetes = await _context.PaquetesTuristicos
+                .Select(p => new SelectListItem
+                {
+                    Value = p.IdPaquete.ToString(),
+                    Text = p.NombrePaquete
+                })
+                .ToListAsync();
+
             return View();
         }
 
-        // POST: admin/itinerarios/crear
         [HttpPost("crear")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Crear(Itinerario itinerario)
         {
             if (ModelState.IsValid)
             {
-                _context.Add(itinerario);
+                itinerario.Estado = "Activo";
+                _context.Itinerarios.Add(itinerario);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(itinerario);
-        }
 
-        // GET: admin/itinerarios/editar/5
-        [HttpGet("editar/{id}")]
-        public async Task<IActionResult> Editar(int id)
-        {
-            var itinerario = await _context.Itinerarios.FindAsync(id);
-            if (itinerario == null) return NotFound();
-            return View(itinerario);
-        }
-
-        // POST: admin/itinerarios/editar/5
-        // En tu ItinerariosController, modifica el método Editar GET:
-
-        [HttpGet]
-        public async Task<IActionResult> Edit(int id)
-        {
-            var itinerario = await _context.Itinerarios
-                .Include(i => i.IdPaqueteNavigation)
-                .FirstOrDefaultAsync(i => i.IdItinerario == id);
-
-            if (itinerario == null)
-            {
-                TempData["ErrorMessage"] = "Itinerario no encontrado";
-                return RedirectToAction(nameof(Index));
-            }
-
-            // Cargar lista de paquetes para el dropdown
             ViewBag.Paquetes = await _context.PaquetesTuristicos
-                .Where(p => p.Estado == "activo" || p.Estado == "borrador")
                 .Select(p => new SelectListItem
                 {
                     Value = p.IdPaquete.ToString(),
@@ -99,7 +67,57 @@ namespace Turis_Travel2.Controllers.Admin
             return View(itinerario);
         }
 
-        // GET: admin/itinerarios/eliminar/5
+        // ================== EDITAR ==================
+        [HttpGet("editar/{id}")]
+        public async Task<IActionResult> Editar(int id)
+        {
+            var itinerario = await _context.Itinerarios
+                .Include(i => i.IdPaqueteNavigation)
+                .FirstOrDefaultAsync(i => i.IdItinerario == id);
+
+            if (itinerario == null) return NotFound();
+
+            ViewBag.Paquetes = await _context.PaquetesTuristicos
+                .Select(p => new SelectListItem
+                {
+                    Value = p.IdPaquete.ToString(),
+                    Text = p.NombrePaquete
+                })
+                .ToListAsync();
+
+            return View(itinerario);
+        }
+
+        [HttpPost("editar/{id}")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Editar(int id, Itinerario itinerario)
+        {
+            if (id != itinerario.IdItinerario) return NotFound();
+
+            if (ModelState.IsValid)
+            {
+                _context.Update(itinerario);
+                await _context.SaveChangesAsync();
+                return RedirectToAction(nameof(Index));
+            }
+
+            return View(itinerario);
+        }
+
+        // ================== ACTIVAR / DESACTIVAR ==================
+        [HttpGet("estado/{id}")]
+        public async Task<IActionResult> CambiarEstado(int id)
+        {
+            var itin = await _context.Itinerarios.FindAsync(id);
+            if (itin == null) return NotFound();
+
+            itin.Estado = itin.Estado == "Activo" ? "Inactivo" : "Activo";
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction(nameof(Index));
+        }
+
+        // ================== ELIMINAR ==================
         [HttpGet("eliminar/{id}")]
         public async Task<IActionResult> Eliminar(int id)
         {
@@ -108,6 +126,7 @@ namespace Turis_Travel2.Controllers.Admin
 
             _context.Itinerarios.Remove(itinerario);
             await _context.SaveChangesAsync();
+
             return RedirectToAction(nameof(Index));
         }
     }

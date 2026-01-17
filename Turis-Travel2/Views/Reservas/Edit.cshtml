@@ -17,31 +17,50 @@
 
         <div class="card-body">
 
-            <form asp-action="Edit">
+            <form asp-action="Edit" method="post">
+                @Html.AntiForgeryToken()
+
                 <input type="hidden" asp-for="IdReserva" />
 
                 <div class="row">
 
+                    <!-- CLIENTE -->
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Cliente</label>
-                        <select asp-for="IdCliente" class="form-select" asp-items="ViewBag.ID_cliente"></select>
+                        <select asp-for="IdCliente"
+                                class="form-select"
+                                asp-items="@(ViewData["IdCliente"] as SelectList)">
+                        </select>
                     </div>
 
+                    <!-- PAQUETE -->
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Paquete</label>
-                        <select asp-for="IdPaquete" class="form-select" asp-items="ViewBag.ID_paquete"></select>
+                        <select asp-for="IdPaquete"
+                                class="form-select"
+                                asp-items="@(ViewData["IdPaquete"] as SelectList)">
+                        </select>
                     </div>
 
+                    <!-- ITINERARIO -->
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Itinerario</label>
-                        <select asp-for="IdItinerario" class="form-select" asp-items="ViewBag.ID_itinerario"></select>
+                        <select asp-for="IdItinerario"
+                                class="form-select"
+                                asp-items="@(ViewData["IdItinerario"] as SelectList)">
+                        </select>
                     </div>
 
+                    <!-- TRANSPORTE -->
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Transporte</label>
-                        <select asp-for="IdTransporte" class="form-select" asp-items="ViewBag.ID_transporte"></select>
+                        <select asp-for="IdTransporte"
+                                class="form-select"
+                                asp-items="@(ViewData["IdTransporte"] as SelectList)">
+                        </select>
                     </div>
 
+                    <!-- ESTADO -->
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Estado</label>
                         <select asp-for="Estado" class="form-select">
@@ -51,15 +70,18 @@
                         </select>
                     </div>
 
+                    <!-- PASAJEROS -->
                     <div class="col-md-6 mb-3">
                         <label class="form-label">Número de pasajeros</label>
-                        <input asp-for="NumeroPasajeros" class="form-control" />
+                        <input asp-for="NumeroPasajeros"
+                               type="number"
+                               min="1"
+                               class="form-control" />
                     </div>
 
                 </div>
 
                 <div class="mt-4 d-flex justify-content-end">
-
                     <a asp-action="Index" class="btn btn-secondary me-2 px-4">
                         Cancelar
                     </a>
@@ -68,7 +90,6 @@
                         <i class="bi bi-save me-1"></i>
                         Guardar Cambios
                     </button>
-
                 </div>
 
             </form>
@@ -77,3 +98,7 @@
     </div>
 
 </div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

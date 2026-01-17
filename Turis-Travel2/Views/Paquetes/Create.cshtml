@@ -1,6 +1,6 @@
 ﻿@model Turis_Travel2.Models.PaquetesTuristico
 @{
-    ViewData["Title"] = "Editar Paquete";
+    ViewData["Title"] = "Crear Paquete";
     Layout = "~/Views/Shared/_LayoutDashboard.cshtml";
 }
 
@@ -12,17 +12,16 @@
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="/Dashboard">Inicio</a></li>
             <li class="breadcrumb-item"><a href="/Paquetes">Gestión de Paquetes</a></li>
-            <li class="breadcrumb-item active">Editar Paquete</li>
+            <li class="breadcrumb-item active">Crear Paquete</li>
         </ol>
     </nav>
 
     <div class="card shadow-sm p-4">
-        <h3 class="fw-bold mb-3">Editar Paquete</h3>
-        <p class="text-muted">Modifica los campos del paquete turístico</p>
+        <h3 class="fw-bold mb-3">Crear Paquete</h3>
+        <p class="text-muted">Registra un nuevo paquete turístico</p>
 
-        <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <form asp-action="Create" method="post" enctype="multipart/form-data">
             @Html.AntiForgeryToken()
-            <input type="hidden" asp-for="IdPaquete" />
 
             <div class="mb-3">
                 <label class="form-label">Nombre del paquete turístico</label>
@@ -39,49 +38,44 @@
             <div class="mb-3">
                 <label class="form-label">Descripción</label>
                 <textarea asp-for="Descripcion" class="form-control" rows="3"></textarea>
-                <span asp-validation-for="Descripcion" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Fecha de inicio</label>
-                <input type="date" name="FechaInicioString"
-                       class="form-control"
-                       value="@ViewBag.FechaInicio" required />
+                <input type="date" name="FechaInicioString" class="form-control" />
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Fecha de fin</label>
-                <input type="date" name="FechaFinString"
-                       class="form-control"
-                       value="@ViewBag.FechaFin" required />
+                <input type="date" name="FechaFinString" class="form-control" />
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Estado</label>
-                <select asp-for="Estado" asp-items="ViewBag.Estados" class="form-select" required>
+                <select asp-for="Estado" asp-items="ViewBag.Estados" class="form-select">
                     <option value="">Seleccione un estado</option>
                 </select>
-                <span asp-validation-for="Estado" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">URL imagen (opcional)</label>
                 <input asp-for="ImagenUrl" class="form-control" placeholder="https://misimagenes.com/foto.jpg" />
-                <span asp-validation-for="ImagenUrl" class="text-danger"></span>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Subir imagen (opcional)</label>
                 <input type="file" name="ImagenArchivo" class="form-control" accept="image/*" />
-                <p class="text-muted small mt-1">Si subes una imagen, se usará en lugar de la URL.</p>
+                <p class="text-muted small mt-1">
+                    Si subes una imagen, se usará en lugar de la URL.
+                </p>
             </div>
 
             <div class="d-flex justify-content-between mt-4">
                 <a class="btn btn-outline-secondary" href="/Paquetes">
                     <i class="bi bi-arrow-left"></i> Volver
                 </a>
-                <button type="submit" class="btn btn-primary">
-                    <i class="bi bi-check-lg"></i> Guardar Cambios
+                <button type="submit" class="btn btn-success">
+                    <i class="bi bi-check-lg"></i> Crear Paquete
                 </button>
             </div>
         </form>
