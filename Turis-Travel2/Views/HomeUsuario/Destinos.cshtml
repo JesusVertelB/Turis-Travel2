@@ -1,6 +1,7 @@
 ﻿@model IEnumerable<Turis_Travel2.Models.Destino>
 
 @{
+    ViewData["Title"] = "Destinos";
     Layout = "_LayoutUsuarios";
 }
 
@@ -166,18 +167,12 @@
 
                         <!-- Siguiente -->
                         <li>
-<<<<<<< HEAD
-                            <a class="px-3 py-2 border border-gray-300 rounded-lg text-gray-600 hover:bg-gray-100"
-                               href="@Url.Action("Destinos", new { page = ViewBag.Page + 1 })">
-                                
-=======
                             <a class="px-3 py-2 border rounded-lg transition
                    @(ViewBag.Page == ViewBag.TotalPages
                                                     ? "border-gray-200 text-gray-400 cursor-not-allowed"
                                                     : "border-gray-300 text-gray-600 hover:bg-gray-100")"
                                href="@Url.Action("Destinos", new { page = ViewBag.Page < ViewBag.TotalPages ? ViewBag.Page + 1 : ViewBag.TotalPages })">
                                 »
->>>>>>> Filtros, paginacion y mejoras en destinos, falta estilizar el apartado de configurar el viaje
                             </a>
                         </li>
 
