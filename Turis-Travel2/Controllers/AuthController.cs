@@ -32,27 +32,16 @@ namespace Turis_Travel2.Controllers
                 return View();
             }
 
-<<<<<<< HEAD
-            var usuario = await _context.Usuarios
-                .FirstOrDefaultAsync(u => u.Correo == correo && u.Estado == 1);
-
-            if (usuario == null || !BCrypt.Net.BCrypt.Verify(contrasena, usuario.Contrasena))
-=======
             // Buscar usuario por correo y estado activo
             var usuario = await _context.Usuarios
                 .FirstOrDefaultAsync(u => u.Correo == correo && u.Estado == 1);
 
             if (usuario == null)
->>>>>>> Paginación completa y funcional
             {
                 ViewBag.Error = "Credenciales inválidas.";
                 return View();
             }
 
-<<<<<<< HEAD
-            string rolNombre = usuario.IdRol == 1 ? "Admin" : "Cliente";
-
-=======
             // Verificar contraseña
             bool passwordValida = BCrypt.Net.BCrypt.Verify(contrasena, usuario.Contrasena);
 
@@ -66,7 +55,6 @@ namespace Turis_Travel2.Controllers
             string rolNombre = usuario.IdRol == 1 ? "Admin" : "Cliente";
 
             // Crear claims
->>>>>>> Paginación completa y funcional
             var claims = new List<Claim>
             {
                 new Claim("IdUsuario", usuario.IdUsuario.ToString()),
@@ -87,21 +75,12 @@ namespace Turis_Travel2.Controllers
                 }
             );
 
-<<<<<<< HEAD
-=======
             // Redirección según rol
->>>>>>> Paginación completa y funcional
             return rolNombre == "Admin"
                 ? RedirectToAction("Index", "Dashboard")
                 : RedirectToAction("Index", "Home");
         }
 
-<<<<<<< HEAD
-        // =========================
-        // LOGOUT
-        // =========================
-=======
->>>>>>> Paginación completa y funcional
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Logout()
@@ -120,10 +99,7 @@ namespace Turis_Travel2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(Usuario usuario)
         {
-<<<<<<< HEAD
-=======
             // Validar correo duplicado
->>>>>>> Paginación completa y funcional
             bool existeCorreo = await _context.Usuarios
                 .AnyAsync(u => u.Correo == usuario.Correo);
 
@@ -133,10 +109,6 @@ namespace Turis_Travel2.Controllers
                 return View(usuario);
             }
 
-<<<<<<< HEAD
-            // Crear usuario
-=======
->>>>>>> Paginación completa y funcional
             usuario.IdRol = 2; // Cliente
             usuario.Contrasena = BCrypt.Net.BCrypt.HashPassword(usuario.Contrasena);
             usuario.Estado = 1;
@@ -145,21 +117,6 @@ namespace Turis_Travel2.Controllers
             _context.Usuarios.Add(usuario);
             await _context.SaveChangesAsync();
 
-<<<<<<< HEAD
-            // Crear cliente automáticamente
-            var cliente = new Cliente
-            {
-                Nombre = usuario.NombreUsuario,
-                Email = usuario.Correo,
-                Estado = "Activo",
-                FechaRegistro = DateTime.Now
-            };
-
-            _context.Clientes.Add(cliente);
-            await _context.SaveChangesAsync();
-
-=======
->>>>>>> Paginación completa y funcional
             // Auto login
             var claims = new List<Claim>
             {
@@ -169,14 +126,7 @@ namespace Turis_Travel2.Controllers
                 new Claim(ClaimTypes.Role, "Cliente")
             };
 
-<<<<<<< HEAD
-            var identity = new ClaimsIdentity(
-                claims,
-                CookieAuthenticationDefaults.AuthenticationScheme
-            );
-=======
             var identity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
->>>>>>> Paginación completa y funcional
 
             await HttpContext.SignInAsync(
                 CookieAuthenticationDefaults.AuthenticationScheme,
@@ -191,8 +141,3 @@ namespace Turis_Travel2.Controllers
         }
     }
 }
-<<<<<<< HEAD
-
-
-=======
->>>>>>> Paginación completa y funcional
