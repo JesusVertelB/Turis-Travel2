@@ -7,5 +7,7 @@ namespace Turis_Travel2.Models.ViewModels
     {
         public Destino Destino { get; set; }
         public List<PaquetesTuristico> Paquetes { get; set; }
+
+        public List<Retroalimentacion> Comentarios { get; set; } = new List<Retroalimentacion>();
     }
 }

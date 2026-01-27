@@ -19,6 +19,9 @@ public partial class Cliente
 
     public string? Estado { get; set; }
 
+    public int IdRol { get; set; }
+    public Role IdRolNavigation { get; set; }
+
     public DateTime? FechaRegistro { get; set; }
 
     public virtual ICollection<Reserva> Reservas { get; set; } = new List<Reserva>();

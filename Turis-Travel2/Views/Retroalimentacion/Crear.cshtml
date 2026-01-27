@@ -1,0 +1,42 @@
+﻿@{
+    Layout = "_LayoutUsuarios";
+    var reserva = ViewBag.Reserva as Turis_Travel2.Models.Reserva;
+}
+
+<h2 class="text-3xl font-bold mb-6">Calificar viaje</h2>
+
+<p class="mb-4 text-slate-600">
+    Destino: <strong>@reserva?.IdPaqueteNavigation?.NombrePaquete</strong>
+</p>
+
+<form asp-action="Crear" method="post">
+    <input type="hidden" name="idReserva" value="@reserva?.IdReserva" />
+
+    <!-- ESTRELLAS -->
+    <div class="mb-6">
+        <label class="block font-semibold mb-2">Calificación</label>
+        <div class="flex gap-2 text-3xl">
+            @for (int i = 1; i <= 5; i++)
+            {
+                <label>
+                    <input type="radio" name="puntuacion" value="@i" required hidden />
+                    ⭐
+                </label>
+            }
+        </div>
+    </div>
+
+    <!-- COMENTARIO -->
+    <div class="mb-6">
+        <label class="block font-semibold mb-2">Comentario</label>
+        <textarea name="comentario"
+                  class="w-full border rounded-xl p-3"
+                  rows="4"
+                  required></textarea>
+    </div>
+
+    <button type="submit"
+            class="px-6 py-3 bg-yellow-500 text-white rounded-xl font-bold">
+        Enviar calificación
+    </button>
+</form>

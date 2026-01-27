@@ -105,6 +105,13 @@
                         </a>
                     </div>
 
+                    @if (reserva.Estado == "Confirmada")
+                    {
+                        <a asp-controller="Retroalimentacion" asp-action="Crear" asp-route-idReserva="@reserva.IdReserva" class="w-full text-center px-5 py-2.5 rounded-xl bg-yellow-500 text-white font-semibold">
+                            Calificar Viaje
+                        </a>
+                    }
+
                 </div>
             }
         }

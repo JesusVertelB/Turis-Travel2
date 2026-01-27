@@ -99,13 +99,19 @@ namespace Turis_Travel2.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Register(Usuario usuario)
         {
-            // Validar correo duplicado
+
+            if (!ModelState.IsValid)
+            {
+                return View(usuario);
+            }
+
+            // Validar correo duplicado (una sola vez)
             bool existeCorreo = await _context.Usuarios
                 .AnyAsync(u => u.Correo == usuario.Correo);
 
             if (existeCorreo)
             {
-                ViewBag.Error = "Este correo ya está registrado.";
+                ModelState.AddModelError("", "El correo ya está registrado.");
                 return View(usuario);
             }
 

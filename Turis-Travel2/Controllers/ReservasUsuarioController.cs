@@ -17,6 +17,27 @@ namespace Turis_Travel2.Controllers
             _context = context;
         }
 
+        public class ReservasUsuariosController : Controller
+        {
+            private readonly ApplicationDbContext _context;
+
+            public ReservasUsuariosController(ApplicationDbContext context)
+            {
+                _context = context;
+            }
+
+            public IActionResult Index()
+            {
+                var reservas = _context.Reservas
+                    .Include(r => r.IdClienteNavigation)
+                    .Include(r => r.IdPaqueteNavigation)
+                    .ToList();
+
+                return View(reservas);
+            }
+        }
+
+
         // ===============================
         // LISTADO DE RESERVAS DEL USUARIO
         // ===============================
@@ -65,6 +86,48 @@ namespace Turis_Travel2.Controllers
 
             return View(model);
         }
+
+
+        // Calificar Reserva
+        public async Task<IActionResult> Calificar(int id)
+        {
+            var reserva = await _context.Reservas
+                .Include(r => r.IdPaqueteNavigation)
+                .FirstOrDefaultAsync(r => r.IdReserva == id);
+
+            if (reserva == null)
+                return NotFound();
+
+            return View(reserva);
+        }
+
+        // ===============================
+        // CALIFICAR RESERVA (POST)
+        // ===============================
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Calificar(int id, int puntuacion, string comentario)
+        {
+            var reserva = await _context.Reservas.FindAsync(id);
+
+            if (reserva == null)
+                return NotFound();
+
+            var retro = new Retroalimentacion
+            {
+                IdReserva = reserva.IdReserva,
+                Puntuacion = puntuacion,
+                Comentario = comentario,
+                Fecha = DateTime.Now
+            };
+
+            _context.Retroalimentacions.Add(retro);
+            await _context.SaveChangesAsync();
+
+            return RedirectToAction("Index");
+        }
+ 
+
 
         // ===============================
         // CREAR RESERVA (BOTÓN RESERVAR)

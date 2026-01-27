@@ -62,7 +62,7 @@ public partial class ApplicationDbContext : DbContext
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
-        => optionsBuilder.UseMySql("server=20.51.216.86;database=turistraveldb;user=turistravel;password=TuristravelDb2025*", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.44-mysql"));
+        => optionsBuilder.UseMySql("server=127.0.0.1;port=3306;database=matriz_original;user=root;password=root", Microsoft.EntityFrameworkCore.ServerVersion.Parse("8.0.44-mysql"));
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -113,6 +113,12 @@ public partial class ApplicationDbContext : DbContext
                 .HasColumnName("Fecha_registro");
             entity.Property(e => e.Nombre).HasMaxLength(100);
             entity.Property(e => e.Telefono).HasMaxLength(50);
+            entity.HasOne(e => e.IdRolNavigation)
+          .WithOne(r => r.Cliente)
+          .HasForeignKey<Cliente>(e => e.IdRol)
+          .OnDelete(DeleteBehavior.Restrict)
+          .HasConstraintName("fk_cliente_rol");
+
         });
 
         modelBuilder.Entity<Conductore>(entity =>
